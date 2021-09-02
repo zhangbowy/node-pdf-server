@@ -1,0 +1,14 @@
+{
+  "files.exclude": {
+    "USE_GITIGNORE": true,
+    "**/*.js": {
+      "when": "$(basename).ts"
+    },
+    "**/*.map": true,
+    "run": true,
+    "logs": true,
+    "out": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "debug.node.autoAttach": "on"
+}
