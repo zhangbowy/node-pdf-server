@@ -13,11 +13,7 @@ export default (app: Application) => {
     static readonly tableName = 'order_relation_sn'
 
     static associate() {
-      app.model.Role.belongsTo(app.model.User, {
-        foreignKey: 'code',
-        targetKey: 'role',
-        as: 'u'
-      })
+  
     }
 
     static getListByOrderNo() {

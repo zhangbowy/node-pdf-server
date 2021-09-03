@@ -5,7 +5,7 @@ export default (app: Application) => {
 
   return {
     id: {
-      type: Sequelize.INTEGER(11).UNSIGNED,
+      type: Sequelize.INTEGER().UNSIGNED,
       primaryKey: true,
       autoIncrement: true,
       comment: "主键",
@@ -16,7 +16,7 @@ export default (app: Application) => {
       comment: "用户名称",
     },
     type: {
-      type: Sequelize.INTEGER(1).UNSIGNED,
+      type: Sequelize.INTEGER().UNSIGNED,
       allowNull: false,
       default: 1,
       comment: "类型:1小学生，2中学生,3高中生",
