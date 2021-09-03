@@ -12,9 +12,9 @@ const plugin: EggPlugin = {
     enable: true,
     package: 'egg-redis'
   },
-  routerPlus: {
-    package: 'egg-router-plus',
+  jwt: {
     enable: true,
+    package: "egg-jwt"
   }
 }
 

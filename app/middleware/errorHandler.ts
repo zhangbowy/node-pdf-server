@@ -1,4 +1,3 @@
-"use strict";
 // 请求和返回日志输出
 export default () => {
   return async function errorHandler(ctx, next) {

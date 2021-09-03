@@ -2,10 +2,16 @@
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
-import ExportUser from '../../../app/model/User';
+import ExportOrderInfo from '../../../app/model/order_info';
+import ExportOrderRelatedSn from '../../../app/model/order_related_sn';
+import ExportOrderRule from '../../../app/model/order_rule';
+import ExportStudent from '../../../app/model/student';
 
 declare module 'egg' {
   interface IModel {
-    User: ReturnType<typeof ExportUser>;
+    OrderInfo: ReturnType<typeof ExportOrderInfo>;
+    OrderRelatedSn: ReturnType<typeof ExportOrderRelatedSn>;
+    OrderRule: ReturnType<typeof ExportOrderRule>;
+    Student: ReturnType<typeof ExportStudent>;
   }
 }
