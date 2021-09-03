@@ -20,6 +20,7 @@ Debugging in vscode, just need to press `F5`;
 ## 修改
 
 - 增加路由自动加载
+- 日志打印
 
 ## License
 

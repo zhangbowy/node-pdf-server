@@ -4,12 +4,12 @@
 import 'egg';
 import ExportAuth from '../../../app/middleware/auth';
 import ExportErrorHandler from '../../../app/middleware/errorHandler';
-import ExportUuid from '../../../app/middleware/uuid';
+import ExportMetas from '../../../app/middleware/metas';
 
 declare module 'egg' {
   interface IMiddleware {
     auth: typeof ExportAuth;
     errorHandler: typeof ExportErrorHandler;
-    uuid: typeof ExportUuid;
+    metas: typeof ExportMetas;
   }
 }
