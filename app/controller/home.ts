@@ -1,7 +1,7 @@
 'use strict';
 
 import { Context } from 'egg';
-import BaseController from '../core/base';
+import BaseController from '../core/baseController';
 import { formatDate } from '~/app/lib/utils';
 import { SelfController, Get } from './../router'
 function validate() {
