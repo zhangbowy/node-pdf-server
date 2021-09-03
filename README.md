@@ -1,6 +1,5 @@
-# egg-boilerplate-d-ts
+# egg-typescript
 
-see https://github.com/whxaxes/blog/issues/11
 
 ## Dev
 

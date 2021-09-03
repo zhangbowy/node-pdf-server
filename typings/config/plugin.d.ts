@@ -1,4 +1,4 @@
-// This file is created by egg-ts-helper@1.25.9
+// This file is created by egg-ts-helper@1.26.0
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
@@ -14,6 +14,8 @@ import 'egg-schedule';
 import 'egg-static';
 import 'egg-jsonp';
 import 'egg-view';
+import 'egg-sequelize';
+import 'egg-redis';
 import 'egg-router-plus';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {
@@ -30,6 +32,8 @@ declare module 'egg' {
     static?: EggPluginItem;
     jsonp?: EggPluginItem;
     view?: EggPluginItem;
+    sequelize?: EggPluginItem;
+    redis?: EggPluginItem;
     routerPlus?: EggPluginItem;
   }
 }

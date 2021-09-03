@@ -1,7 +1,7 @@
 'use strict';
 
 import { Context } from 'egg';
-import BaseController from './base';
+import BaseController from '../core/base';
 import { formatDate } from '~/app/lib/utils';
 import { SelfController, Get } from './../router'
 function validate() {
@@ -23,8 +23,8 @@ export default class HomeController extends BaseController {
   public async index(): Promise<void> {
     const { ctx, service } = this;
     const time = service.time.today();
-    this.app.logger.info(ctx.app.model.User.getData());
-    this.app.logger.info(ctx.app.model.Castle.getData());
+    // this.app.logger.info(ctx.app.model.User.getData());
+    // this.app.logger.info(ctx.app.model.Castle.getData());
     this.app.logger.info(`request visit in ${formatDate(new Date())}`);
     this.app.logger.info(this.ctx.helper.test().ip);
 
