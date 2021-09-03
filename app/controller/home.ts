@@ -17,7 +17,6 @@ function validate() {
 
 @SelfController('/home')
 export default class HomeController extends BaseController {
-  [x: string]: any;
   @validate()
   @Get("/")
   public async index(): Promise<void> {
@@ -57,7 +56,7 @@ export default class HomeController extends BaseController {
    */
   @Get('/list')
   public slider() {
-    this.success();
+    this.success([], '请求成功');
   }
   public async error() {
     throw new Error('see the error stack!!');
