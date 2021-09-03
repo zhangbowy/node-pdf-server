@@ -20,7 +20,7 @@ export const SelfController = (pathPrefix?: string): ClassDecorator => (targetCl
   // 在controller上定义pathPrefix的元数据
   // https://github.com/rbuckton/reflect-metadata
 
-  (Reflect as any).defineMetadata(CONTROLLER_PREFIX, pathPrefix, targetClass);
+  Reflect.defineMetadata(CONTROLLER_PREFIX, pathPrefix, targetClass);
 };
 
 const methodWrap = (path: string, requestMethod: string): MethodDecorator => (target, methodName): void => {
@@ -43,8 +43,8 @@ export default (app: Application): void => {
     const [ requestMethod, path, methodName ] = configString.split(`·`);
     // 获取controller装饰器设置的公共前缀
     // 如果controller没有添加SelfController装饰器，则取文件名作为路径
-    let controllerPrefix: string | undefined | null = (Reflect as any).getMetadata(CONTROLLER_PREFIX, curController.constructor);
-    if (!(Reflect as any).hasMetadata(CONTROLLER_PREFIX, curController.constructor)) {
+    let controllerPrefix: string | undefined | null = Reflect.getMetadata(CONTROLLER_PREFIX, curController.constructor);
+    if (!Reflect.hasMetadata(CONTROLLER_PREFIX, curController.constructor)) {
       controllerPrefix = `/${curController.pathName.split(`.`).reverse()[0]}`;
     }
     const func: (this: Context, ...args: any[]) => Promise<any> = async function (...args: any[]): Promise<any> {
