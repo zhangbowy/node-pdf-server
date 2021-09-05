@@ -21,6 +21,7 @@ Debugging in vscode, just need to press `F5`;
 
 - 增加路由自动加载
 - 日志打印
+- 路径别名 拒绝 ../../../app/service/xx 用 @/service/xx
 
 ## License
 

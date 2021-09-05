@@ -1,11 +1,10 @@
-'use strict';
-
-import BaseController from '../core/baseController';
+import BaseController from '@/core/baseController';
 import { SelfController as Controller, Get } from './../router'
 @Controller('/home')
 export default class HomeController extends BaseController {
   @Get("/")
   public async index(): Promise<void> {
+    this.success([], '请求成功');
   }
 
   /**

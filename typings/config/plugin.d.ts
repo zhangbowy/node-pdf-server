@@ -17,6 +17,7 @@ import 'egg-view';
 import 'egg-sequelize';
 import 'egg-redis';
 import 'egg-jwt';
+import 'egg-validate';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {
   interface EggPlugin {
@@ -35,5 +36,6 @@ declare module 'egg' {
     sequelize?: EggPluginItem;
     redis?: EggPluginItem;
     jwt?: EggPluginItem;
+    validate?: EggPluginItem;
   }
 }

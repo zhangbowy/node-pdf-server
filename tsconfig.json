@@ -21,8 +21,10 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "inlineSourceMap": true,
-    "baseUrl": ".",
+    "importHelpers": true,
+    "baseUrl": "./",
     "paths": {
+      "@/*": ["./app/*"],
       "~/*": [ "./*" ]
     }
   }
