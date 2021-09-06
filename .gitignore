@@ -16,3 +16,4 @@ config/**/*.js
 public/
 !tshelper.js
 .history/
+config.local.ts
