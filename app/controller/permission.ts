@@ -1,11 +1,12 @@
 
 import BaseController from '../core/baseController';
 import { SelfController as Controller, Get } from '../router'
-@Controller('/permission')
+@Controller('/authority')
 export default class PermissionController extends BaseController {
-  @Get("/list")
+  @Get("/authorityList")
   public async orderList(): Promise<void> {
-    this.success([], '请求成功');
+    const result = await this.ctx.service.test.getList()
+    this.success(result, '请求成功');
   }
 
   /**

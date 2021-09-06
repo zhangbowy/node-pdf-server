@@ -18,8 +18,8 @@ export default function(): PowerPartial<EggAppConfig> {
       benchmark: true, // 将查询执行时间（以毫秒为单位）作为日志记录功能的第二个参数(options.logging)。
       define: {
         timestamps: true,
-        createdAt: "createdTime",
-        updatedAt: "updatedTime",
+        createdAt: "created_at",
+        updatedAt: "updated_at",
         // paranoid: false, //  删除时不删除数据，而更新deleteAt
         underscored: false, // 不使用驼峰法自动添加属性，而是用_
         freezeTableName: true, // 不是用复数表名

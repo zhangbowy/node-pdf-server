@@ -33,12 +33,12 @@ export default () => {
 
       ctx.status = status;
 
-      const transaction = await ctx.app.getTransaction();
-      // 如果有事务自动回滚
-      if (transaction) {
-        transaction.rollback();
-        ctx.app.deleteTransaction();
-      }
+      // const transaction = await ctx.app.getTransaction();
+      // // 如果有事务自动回滚
+      // if (transaction) {
+      //   transaction.rollback();
+      //   ctx.app.deleteTransaction();
+      // }
     }
   };
 };
