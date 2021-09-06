@@ -8,7 +8,6 @@
         var originFun = descriptor.value
         descriptor.value = async function() {
             var c = <any>this;
-            console.log(type, '----type-x----');
             try {
                 var token = c.ctx.request.headers['authorization']
                 if (token) {
@@ -16,7 +15,7 @@
                 } else {
                     return c.fail(401, '把Token带上');
                 }
-    
+                console.log(token, '----token-x----');
                 const decode: any = c.app.jwt.verify(token, c.app.config.jwt.secret)
                 if (type > decode.scope) {
                     return c.fail(401, '权限不足');
@@ -24,6 +23,7 @@
                 c.ctx.auth = decode;
                 await originFun.apply(this, arguments)
             } catch (e) {
+                console.log(e);
                 if (
                     e.message === 'invalid signature' ||
                     e.message === 'jwt malformed'
