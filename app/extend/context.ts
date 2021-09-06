@@ -1,8 +1,8 @@
 import { Context } from 'egg';
 
 interface VerifyResult {
-  verify: boolean,
-   message: string | object | any
+  verify: boolean;
+  message: string | object | any;
 }
 
 export default {
@@ -22,7 +22,7 @@ export default {
   },
   // 设置token
   setToken(data = {}) {
-    const { app } = <Context>this;
+    const { app } = this as Context;
     let { name, userUuid, userName, userType, orgUuid } = data as any;
 
     // 如果需要得到精确的结果，需要自己另加额外的控制标志位
@@ -40,12 +40,12 @@ export default {
       signed: false,
     };
 
-    (<Context>this).cookies.set('token', token, { ...cookieConfig, httpOnly: true });
-    (<Context>this).cookies.set('name', name, cookieConfig);
-    (<Context>this).cookies.set('userUuid', userUuid, cookieConfig);
-    (<Context>this).cookies.set('userName', userName, cookieConfig);
-    (<Context>this).cookies.set('userType', userType, cookieConfig);
-    (<Context>this).cookies.set('orgUuid', orgUuid || userUuid, cookieConfig);
+    (this as Context).cookies.set('token', token, { ...cookieConfig, httpOnly: true });
+    (this as Context).cookies.set('name', name, cookieConfig);
+    (this as Context).cookies.set('userUuid', userUuid, cookieConfig);
+    (this as Context).cookies.set('userName', userName, cookieConfig);
+    (this as Context).cookies.set('userType', userType, cookieConfig);
+    (this as Context).cookies.set('orgUuid', orgUuid || userUuid, cookieConfig);
   },
   removeToken(this: Context) {
     this.cookies.set('token', null);
@@ -92,7 +92,7 @@ export default {
   },
   // 校验token失败
   verifyFail(code, message) {
-    (<Context>this).body = { code, message };
+    (this as Context).body = { code, message };
     // this.status = code;
   },
 };

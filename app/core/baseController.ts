@@ -1,4 +1,4 @@
-import { Controller, Context} from 'egg';
+import { Controller, Context } from 'egg';
 export default class BaseController extends Controller {
     constructor(ctx: Context) {
         super(ctx);
@@ -9,12 +9,12 @@ export default class BaseController extends Controller {
      * @param data 返回的数据
      * @param msg 提示信息
      */
-    success(data: any = [], msg: string  = "") {
+    success(data: any = [], msg: string = '') {
         this.ctx.body = {
             code: 1,
             data,
             msg
-        } 
+        };
      }
     
     /**
@@ -22,11 +22,11 @@ export default class BaseController extends Controller {
      * @param code 错误码
      * @param msg 错误信息
      */
-    fail(code: number = 0, msg: string  = "") {
+    fail(code: number = 0, msg: string = '') {
         this.ctx.body = {
             code,
             data: [],
             msg
-        } 
+        }; 
     }
 }

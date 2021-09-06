@@ -10,16 +10,16 @@ export default (app: Application) => {
         autoIncrement: true,
         comment: '主键id',
       },
-      name: {
+    name: {
         type: Sequelize.STRING,
         allowNull: false,
         comment: '角色名称',
       },
-      desc: {
+    desc: {
         type: Sequelize.STRING,
         comment: '角色描述',
       },
-      permission: {
+    permission: {
         type: Sequelize.TEXT,
         comment: '权限id列表',
       }

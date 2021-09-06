@@ -10,7 +10,7 @@
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",
     "cov": "egg-bin cov",
-    "lint": "tslint .",
+    "lint": "tslint --fix 'app/**/*{.ts,tsx}'",
     "ci": "npm run lint && npm run cov",
     "debug": "egg-bin debug",
     "build:api": "node"
@@ -27,8 +27,8 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "eslint . --fix",
+    "*.ts": [
+      "tslint . --fix",
       "git add"
     ]
   },

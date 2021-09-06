@@ -10,7 +10,7 @@ export default (app: Application) => {
   );
 
   return class extends orderRelatedSn {
-    static readonly tableName = 'order_relation_sn'
+    static readonly tableName = 'order_relation_sn';
 
     static associate() {
   
@@ -19,5 +19,5 @@ export default (app: Application) => {
     static getListByOrderNo() {
       
     }
-  }
+  };
 };

@@ -1,6 +1,7 @@
+import { Context } from 'egg';
 // 请求和返回日志输出
 export default () => {
-  return async function errorHandler(ctx, next) {
+  return async function errorHandler(ctx: Context, next: any) {
     try {
       await next();
       
@@ -13,14 +14,14 @@ export default () => {
       // }
     } catch (err) {
       // 所有的异常都在 app 上触发一个 error 事件，框架会记录一条错误日志
-      ctx.app.emit("error", err, ctx);
+      ctx.app.emit('error', err, ctx);
 
       const status = err.status || 500;
 
       // 生产环境时 500 错误的详细错误内容不返回给客户端，因为可能包含敏感信息
       const error =
-        status === 500 && ctx.app.config.env === "prod"
-          ? "系统内部错误"
+        status === 500 && ctx.app.config.env === 'prod'
+          ? '系统内部错误'
           : err.message;
       ctx.body = {
         code: ctx.ERROR_CODE,

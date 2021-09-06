@@ -1,13 +1,13 @@
 import BaseController from '@/core/baseController';
-import { SelfController as Controller, Get } from './../router'
-import { Auth } from '@/lib//decorator/auth'
-import { LoginType } from '@/lib/enum'
+import { SelfController as Controller, Get } from './../router';
+import { Auth } from '@/lib//decorator/auth';
+import { LoginType } from '@/lib/enum';
 @Controller('/home')
 export default class HomeController extends BaseController {
-  @Get("/")
+  @Get('/')
   public async index(): Promise<void> {
-    const token: any = this.app.jwt.sign({}, this.app.config.jwt.secret)
-    this.success({token}, '请求成功');
+    const token: any = this.app.jwt.sign({}, this.app.config.jwt.secret);
+    this.success({ token }, '请求成功');
   }
 
   /**

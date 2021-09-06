@@ -8,7 +8,7 @@ export default (app: Application) => {
 
 
   return class extends OrderRule {
-    static readonly tableName = 'order_rule'
+    static readonly tableName = 'order_rule';
     // 创建表间关系
     static associate() {
    
@@ -27,5 +27,5 @@ export default (app: Application) => {
     static getDetailById() {
 
     }
-  }
+  };
 };

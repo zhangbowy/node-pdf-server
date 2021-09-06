@@ -6,4 +6,4 @@ export default function() {
       msg: 'prod',
     },
   };
-};
+}

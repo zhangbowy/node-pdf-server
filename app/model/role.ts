@@ -8,7 +8,7 @@ export default (app: Application) => {
 
 
   return class extends Role {
-    static readonly tableName = 'role'
+    static readonly tableName = 'role';
     // 创建表间关系
     static associate() {
    
@@ -30,7 +30,7 @@ export default (app: Application) => {
 
     // 根据订单id获取订单详情
     static getList() {
-        return this.findAll()
+        return this.findAll();
     }
-  }
+  };
 };

@@ -4,7 +4,7 @@ import student from './../schema/student';
 export default (app: Application) => {
   const studentSchema = student(app);
   // 定义表模型
-  const Student: any = app.model.define("student", studentSchema);
+  const Student: any = app.model.define('student', studentSchema);
 
   // 创建表间关系
   Student.associate = () => {};

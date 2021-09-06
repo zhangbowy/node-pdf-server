@@ -2,7 +2,7 @@ import { Context, Application } from 'egg';
 /**
  * default options
  */
- const defaultOptions = {
+const defaultOptions = {
     requestTimeout: 10 * 1000, // request timeout, default is 10s
     requestTimeoutCallback: () => {}, // request timeout callback
     sendPowerBy: true, // send powerby

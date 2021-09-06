@@ -4,8 +4,8 @@ function isThisType(this: {
         USER_AGENT: number; // 服务商
         USER: number; // 普通用户
         isThisType: (val: any) => boolean;
-    }, val) {
-    for (let key in this) {
+    },              val: any) {
+    for (const key in this) {
       if (this[key] === val) {
         return true;
       }
@@ -13,7 +13,7 @@ function isThisType(this: {
     return false;
   }
   
-  const REDIS_ENUM = {
+const REDIS_ENUM = {
     // 借贷
     borrowPoolTotal: 'borrowPoolTotal',
     borrowPoolRemain: 'borrowPoolRemain',
@@ -22,24 +22,24 @@ function isThisType(this: {
   };
   
   // 能否加速
-  const PKG_STATUS = {
+const PKG_STATUS = {
     NO: 0,
     YES: 1,
   };
   
   // 提现
-  const WITHDRAW_STATUS = {
+const WITHDRAW_STATUS = {
     INIT: 1, // 处理中
     PASS: 2, // 通过
     REJECT: 3, // 拒绝
   };
   
-  const COIN_TYPE = {
+const COIN_TYPE = {
     FIL: 1,
     USDT: 2
-  }
+  };
   
-  const APPROVE_RECORD = {
+const APPROVE_RECORD = {
     CHANNEL: {
       USER: 1,
       AGENT: 2,
@@ -50,16 +50,16 @@ function isThisType(this: {
       APPLY_AGENT: 2, // 经销商申请
       APPLY_ADMIN: 3, // 管理员申请
       PASS_USER: 11, // 用户确认
-      PASS_AGENT: 12,// 经销商同意
-      PASS_ADMIN: 13,// 管理员同意
+      PASS_AGENT: 12, // 经销商同意
+      PASS_ADMIN: 13, // 管理员同意
       REFUSE_USER: -1, // 用户拒绝
-      REFUSE_AGENT: -2,// 经销商拒绝
-      REFUSE_ADMIN: -3,// 管理员拒接
+      REFUSE_AGENT: -2, // 经销商拒绝
+      REFUSE_ADMIN: -3, // 管理员拒接
     }
   };
   
   // 模拟枚举 - 登陆类型
-  export const LoginType = {
+export const LoginType = {
     ADMIN: 1, // admin 超级管理员
     USER_AGENT: 2, // 服务商
     USER: 9, // 普通用户
@@ -67,21 +67,21 @@ function isThisType(this: {
   };
   
   // - API权限
-  const APIAccess = {
+const APIAccess = {
     ADMIN: 9, // admin
     AGENT: 4, // vender
     USER: 1, // 普通用户
   };
   
-  const UserStatus = {
+const UserStatus = {
     NOROMAL: 1,
     BAN: -1,
   };
   
   // - 订单状态
-  const OrderStatus = {
+const OrderStatus = {
     INIT: 1,
-    AGENT_REVIEW: 2, //待经销商审核
+    AGENT_REVIEW: 2, // 待经销商审核
     FINISH: 3, // 管理员 审核通过
     ADMIN_REVIEW: 4, // 待管理员审核
     AGENT_REFUSE: 5, // 经销商拒绝
@@ -90,7 +90,7 @@ function isThisType(this: {
   };
   
   // - 订单状态
-  const OrderSource = {
+const OrderSource = {
     CLIENT: 1,
     AGENT: 2,
   };
@@ -98,44 +98,44 @@ function isThisType(this: {
   
   
   // - 支付订单状态
-  const PayOrderStatus = {
+const PayOrderStatus = {
     INIT: 0, // 初始
     PAY: 1, // 确认支付
     SUCCESS: 2, // 管理员审核成功
-    CANCEL: 3, //用户取消
-    REFUND: 4, //退款
-    AGENT_PASS: 5,//经销商审核完成
-    AGENT_REFUSE: 6,//经销商拒绝
-    ADMIN_REFUSE: 7,//管理员拒绝
-    SYSTEM_CANCEL: 8,//系统已取消
+    CANCEL: 3, // 用户取消
+    REFUND: 4, // 退款
+    AGENT_PASS: 5, // 经销商审核完成
+    AGENT_REFUSE: 6, // 经销商拒绝
+    ADMIN_REFUSE: 7, // 管理员拒绝
+    SYSTEM_CANCEL: 8, // 系统已取消
   };
   
   // - 订单类型
-  const PayOrderType = {
+const PayOrderType = {
     DEPOSIT: 1, // 托管
     EXTEND: 2, // 扩容
   };
   
   // - 支付订单支付类型
-  const PayOrderPayType = {
+const PayOrderPayType = {
     CNY: 1, // 人民币
-    USDT: 2,// usdt
-    FIL: 3,// fil
+    USDT: 2, // usdt
+    FIL: 3, // fil
   };
   
   // - 汇率类型
-  const RateType = {
+const RateType = {
     NO: 1, // 不可用
-    MANUAL: 2,// 手动配置
-    AUTO: 3,// 自动跟踪
+    MANUAL: 2, // 手动配置
+    AUTO: 3, // 自动跟踪
   };
   
-  const PledgeType = {
+const PledgeType = {
     COMPANY: 1, // 公司质押
     PERSONAL: 2, // 个人质押
   };
   
-  const SectorStatus = {
+const SectorStatus = {
     INIT: 0,
     PERSONAL: 1,
     COMPANY: 2,
@@ -143,12 +143,12 @@ function isThisType(this: {
   };
   
   
-  const SectorTerm = {
+const SectorTerm = {
     RATE: 0.85,
     RELEASE: 0.25,
   };
   // - 订单状态
-  const TransactionStatus = {
+const TransactionStatus = {
     INIT: 0,
     PAYING: 1,
     SUCCESS: 2,
@@ -161,25 +161,25 @@ function isThisType(this: {
     REFUNDCLOSE: 13,
   };
   
-  const SnStatus = {
+const SnStatus = {
     UNBIND: 0, // 未绑定
     BIND: 1, // 已经绑定
   };
   
-  const KYCStatus = {
+const KYCStatus = {
     PASS: 1,
     REFUSE: 2,
     INIT: 3,
     APPLY: 4
   };
   
-  const CertStatus = {
+const CertStatus = {
     INIT: 1,
     PASS: 2,
     REFUSE: 3
-  }
+  };
   
-  const OperaLogType = {
+const OperaLogType = {
     REGIST: {
       USER: 1,
       AGENT: 101,
@@ -207,7 +207,7 @@ function isThisType(this: {
     },
   };
   
-  const SMSCodeType = {
+const SMSCodeType = {
     UserLogin: 1,
     AgentLogin: 2,
     UpdatePwd: 3,
@@ -216,24 +216,24 @@ function isThisType(this: {
     BalanceTransfer: 6, // 余额划转
   };
   
-  const LanguageHash = {
-    "en": "en",
-    "zh": "zh"
-  }
+const LanguageHash = {
+    en: 'en',
+    zh: 'zh'
+  };
   
-  const EmailType = {
+const EmailType = {
     REGIST: 1, // 注册,
-    WITHDRAW: 2, //提币
-    TRANSFER: 3, //划转
+    WITHDRAW: 2, // 提币
+    TRANSFER: 3, // 划转
   };
   
   // 海外
-  const UserSource = {
+const UserSource = {
     INTERNAL: 1, // 国内
-    OVERSEA: 2, //海外
+    OVERSEA: 2, // 海外
   };
   
-  const ErrorCode = {
+const ErrorCode = {
     PARAMETER_ERROR: 10000,
     RESOURCE_NOT_FOUND: 100001,
     AUTHORIZATION_FAILED: 10004,
@@ -322,7 +322,7 @@ function isThisType(this: {
   
   };
   
-  const ErrorMessage = {
+const ErrorMessage = {
     PARAMETER_ERROR: '参数错误',
     RESOURCE_NOT_FOUND: '资源未找到',
     AUTHORIZATION_FAILED: '授权失败',
@@ -431,20 +431,20 @@ function isThisType(this: {
   
   };
   
-  const CUSTODY_STATUS = {
+const CUSTODY_STATUS = {
     REQUIRE: 1,
     NOT_REQUIRE: 0,
   };
   
-  const ProfitType = {
+const ProfitType = {
     DIVIDENDS: 1, // 当日奖励
     WITHDRAW: 2, // FIL提取
     SECTOR_COMPANY: 3, // 公司抵押
     SECTOR_PERSONAL: 4, // 个人抵押
     RECHARGE: 5, // FIL补充
-    RELEASE: 6, //释放
-    USABLE_TO_BACK:10,//从可用数量划转至备用数量
-    AGENT_SHARE_PROFIT:11,//经销商分红、推荐人分红、其他保持原样
+    RELEASE: 6, // 释放
+    USABLE_TO_BACK: 10, // 从可用数量划转至备用数量
+    AGENT_SHARE_PROFIT: 11, // 经销商分红、推荐人分红、其他保持原样
     REDUCE_COMPANY: 12, // 偿还公司质押
     PERSONAL_GAS: 13, // 个人支付的GAS费
     PLEDGE_WITHDRAW: 14, // 备用数量划转至可用数量
@@ -458,18 +458,18 @@ function isThisType(this: {
     PLEDGE_TO_FREEZE: 22, // 划转至锁定备用金
     FREEZE_TO_PLEDGE: 23, // 锁定备用数量结算
     BANK_TO_WITHDRAW: 24, // 从filFlow划入可用数量
-    EXTRACT_USDT: 25,// USDT提取
+    EXTRACT_USDT: 25, // USDT提取
     BALANCE_TRANSFER_IN: 26, // 余额划转(转入)
     BALANCE_TRANSFER_OUT: 27, // 内部转出
-    FIL_PAY: 28,// FIL支付
+    FIL_PAY: 28, // FIL支付
   };
   
-  const REWARD_TYPE = {
+const REWARD_TYPE = {
     PERSONAL: 'personal',
     COMPANY: 'company',
   };
   
-  const DepositStatus = {
+const DepositStatus = {
     INIT: 0, // 初始化
     HOSTING: 1, // 正在托管中
     RENEW: 2, // 即将过期
@@ -477,33 +477,33 @@ function isThisType(this: {
     FINISHED: 4, // 设备服务到期
   };
   
-  const BORROW_ENUM = {
+const BORROW_ENUM = {
     repayment: 1,
     borrow: 2,
     init: 3,
   };
   
-  const POWER_TYPE = {
+const POWER_TYPE = {
     SMALL: 1,
     BIG: 2,
   };
   
-  const COMMODITY_STATUS = {
+const COMMODITY_STATUS = {
     NO: 1,
     YES: 2,
   };
   
-  const DISTRIBUTOR_TYPE = {
+const DISTRIBUTOR_TYPE = {
     NO: 1,  // 非分销商
     YES: 2, // 分销商
-  }
+  };
   
-  const USER_PLATFORM = {
+const USER_PLATFORM = {
     DC: 1, // DCpool
     SX: 2, // 上轩
-  }
+  };
   
- export default {
+export default {
     POWER_TYPE,
     WITHDRAW_STATUS,
     LoginType,

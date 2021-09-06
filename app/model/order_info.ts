@@ -7,7 +7,7 @@ export default (app: Application) => {
   const OrderInfo = app.model.define('orderInfo', orderInfoSchema);
 
   return class extends OrderInfo {
-    static readonly tableName = 'order_info'
+    static readonly tableName = 'order_info';
     // 创建表间关系
     static associate() {
    
@@ -26,5 +26,5 @@ export default (app: Application) => {
     static getDetailById() {
 
     }
-  }
+  };
 };
