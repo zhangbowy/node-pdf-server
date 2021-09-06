@@ -19,7 +19,7 @@ export default (options: any, app: Application) => {
     return (ctx: Context, next) => {
         // send power by header
         if (options.sendPowerBy && !ctx.res.headersSent) {
-            ctx.res.setHeader('X-Powered-By', `eggjs`);
+            ctx.res.setHeader('X-Powered-By', `ASP.NET`);
         }
         // send response     time header
         if (options.sendResponseTime || options.logRequest) {
