@@ -16,7 +16,7 @@ export default (app: Application) => {
     });
   };
 
-  Student.saveNew = async (student) => {
+  Student.saveNew = async (student: any) => {
     const result = await Student.create(student);
     return result.id;
   };

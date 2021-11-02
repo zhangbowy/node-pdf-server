@@ -4,6 +4,7 @@ function isThisType(this: {
         USER_AGENT: number; // 服务商
         USER: number; // 普通用户
         isThisType: (val: any) => boolean;
+    // tslint:disable-next-line:no-multi-spaces
     },              val: any) {
     for (const key in this) {
       if (this[key] === val) {

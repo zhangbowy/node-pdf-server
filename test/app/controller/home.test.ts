@@ -15,7 +15,7 @@ describe('test/app/controller/home.test.js', () => {
   it('should visit / without error', () => {
     return app
       .httpRequest()
-      .get('/')
+      .get('/home')
       .expect(200);
   });
 });

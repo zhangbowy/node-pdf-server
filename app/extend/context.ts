@@ -21,6 +21,7 @@ export default {
     return this.cookies.get('token', { signed: false });
   },
   // 设置token
+  // tslint:disable-next-line:typedef
   setToken(data = {}) {
     const { app } = this as Context;
     let { name, userUuid, userName, userType, orgUuid } = data as any;
@@ -91,7 +92,7 @@ export default {
     return true;
   },
   // 校验token失败
-  verifyFail(code, message) {
+  verifyFail(code: number, message: string) {
     (this as Context).body = { code, message };
     // this.status = code;
   },
