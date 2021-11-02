@@ -1,4 +1,13 @@
 import { Context } from 'egg';
+
+interface ApiError extends Error {
+  status: number;
+  code: number;
+  message: string;
+}
+const isApiError = (x: any): x is ApiError => {
+return typeof x.status === 'number';
+};
 // 请求和返回日志输出
 export default () => {
   return async function errorHandler(ctx: Context, next: any) {
@@ -13,6 +22,7 @@ export default () => {
       //   ctx.app.deleteTransaction();
       // }
     } catch (err) {
+      if (isApiError(err)) {
       // 所有的异常都在 app 上触发一个 error 事件，框架会记录一条错误日志
       ctx.app.emit('error', err, ctx);
 
@@ -29,7 +39,7 @@ export default () => {
       };
 
       if (status === 422) {
-        ctx.body.detail = err.errors;
+        // ctx.body.detail = err.errors;
       }
 
       ctx.status = status;
@@ -40,6 +50,7 @@ export default () => {
       //   transaction.rollback();
       //   ctx.app.deleteTransaction();
       // }
+      }
     }
   };
 };
