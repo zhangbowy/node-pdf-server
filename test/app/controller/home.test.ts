@@ -1,21 +1,21 @@
 'use strict';
 
-import mm from 'egg-mock';
+// import mm from 'egg-mock';
 import { app } from 'egg-mock/bootstrap';
 
 describe('test/app/controller/home.test.js', () => {
   beforeEach(() => {
-    app.mockCsrf();
+    // app.mockCsrf();
   });
 
   afterEach(() => {
-    mm.restore();
+    // mm.restore();
   });
 
   it('should visit / without error', () => {
     return app
       .httpRequest()
-      .get('/home')
+      .get('/')
       .expect(200);
   });
 });

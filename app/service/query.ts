@@ -56,7 +56,8 @@ export default class QueryService extends Service {
      * @returns 
      */
     public async getPayOrderList(pageSize: number = 10, currentPage: number = 1, startTime: any, endTime: any) {
-        let where = '';
+        let where = ` po.status = 2 AND po.deleted_at IS NULL `;
+
         if (startTime && endTime) {
             where += ` and po.created_at between ${dayjs()}`;
         }
@@ -66,8 +67,9 @@ export default class QueryService extends Service {
                 status: 2
              },
         });
-        const result = await prisma.$queryRaw
-        `SELECT
+
+        const result = await prisma.$queryRawUnsafe(
+            `SELECT
             po.pay_no,
             po.type,
             po.pay_type,
@@ -79,10 +81,8 @@ export default class QueryService extends Service {
             pay_order po
             LEFT JOIN (SELECT user.id, agent.company FROM \`user\` INNER JOIN agent ON agent.id = \`user\`.agent_id) u ON  u.id = po.uid
             LEFT JOIN ( SELECT pay_no, created_at, SUM( expend_capacity) AS expend_capacity, SUM( expend_amount ) AS expend_amount FROM pay_order_record GROUP BY pay_no ) por ON por.pay_no = po.pay_no
-        WHERE
-        po.status = 2
-        AND po.deleted_at IS NULL
-        limit ${(currentPage - 1) * pageSize},${pageSize}`;
+        WHERE ${where}
+        limit ${(currentPage - 1) * pageSize},${pageSize}`);
         return {
             pageSize,
             currentPage,
