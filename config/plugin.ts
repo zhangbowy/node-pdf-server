@@ -1,7 +1,7 @@
 'use strict';
 
 import 'tsconfig-paths/register';
-import { EggPlugin } from 'egg'
+import { EggPlugin } from 'egg';
 
 const plugin: EggPlugin = {
   sequelize: {
@@ -14,12 +14,16 @@ const plugin: EggPlugin = {
   },
   jwt: {
     enable: true,
-    package: "egg-jwt"
+    package: 'egg-jwt'
   },
   validate: {
     enable: true,
-    package: 'egg-validate',
+    package: 'egg-validate'
+  },
+  cors: {
+    enable: true,
+    package: 'egg-cors'
   }
-}
+};
 
-export default plugin
+export default plugin;

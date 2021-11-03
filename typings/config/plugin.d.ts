@@ -1,7 +1,5 @@
 // This file is created by egg-ts-helper@1.26.0
 // Do not modify this file!!!!!!!!!
-
-import 'egg';
 import 'egg-onerror';
 import 'egg-session';
 import 'egg-i18n';
@@ -18,6 +16,7 @@ import 'egg-sequelize';
 import 'egg-redis';
 import 'egg-jwt';
 import 'egg-validate';
+import 'egg-cors';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {
   interface EggPlugin {
@@ -37,5 +36,6 @@ declare module 'egg' {
     redis?: EggPluginItem;
     jwt?: EggPluginItem;
     validate?: EggPluginItem;
+    cors?: EggPluginItem;
   }
 }

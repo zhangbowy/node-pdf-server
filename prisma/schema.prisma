@@ -1,0 +1,1330 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["middlewares"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:123456@localhost:3306/dc-prod"
+}
+
+model account {
+  id           Int       @id @default(autoincrement())
+  tel          String    @db.VarChar(255)
+  email        String    @db.VarChar(255)
+  pwd          String    @db.VarChar(255)
+  pay_pwd      String    @db.VarChar(255)
+  card         String    @db.VarChar(255)
+  nickname     String    @db.VarChar(255)
+  username     String    @db.VarChar(255)
+  country      String    @default("China") @db.VarChar(128)
+  country_code String    @default("+86") @db.VarChar(64)
+  is_active    Boolean   @default(true)
+  created_at   DateTime  @db.DateTime(0)
+  updated_at   DateTime  @db.DateTime(0)
+  deleted_at   DateTime? @db.DateTime(0)
+
+  @@index([email], map: "idx_email")
+  @@index([tel], map: "idx_tel")
+}
+
+model account_user {
+  id         Int       @id @default(autoincrement())
+  account_id Int
+  user_id    Int
+  last_login Int       @default(0)
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+
+  @@index([account_id], map: "idx_account_id")
+}
+
+model admin_user {
+  id         Int       @id @default(autoincrement())
+  role_id    Int       @default(0)
+  nickname   String?   @db.VarChar(255)
+  account    String?   @unique(map: "account") @db.VarChar(255)
+  email      String?   @db.VarChar(255)
+  tel        String?   @db.VarChar(255)
+  password   String?   @db.VarChar(255)
+  status     Int?      @default(1) @db.SmallInt
+  type       Boolean?  @default(true)
+  pid        Int?
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+}
+
+model agent {
+  id           Int       @id @default(autoincrement())
+  account      String?   @unique(map: "account") @db.VarChar(255)
+  pwd          String?   @db.VarChar(255)
+  nickname     String?   @db.VarChar(255)
+  email        String?   @db.VarChar(255)
+  tel          String?   @unique(map: "tel") @db.VarChar(255)
+  openid       String?   @db.VarChar(255)
+  status       Int?      @default(1) @db.SmallInt
+  invitation   String?   @unique(map: "invitation") @db.VarChar(255)
+  qrurl        String?   @db.VarChar(255)
+  company      String?   @db.VarChar(255)
+  address      String?   @db.VarChar(255)
+  username     String?   @db.VarChar(255)
+  created_at   DateTime  @db.DateTime(0)
+  updated_at   DateTime  @db.DateTime(0)
+  deleted_at   DateTime? @db.DateTime(0)
+  extend_card  String    @default("0") @db.VarChar(255)
+  deposit_card String    @default("0") @db.VarChar(255)
+  order_card   String    @default("0") @db.VarChar(255)
+  usdt_wallet  String    @default("") @db.VarChar(255)
+  fil_wallet   String    @default("") @db.VarChar(255)
+}
+
+model agent_bank_card {
+  id         Int       @id @default(autoincrement())
+  agent_id   Int
+  card       String    @db.VarChar(255)
+  account    String    @db.VarChar(255)
+  bank       String    @db.VarChar(255)
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+
+  @@index([agent_id], map: "idx_agentId")
+}
+
+model assets {
+  id          Int       @id @default(autoincrement())
+  barcode     String?   @db.VarChar(255)
+  address     String?   @db.VarChar(255)
+  shelve_date String?   @db.VarChar(255)
+  power       Float?    @default(0) @db.Float
+  amount      Int?      @default(0)
+  created_at  DateTime  @db.DateTime(0)
+  updated_at  DateTime  @db.DateTime(0)
+  deleted_at  DateTime? @db.DateTime(0)
+  left_power  Float?    @default(0) @db.Float
+}
+
+model authority_copy1 {
+  id              Int       @id @default(autoincrement())
+  auth_id         Int?
+  pid             Int?
+  router          String?   @default("") @db.VarChar(255)
+  auth_name       String?   @default("") @db.VarChar(255)
+  api_url         String?   @default("") @db.VarChar(255)
+  is_page         Int?      @default(0)
+  only_admin_type Int?      @default(0)
+  created_at      DateTime? @default(now()) @db.DateTime(0)
+  updated_at      DateTime? @default(now()) @db.DateTime(0)
+  deleted_at      DateTime? @db.DateTime(0)
+}
+
+model authority_copy2 {
+  id              Int       @id @default(autoincrement())
+  auth_id         Int?
+  pid             Int?
+  router          String?   @default("") @db.VarChar(255)
+  auth_name       String?   @default("") @db.VarChar(255)
+  api_url         String?   @default("") @db.VarChar(255)
+  is_page         Int?      @default(0)
+  only_admin_type Int?      @default(0)
+  created_at      DateTime? @default(now()) @db.DateTime(0)
+  updated_at      DateTime? @default(now()) @db.DateTime(0)
+  deleted_at      DateTime? @db.DateTime(0)
+}
+
+model banner {
+  id          Int       @id @default(autoincrement()) @db.UnsignedInt
+  start_at    DateTime  @default(dbgenerated("1970-01-01 00:00:00")) @db.DateTime(0)
+  end_at      DateTime  @default(dbgenerated("2100-01-01 00:00:00")) @db.DateTime(0)
+  status      Int       @default(1) @db.TinyInt
+  type        Int       @default(1) @db.TinyInt
+  client      Int       @default(1) @db.TinyInt
+  platform_id Int       @default(0) @db.TinyInt
+  img_url     String    @default("") @db.VarChar(255)
+  redirect    String?   @db.VarChar(255)
+  remark      String?   @db.VarChar(255)
+  feature     Int?      @db.TinyInt
+  created_at  DateTime  @db.DateTime(0)
+  updated_at  DateTime  @db.DateTime(0)
+  deleted_at  DateTime? @db.DateTime(0)
+
+  @@index([feature], map: "idx_feature")
+  @@index([start_at, end_at], map: "idx_start_at_end_at")
+  @@index([status, type, platform_id], map: "idx_status_type_platform")
+}
+
+model banner_user {
+  id         Int       @id @default(autoincrement()) @db.UnsignedInt
+  user_id    Int       @db.UnsignedInt
+  banner_id  Int       @db.UnsignedInt
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+
+  @@index([banner_id, user_id], map: "idx_banner_id_and_user_id")
+}
+
+model bonus {
+  id         Int         @id @default(autoincrement())
+  created_at DateTime    @default(now()) @db.Timestamp(6)
+  updated_at DateTime    @default(now()) @db.Timestamp(6)
+  deleted_at DateTime?   @db.Timestamp(6)
+  name       String      @db.VarChar(255)
+  start      DateTime    @db.DateTime(0)
+  end        DateTime    @db.DateTime(0)
+  mode       bonus_mode? @default(order)
+  amount     Decimal     @default(0.0000000000000000) @db.Decimal(32, 16)
+  list_url   String      @db.VarChar(255)
+  count      Int         @default(0)
+  status     Int         @default(1) @db.UnsignedTinyInt
+
+  @@index([status], map: "IDX_30ca49447614ace931fa0af475")
+  @@index([count], map: "IDX_39e3d9ecf7626c3a942b6ee516")
+}
+
+model bonus_audit_logs {
+  id         Int                     @id @default(autoincrement())
+  created_at DateTime                @default(now()) @db.Timestamp(6)
+  updated_at DateTime                @default(now()) @db.Timestamp(6)
+  deleted_at DateTime?               @db.Timestamp(6)
+  operator   Int                     @db.UnsignedInt
+  action     bonus_audit_logs_action
+  bonus_id   Int                     @db.UnsignedInt
+
+  @@index([operator], map: "IDX_07e92bfe58554ba17f4f7fec5e")
+  @@index([action], map: "IDX_ca6944053d51502c09dd12fd11")
+  @@index([bonus_id], map: "IDX_fc3e79bebd66d05373a5958947")
+}
+
+model bonus_record {
+  id             Int       @id @default(autoincrement())
+  created_at     DateTime  @default(now()) @db.Timestamp(6)
+  updated_at     DateTime  @default(now()) @db.Timestamp(6)
+  deleted_at     DateTime? @db.Timestamp(6)
+  orderno        String?   @db.VarChar(255)
+  owner_name     String    @db.VarChar(128)
+  owner_phone    String    @db.VarChar(64)
+  agent          String    @db.VarChar(128)
+  receiver       String    @db.VarChar(128)
+  receiver_phone String    @db.VarChar(64)
+  rate           Decimal   @db.Decimal(16, 8)
+  amount         Decimal   @db.Decimal(32, 16)
+  bonus_id       Int       @db.UnsignedInt
+
+  @@index([bonus_id], map: "IDX_1d05836a13001e874e93175529")
+  @@index([owner_name], map: "IDX_cf54c3485d8d2375d89e2669ff")
+  @@index([receiver_phone], map: "IDX_e12394217b2b235b19a312b4f4")
+}
+
+model borrow_pool_bill {
+  id            Int       @id @default(autoincrement()) @db.UnsignedInt
+  orderno       String    @default("") @db.VarChar(255)
+  uid           Int       @db.UnsignedInt
+  amount        Decimal   @db.Decimal(16, 8)
+  actual_amount Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  type          Boolean   @default(true)
+  period        Int       @default(90) @db.UnsignedTinyInt
+  reimbursement Decimal   @db.Decimal(16, 8)
+  created_at    DateTime  @db.DateTime(0)
+  updated_at    DateTime  @db.DateTime(0)
+  deleted_at    DateTime? @db.DateTime(0)
+
+  @@index([uid], map: "idx_uid")
+}
+
+model certification {
+  id           Int       @id @default(autoincrement())
+  uid          Int
+  positive_url String    @db.VarChar(255)
+  status       Int       @default(1) @db.TinyInt
+  admin_id     Int?
+  remark       String?   @db.VarChar(256)
+  apply_name   String?   @db.VarChar(32)
+  created_at   DateTime  @default(now()) @db.DateTime(0)
+  updated_at   DateTime  @default(now()) @db.DateTime(0)
+  deleted_at   DateTime? @db.DateTime(0)
+}
+
+model commission {
+  id         Int       @id @default(autoincrement())
+  duserno    Int?
+  dname      String?   @db.VarChar(255)
+  dtel       String?   @db.VarChar(255)
+  orderno    String?   @db.VarChar(255)
+  orderid    Int?
+  commission Float?
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+}
+
+model commodity {
+  id                 Int                   @id @default(autoincrement())
+  commodityname      String?               @db.VarChar(255)
+  unitprice          Float?                @default(0)
+  power              Decimal               @default(0.00) @db.Decimal(11, 2)
+  limit              Decimal               @default(0.50) @db.Decimal(16, 2)
+  deposit_fee        Decimal?              @db.Decimal(10, 2)
+  describe           String?               @db.Text
+  status             Boolean               @default(true)
+  version            Int?                  @default(1)
+  created_at         DateTime              @default(now()) @db.DateTime(0)
+  updated_at         DateTime?             @default(now()) @db.DateTime(0)
+  deleted_at         DateTime?             @db.DateTime(0)
+  unit               Int?
+  custody_status     Boolean               @default(true)
+  rate               Decimal               @default(0.8500) @db.Decimal(5, 4)
+  shelves_date       Int                   @default(20) @db.UnsignedTinyInt
+  share_bonus_rate   Decimal               @default(0.0000) @db.Decimal(5, 4)
+  min_capacity       Int                   @default(0)
+  max_capacity       Int                   @default(0)
+  expend_status      Boolean               @default(false)
+  rake               Decimal?              @default(0.000) @db.Decimal(4, 3)
+  logo               String?               @default("") @db.VarChar(512)
+  picture            String?               @default("") @db.VarChar(512)
+  pay_type           Boolean               @default(true)
+  freeze_amount      Decimal               @default(0.00) @db.Decimal(10, 2)
+  small_speed_factor Decimal               @default(1.00) @db.Decimal(7, 2)
+  big_speed_factor   Decimal               @default(1.00) @db.Decimal(7, 2)
+  pkg_status         Boolean               @default(false)
+  scope              Int                   @default(2) @db.TinyInt
+  coin_symbol        commodity_coin_symbol @default(CNY)
+  original_price     Float?                @default(0)
+  discount_rate      Decimal               @default(0.00) @db.Decimal(10, 2)
+  rebate             Float                 @default(0)
+  shelves_start_at   DateTime?             @db.DateTime(0)
+  shelves_end_at     DateTime?             @db.DateTime(0)
+  seal_small_period  Float                 @default(0)
+  seal_big_period    Float                 @default(0)
+  lease_period       Float                 @default(3) @db.Float
+  extend_fee         Decimal?              @default(780.00) @db.Decimal(10, 2)
+  inventory_amount   Int                   @default(0) @db.UnsignedInt
+  can_sealing        Boolean               @default(false)
+  can_switch_sector  Boolean               @default(false)
+  region             Int                   @default(1)
+
+  @@index([pkg_status], map: "IDX_0951d2c5771c4119b049f2dd0b")
+  @@index([expend_status], map: "IDX_408a3938f6e860ef24e61717f4")
+  @@index([pay_type], map: "IDX_48ae5684d738b69b37a3ce8121")
+  @@index([shelves_end_at], map: "IDX_494825ebd80e851458c90a20fe")
+  @@index([custody_status], map: "IDX_4f4e0a532017a7a3fc209c2a38")
+  @@index([can_sealing], map: "IDX_7f95e80980a076bc5ef5691344")
+  @@index([can_switch_sector], map: "IDX_8b3e57a8692994c71c5d1c900d")
+  @@index([coin_symbol], map: "IDX_94efd5fc93112ea5a2d26cf910")
+  @@index([commodityname], map: "IDX_9f94aadf1181750f20a9465f1b")
+  @@index([shelves_start_at], map: "IDX_c9719885b40f2ff519ed1ea72f")
+  @@index([status], map: "IDX_e7bd954ab941a065696a7a9e60")
+  @@index([scope], map: "IDX_f0c4928d693e240920d37bda40")
+}
+
+model commodity_translation {
+  id             Int       @id @default(autoincrement())
+  product_id     Int
+  lang           String    @db.VarChar(64)
+  describe       String    @default("") @db.VarChar(512)
+  tag            String    @default("") @db.VarChar(64)
+  created_at     DateTime  @default(now()) @db.DateTime(0)
+  updated_at     DateTime  @default(now()) @db.DateTime(0)
+  deleted_at     DateTime? @db.DateTime(0)
+  portal_logo    String    @default("") @db.VarChar(512)
+  portal_picture String    @default("") @db.VarChar(512)
+
+  @@unique([product_id, lang], map: "idx_product_id_lang")
+}
+
+model company_bill {
+  id              Int       @id @default(autoincrement()) @db.UnsignedInt
+  commodityid     Int       @db.UnsignedInt
+  uid             Int       @db.UnsignedInt
+  orderno         String    @db.VarChar(255)
+  pledge          Decimal   @db.Decimal(16, 8)
+  sector          Decimal   @db.Decimal(16, 8)
+  created_at      DateTime  @db.DateTime(0)
+  updated_at      DateTime  @db.DateTime(0)
+  deleted_at      DateTime? @db.DateTime(0)
+  gas             Decimal   @default(0.0000) @db.Decimal(16, 4)
+  amount          Decimal?  @default(0.00000000) @db.Decimal(18, 8)
+  type            Boolean?  @default(true)
+  total_sector_id Int       @default(0) @db.UnsignedInt
+
+  @@index([orderno], map: "idx_orderno")
+  @@index([uid], map: "idx_uid")
+}
+
+model contact {
+  id          Int       @id @default(autoincrement())
+  firstname   String    @db.VarChar(64)
+  lastname    String    @db.VarChar(64)
+  region      String    @db.VarChar(64)
+  region_code Int
+  area        String?   @db.VarChar(64)
+  phone       String?   @db.VarChar(64)
+  email       String?   @db.VarChar(64)
+  intention   String?   @db.VarChar(512)
+  meta        String?   @db.VarChar(1024)
+  created_at  DateTime  @db.DateTime(0)
+  updated_at  DateTime  @db.DateTime(0)
+  deleted_at  DateTime? @db.DateTime(0)
+}
+
+model deposit {
+  id         Int       @id @default(autoincrement())
+  uid        Int
+  orderno    String?   @db.VarChar(255)
+  tag        String?   @db.VarChar(255)
+  sn         String?   @db.VarChar(255)
+  status     Int?      @default(0)
+  start_at   DateTime? @db.DateTime(0)
+  renew_at   DateTime? @db.DateTime(0)
+  end_at     DateTime? @db.DateTime(0)
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+
+  @@index([sn], map: "idx_sn")
+}
+
+model distributor_record {
+  id             Int       @id @default(autoincrement())
+  distributor_id Int
+  agent_id       Int
+  operator_id    Int
+  created_at     DateTime  @db.DateTime(0)
+  updated_at     DateTime  @db.DateTime(0)
+  deleted_at     DateTime? @db.DateTime(0)
+
+  @@index([distributor_id], map: "idx_distributor_id")
+}
+
+model draft {
+  id           Int       @id @default(autoincrement())
+  created_at   DateTime  @default(now()) @db.Timestamp(6)
+  updated_at   DateTime  @default(now()) @db.Timestamp(6)
+  deleted_at   DateTime? @db.Timestamp(6)
+  product_name String    @db.VarChar(255)
+  admin_id     Int?
+  meta         String?   @db.VarChar(2048)
+}
+
+model equipment {
+  id          Int       @id @default(autoincrement())
+  orderid     Int?
+  equipment   String?   @db.VarChar(255)
+  status      Int?      @default(1) @db.SmallInt
+  listingtime DateTime? @db.DateTime(0)
+  orderno     String?   @db.VarChar(255)
+  uid         Int?
+  valuedate   DateTime? @db.DateTime(0)
+  created_at  DateTime  @db.DateTime(0)
+  updated_at  DateTime  @db.DateTime(0)
+  deleted_at  DateTime? @db.DateTime(0)
+  user        user?     @relation(fields: [uid], references: [id], onDelete: Cascade, map: "equipment_ibfk_1")
+
+  @@index([uid], map: "uid")
+}
+
+model fil_block {
+  id                      Int       @id @default(autoincrement())
+  block_height            Int?      @db.UnsignedInt
+  production_daily        Int?      @db.UnsignedInt
+  storage_power           Decimal?  @db.Decimal(16, 4)
+  active_miners           Int?      @db.UnsignedInt
+  average_mining_reward   Decimal?  @db.Decimal(12, 6)
+  current_sector_pledge   Decimal?  @db.Decimal(8, 4)
+  total_pledge_collateral BigInt?   @db.UnsignedBigInt
+  message_daily           Int?      @db.UnsignedInt
+  current_price           Decimal?  @db.Decimal(8, 4)
+  current_base_fee        Decimal?  @db.Decimal(20, 10)
+  created_at              DateTime  @db.DateTime(0)
+  updated_at              DateTime  @db.DateTime(0)
+  deleted_at              DateTime? @db.DateTime(0)
+}
+
+model freeze_record {
+  id          Int       @id @default(autoincrement()) @db.UnsignedInt
+  orderno     String    @db.VarChar(255)
+  uid         Int       @db.UnsignedInt
+  commodityid Int       @db.UnsignedInt
+  amount      Decimal   @db.Decimal(7, 2)
+  created_at  DateTime  @db.DateTime(0)
+  updated_at  DateTime  @db.DateTime(0)
+  deleted_at  DateTime? @db.DateTime(0)
+}
+
+model income_report {
+  id                 Int       @id @default(autoincrement())
+  date               DateTime? @db.DateTime(0)
+  pledge_per_sector  Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  income_per_sector  Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  created_at         DateTime  @db.DateTime(0)
+  updated_at         DateTime  @db.DateTime(0)
+  deleted_at         DateTime? @db.DateTime(0)
+  sector             Decimal?  @db.Decimal(8, 4)
+  storage            Decimal   @default(0.0000) @db.Decimal(16, 4)
+  gas_fee            Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  commit_sector      Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  windowed_post      Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  pledge_sixty_four  Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  gas_fee_sixty_four Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  commit_sixty_four  Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+}
+
+model individual_account {
+  id         Int       @id @default(autoincrement())
+  uid        Int?
+  balance    Float?
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+}
+
+model isting_transaction {
+  id           Int       @id @default(autoincrement()) @db.UnsignedInt
+  to           String    @db.VarChar(255)
+  from         String    @db.VarChar(255)
+  coin_type    Boolean
+  amount       Decimal   @db.Decimal(12, 4)
+  fee          Decimal   @db.Decimal(12, 4)
+  block_height Int       @db.UnsignedInt
+  tx_hash      String    @db.VarChar(255)
+  created_at   DateTime  @db.DateTime(0)
+  updated_at   DateTime  @db.DateTime(0)
+  deleted_at   DateTime? @db.DateTime(0)
+  uid          Int       @default(0)
+}
+
+model notice {
+  id         Int       @id @default(autoincrement())
+  title      String?   @db.VarChar(255)
+  content    String?   @db.Text
+  uid        Int?
+  type       Int       @default(1) @db.SmallInt
+  rank       Int?      @default(0)
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+
+  @@index([uid], map: "uid")
+}
+
+model notice_translation {
+  id         Int       @id @default(autoincrement())
+  notice_id  Int
+  title      String    @db.VarChar(255)
+  content    String    @db.Text
+  lang       String    @default("zh") @db.VarChar(128)
+  created_at DateTime  @default(now()) @db.DateTime(0)
+  updated_at DateTime  @default(now()) @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+
+  @@unique([notice_id, lang], map: "unit")
+}
+
+model operationlog {
+  id         Int       @id @default(autoincrement())
+  uid        Int?
+  phonetype  String?   @db.VarChar(255)
+  optype     Int?
+  status     String?   @db.VarChar(255)
+  content    String?   @db.VarChar(255)
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+  user       user?     @relation(fields: [uid], references: [id], onDelete: Cascade, map: "operationlog_ibfk_1")
+
+  @@index([uid], map: "uid")
+}
+
+model options {
+  id           Int       @id @default(autoincrement())
+  version      String    @default("") @db.VarChar(255)
+  version_code Int?      @default(0)
+  force        Int       @default(0)
+  update_info  String    @default("") @db.VarChar(255)
+  created_at   DateTime  @default(now()) @db.DateTime(0)
+  updated_at   DateTime  @default(now()) @db.DateTime(0)
+  deleted_at   DateTime? @db.DateTime(0)
+  down_url     String    @default("") @db.VarChar(255)
+  platform     Int       @default(1)
+}
+
+model options_copy1 {
+  id           Int       @id @default(autoincrement())
+  version      String    @default("") @db.VarChar(255)
+  version_code Int?      @default(0)
+  force        Int       @default(0)
+  update_info  String    @default("") @db.VarChar(255)
+  created_at   DateTime  @default(now()) @db.DateTime(0)
+  updated_at   DateTime  @default(now()) @db.DateTime(0)
+  deleted_at   DateTime? @db.DateTime(0)
+  down_url     String    @default("") @db.VarChar(255)
+  platform     Int       @default(1)
+}
+
+model opwithdrawal {
+  id          Int       @id @default(autoincrement())
+  uid         Int?
+  userno      Int?
+  amount      Float?
+  status      Int?      @default(1) @db.SmallInt
+  description String?   @db.Text
+  created_at  DateTime  @db.DateTime(0)
+  updated_at  DateTime  @db.DateTime(0)
+  deleted_at  DateTime? @db.DateTime(0)
+  user        user      @relation(fields: [id], references: [uid], onDelete: Cascade, map: "opwithdrawal_ibfk_1")
+}
+
+model order_approve_record {
+  id         Int       @id @default(autoincrement())
+  orderno    String    @db.VarChar(64)
+  uid        Int?      @default(0) @db.UnsignedInt
+  status     Int?      @default(1) @db.SmallInt
+  agent_id   Int?      @default(0) @db.UnsignedInt
+  admin_id   Int?      @default(0) @db.UnsignedInt
+  remark     String?   @db.VarChar(256)
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+}
+
+model order_deposit {
+  id          Int       @id @default(autoincrement())
+  uid         Int
+  order_no    String    @db.VarChar(64)
+  last_pay_no String?   @db.VarChar(64)
+  status      Int       @default(0) @db.TinyInt
+  start_at    DateTime  @db.DateTime(0)
+  renew_at    DateTime? @db.DateTime(0)
+  due_at      DateTime? @db.DateTime(0)
+  end_at      DateTime  @db.DateTime(0)
+  created_at  DateTime  @default(now()) @db.DateTime(0)
+  updated_at  DateTime  @default(now()) @db.DateTime(0)
+  deleted_at  DateTime? @db.DateTime(0)
+
+  @@index([order_no], map: "order_no")
+  @@index([uid], map: "uid")
+}
+
+model order_info {
+  id                   Int       @id @default(autoincrement())
+  orderno              String?   @unique(map: "orderno") @db.VarChar(255)
+  commodityid          Int?
+  unit_price           Float?
+  buy_num              Float?
+  total_price          Float?
+  status               Int?      @default(1)
+  contract_url         String?   @db.VarChar(255)
+  delivery_url         String?   @db.VarChar(255)
+  describe             String?   @db.VarChar(255)
+  uid                  Int?
+  agentid              Int?
+  buy_time             DateTime? @db.DateTime(0)
+  contract_id          Int?      @default(0)
+  remark               String?   @db.VarChar(255)
+  created_at           DateTime  @db.DateTime(0)
+  updated_at           DateTime  @db.DateTime(0)
+  deleted_at           DateTime? @db.DateTime(0)
+  rate                 Decimal   @db.Decimal(4, 3)
+  total_sector         Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  expand_capacity      Decimal?  @default(0.00) @db.Decimal(16, 2)
+  complete             Boolean   @default(false)
+  returns_date         DateTime? @db.Date
+  sequestration_status Boolean   @default(true)
+  speed_factor         Decimal   @db.Decimal(7, 2)
+  increase_capacity    Decimal   @default(0.00) @db.Decimal(10, 2)
+  period               Float     @default(3) @db.Float
+  share_bonus_rate     Decimal   @default(0.000) @db.Decimal(4, 3)
+  share_bonus_uid      Int       @default(0) @db.UnsignedInt
+  sector_type          Boolean?  @default(true)
+  pay_type             Int       @default(2) @db.UnsignedTinyInt
+  source               Int       @default(2) @db.UnsignedTinyInt
+  migrate_status       Boolean   @default(true)
+
+  @@index([agentid], map: "agentid")
+  @@index([commodityid], map: "commodityid")
+  @@index([uid], map: "uid")
+}
+
+model order_migration {
+  id             Int       @id @default(autoincrement())
+  order_no       String?   @db.VarChar(255)
+  progress       String?   @default("0") @db.VarChar(3)
+  migrate_status Int       @default(2) @db.UnsignedTinyInt
+  migrate_price  Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  created_at     DateTime  @db.DateTime(0)
+  updated_at     DateTime  @db.DateTime(0)
+  deleted_at     DateTime? @db.DateTime(0)
+
+  @@index([order_no], map: "idx_orderNo")
+}
+
+model order_power {
+  id             Int       @id @default(autoincrement()) @db.UnsignedInt
+  orderno        String    @db.VarChar(255)
+  uid            Int       @db.UnsignedInt
+  power          Decimal   @db.Decimal(6, 2)
+  price          Decimal   @db.Decimal(12, 4)
+  available_time DateTime  @db.Date
+  activity_id    Int       @db.UnsignedInt
+  created_at     DateTime  @db.DateTime(0)
+  updated_at     DateTime  @db.DateTime(0)
+  deleted_at     DateTime? @db.DateTime(0)
+}
+
+model order_related_sn {
+  id         Int       @id @default(autoincrement())
+  orderno    String?   @db.VarChar(255)
+  sn         String?   @db.VarChar(255)
+  uid        Int?
+  number     Float?
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+
+  @@index([orderno], map: "orderno")
+  @@index([sn], map: "sn")
+}
+
+model order_rule {
+  id           Int       @id @default(autoincrement()) @db.UnsignedInt
+  orderno      String    @db.VarChar(255)
+  uid          Int       @db.UnsignedInt
+  speed_factor Decimal   @db.Decimal(7, 2)
+  created_at   DateTime  @default(now()) @db.DateTime(0)
+  updated_at   DateTime  @default(now()) @db.DateTime(0)
+  deleted_at   DateTime? @db.DateTime(0)
+  start_time   DateTime? @db.Date
+  end_time     DateTime? @db.Date
+}
+
+model order_sector {
+  id              Int       @id @default(autoincrement()) @db.UnsignedInt
+  uid             Int       @db.UnsignedInt
+  orderno         String    @db.VarChar(255)
+  total_sector_id Int       @db.UnsignedInt
+  sector          Decimal?  @default(0.000000) @db.Decimal(14, 6)
+  pledge          Decimal?  @default(0.00000000) @db.Decimal(14, 8)
+  power           Decimal?  @default(0.000000) @db.Decimal(14, 6)
+  pledge_type     Boolean
+  remark          String    @default("") @db.VarChar(255)
+  created_at      DateTime  @db.DateTime(0)
+  updated_at      DateTime  @db.DateTime(0)
+  deleted_at      DateTime? @db.DateTime(0)
+  gas             Decimal?  @default(0.00000000) @db.Decimal(14, 8)
+  type            Boolean   @default(true)
+  today_sector    Decimal   @default(0.0000) @db.Decimal(16, 4)
+}
+
+model pay_approve_record {
+  id         Int       @id @default(autoincrement())
+  payno      String    @db.VarChar(64)
+  uid        Int?      @default(0) @db.UnsignedInt
+  status     Int?      @default(1) @db.SmallInt
+  agent_id   Int?      @default(0) @db.UnsignedInt
+  admin_id   Int?      @default(0) @db.UnsignedInt
+  remark     String?   @db.VarChar(256)
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+}
+
+model pay_order {
+  id           Int       @id @default(autoincrement())
+  pay_no       String    @db.VarChar(64)
+  uid          Int
+  type         Int?      @default(1)
+  pay_type     Int?      @default(1)
+  trade_no     String?   @db.VarChar(255)
+  total_amount Decimal?  @default(0.00000000) @db.Decimal(18, 8)
+  pay_amount   Decimal?  @default(0.00000000) @db.Decimal(18, 8)
+  status       Int?      @default(1)
+  pay_at       DateTime? @db.DateTime(0)
+  remark       String?   @db.VarChar(512)
+  operator_id  Int?      @default(0)
+  created_at   DateTime  @default(now()) @db.DateTime(0)
+  updated_at   DateTime  @default(now()) @db.DateTime(0)
+  deleted_at   DateTime? @db.DateTime(0)
+
+  @@index([pay_no], map: "pay_no")
+  @@index([uid], map: "uid")
+}
+
+model pay_order_bak {
+  id            Int       @id @default(autoincrement())
+  uid           Int?
+  type          Int?      @default(1)
+  pay_type      Int?      @default(1)
+  orderno       String?   @db.VarChar(255)
+  trade_no      String?   @db.VarChar(255)
+  total_amount  Decimal?  @default(0.0000) @db.Decimal(14, 4)
+  pay_amount    Decimal?  @default(0.0000) @db.Decimal(14, 4)
+  discount      Decimal?  @default(0.0000) @db.Decimal(14, 4)
+  status        Int?      @default(1)
+  pay_at        DateTime? @db.DateTime(0)
+  address       String?   @db.VarChar(255)
+  detail        String?   @db.VarChar(1024)
+  remark        String?   @db.Text
+  created_at    DateTime  @db.DateTime(0)
+  updated_at    DateTime  @db.DateTime(0)
+  deleted_at    DateTime? @db.DateTime(0)
+  expend_amount Decimal?  @default(0.0000) @db.Decimal(14, 4)
+  agent_id      Int
+  state         Int       @default(2) @db.TinyInt
+}
+
+model pay_order_record {
+  id               Int       @id @default(autoincrement())
+  pay_no           String?   @db.VarChar(64)
+  uid              Int?
+  order_no         String    @db.VarChar(64)
+  deposit_days     Int       @default(0)
+  deposit_amount   Decimal   @default(0.00000000) @db.Decimal(18, 8)
+  fee              Decimal   @default(0.00000000) @db.Decimal(18, 8)
+  expend_capacity  Float     @default(0)
+  expend_amount    Decimal   @default(0.00000000) @db.Decimal(18, 8)
+  deposit_status   Int?      @db.TinyInt
+  deposit_start_at DateTime? @db.DateTime(0)
+  deposit_renew_at DateTime? @db.DateTime(0)
+  deposit_due_at   DateTime? @db.DateTime(0)
+  created_at       DateTime  @default(now()) @db.DateTime(0)
+  updated_at       DateTime  @default(now()) @db.DateTime(0)
+  deleted_at       DateTime? @db.DateTime(0)
+  discount         String    @default("0") @db.VarChar(4)
+  time_type        Int       @default(4) @db.UnsignedTinyInt
+
+  @@index([order_no], map: "order_no")
+  @@index([pay_no], map: "pay_no")
+  @@index([uid], map: "uid")
+}
+
+model permission {
+  id              Int       @id @default(autoincrement())
+  auth_id         Int?
+  pid             Int?
+  router          String?   @default("") @db.VarChar(255)
+  auth_name       String?   @default("") @db.VarChar(255)
+  api_url         String?   @default("") @db.VarChar(255)
+  is_page         Int?      @default(0)
+  only_admin_type Int?      @default(0)
+  created_at      DateTime? @default(now()) @db.DateTime(0)
+  updated_at      DateTime? @default(now()) @db.DateTime(0)
+  deleted_at      DateTime? @db.DateTime(0)
+}
+
+model platform {
+  platform_id   Int       @id @default(autoincrement())
+  platform_name String    @db.VarChar(255)
+  logo_url      String    @db.VarChar(255)
+  created_at    DateTime  @db.DateTime(0)
+  updated_at    DateTime  @db.DateTime(0)
+  deleted_at    DateTime? @db.DateTime(0)
+}
+
+model pledge_profit {
+  id              Int       @id @default(autoincrement())
+  user_id         Int?
+  amount          Decimal?  @db.Decimal(30, 18)
+  type            Int?      @default(1) @db.SmallInt
+  power           Decimal?  @default(0.00) @db.Decimal(10, 2)
+  sector          Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  total_sector_id Int?
+  remark          String?   @db.VarChar(255)
+  descript        String?   @db.VarChar(255)
+  created_at      DateTime  @default(now()) @db.DateTime(0)
+  updated_at      DateTime  @default(now()) @db.DateTime(0)
+  deleted_at      DateTime? @db.DateTime(0)
+
+  @@index([user_id], map: "uid")
+}
+
+model power_activity {
+  id              Int       @id @default(autoincrement())
+  total_power     Decimal   @default(0.00) @db.Decimal(11, 2)
+  purchased_power Decimal   @default(0.00) @db.Decimal(11, 2)
+  activity_time   DateTime? @db.Date
+  price_big       Decimal   @default(0.00) @db.Decimal(11, 2)
+  price_small     Decimal   @default(0.00) @db.Decimal(11, 2)
+  status          Int       @default(1)
+  created_at      DateTime? @default(now()) @db.DateTime(0)
+  updated_at      DateTime? @default(now()) @db.DateTime(0)
+  deleted_at      DateTime? @db.DateTime(0)
+}
+
+model profit {
+  id              Int       @id @default(autoincrement())
+  uid             Int?
+  orderno         String    @default("") @db.VarChar(255)
+  commodity_name  String    @default("") @db.VarChar(255)
+  amount          Decimal?  @db.Decimal(30, 18)
+  type            Int?      @default(1) @db.SmallInt
+  power           Decimal?  @default(0.00) @db.Decimal(10, 2)
+  sector          Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  total_sector_id Int?
+  total_profit_id Int?
+  remark          String?   @db.VarChar(512)
+  descript        String?   @db.VarChar(255)
+  created_at      DateTime  @db.DateTime(0)
+  updated_at      DateTime  @db.DateTime(0)
+  deleted_at      DateTime? @db.DateTime(0)
+
+  @@index([uid], map: "uid")
+}
+
+model profit_bak {
+  id              Int       @id @default(autoincrement())
+  uid             Int?
+  amount          Decimal?  @db.Decimal(30, 18)
+  type            Int?      @default(1) @db.SmallInt
+  power           Decimal?  @default(0.00) @db.Decimal(10, 2)
+  sector          Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  total_sector_id Int?
+  total_profit_id Int?
+  remark          String?   @db.VarChar(255)
+  descript        String?   @db.VarChar(255)
+  created_at      DateTime  @db.DateTime(0)
+  updated_at      DateTime  @db.DateTime(0)
+  deleted_at      DateTime? @db.DateTime(0)
+  user            user?     @relation(fields: [uid], references: [id], onDelete: NoAction, map: "profit_bak_ibfk_1")
+
+  @@index([uid], map: "uid")
+}
+
+model rate_configuration {
+  id         Int       @id @default(autoincrement())
+  name       String    @db.VarChar(255)
+  type       Boolean
+  rate       Decimal   @default(0.00) @db.Decimal(10, 2)
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+}
+
+model recharge {
+  id         Int       @id @default(autoincrement())
+  uid        Int
+  type       Int       @default(1) @db.UnsignedTinyInt
+  coin_type  Int
+  to         String    @db.VarChar(255)
+  from       String    @db.VarChar(255)
+  deal_cid   String    @unique(map: "unique_deal") @db.VarChar(64)
+  height     Int       @default(0)
+  block_cid  String?   @db.VarChar(255)
+  amount     Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  remark     String?   @db.VarChar(255)
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+}
+
+model reward_release {
+  id           Int       @id @default(autoincrement()) @db.UnsignedInt
+  uid          Int       @db.UnsignedInt
+  total_reward Decimal   @db.Decimal(16, 8)
+  day_reward   Decimal   @db.Decimal(16, 8)
+  type         Boolean
+  raward_time  DateTime  @db.Date
+  remark       String    @default("") @db.VarChar(255)
+  complete     Int       @default(0) @db.TinyInt
+  created_at   DateTime  @db.DateTime(0)
+  updated_at   DateTime  @db.DateTime(0)
+  deleted_at   DateTime? @db.DateTime(0)
+  orderno      String?   @db.VarChar(255)
+
+  @@index([uid], map: "idx_uid")
+  @@index([uid, orderno], map: "idx_uid_orderno")
+}
+
+model role {
+  id         Int       @id @default(autoincrement())
+  name       String    @db.VarChar(255)
+  desc       String?   @default("") @db.VarChar(255)
+  permission String    @db.Text
+  created_at DateTime  @default(now()) @db.DateTime(0)
+  updated_at DateTime  @default(now()) @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+}
+
+model sector {
+  id              Int       @id @default(autoincrement())
+  uid             Int?
+  sector          Decimal?  @default(0.00000000) @db.Decimal(16, 8)
+  total_sector_id Int?
+  power           Decimal?  @default(0.00000000) @db.Decimal(16, 8)
+  pledge          Decimal?  @default(0.00000000) @db.Decimal(16, 8)
+  type            Int?      @default(1)
+  remark          String?   @db.VarChar(255)
+  created_at      DateTime  @db.DateTime(0)
+  updated_at      DateTime  @db.DateTime(0)
+  deleted_at      DateTime? @db.DateTime(0)
+  user            user?     @relation(fields: [uid], references: [id], onDelete: NoAction, map: "sector_ibfk_1")
+
+  @@index([uid], map: "uid")
+}
+
+model share_bonus_bill {
+  id              Int       @id @default(autoincrement()) @db.UnsignedInt
+  uid             Int       @db.UnsignedInt
+  commodityid     Int       @db.UnsignedInt
+  share_bonus_uid Int       @db.UnsignedInt
+  total_profit_id Int       @db.UnsignedInt
+  orderno         String    @db.VarChar(255)
+  amount          Decimal   @db.Decimal(14, 8)
+  type            Boolean
+  descript        String?   @db.VarChar(255)
+  created_at      DateTime  @default(now()) @db.Timestamp(0)
+  updated_at      DateTime  @default(now()) @db.Timestamp(0)
+  deleted_at      DateTime? @db.Timestamp(0)
+
+  @@index([orderno], map: "idx_orderno")
+  @@index([uid], map: "idx_uid")
+}
+
+model sn {
+  id          Int       @id @default(autoincrement())
+  commodityid Int?
+  agentid     Int?
+  sn          String?   @unique(map: "sn") @db.VarChar(255)
+  total_rock  Float?    @default(5)
+  left_rock   Float?    @default(5)
+  status      Int?      @default(0) @db.SmallInt
+  state       Int       @default(0) @db.SmallInt
+  sn_orderno  String?   @db.VarChar(255)
+  address     String?   @db.VarChar(255)
+  host        String?   @db.VarChar(255)
+  created_at  DateTime  @db.DateTime(0)
+  updated_at  DateTime  @db.DateTime(0)
+  deleted_at  DateTime? @db.DateTime(0)
+  sn_barcode  String?   @db.VarChar(255)
+
+  @@index([agentid], map: "agentid")
+}
+
+model sn_order {
+  id         Int       @id @default(autoincrement())
+  sn_orderno String?   @db.VarChar(255)
+  agentid    Int?
+  buy_num    Float?
+  pay_no     String?   @db.VarChar(255)
+  remark     String?   @db.VarChar(255)
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+
+  @@index([agentid], map: "agentid")
+  @@index([sn_orderno], map: "sn_orderno_idx")
+}
+
+model total_profit {
+  id           Int       @id @default(autoincrement())
+  adminid      Int?
+  total_amount Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  total_power  Decimal?  @default(0.00) @db.Decimal(10, 2)
+  total_sector Decimal   @default(0.00000000) @db.Decimal(20, 8)
+  profit_power Decimal?  @default(0.00) @db.Decimal(10, 2)
+  type         Int       @default(1)
+  increase     Decimal?  @default(0.00) @db.Decimal(10, 2)
+  condition    String?   @db.VarChar(255)
+  created_at   DateTime  @db.DateTime(0)
+  updated_at   DateTime  @db.DateTime(0)
+  deleted_at   DateTime? @db.DateTime(0)
+  rate         Decimal   @default(0.000000) @db.Decimal(8, 6)
+  platform_id  Boolean   @default(true)
+
+  @@index([adminid], map: "adminid")
+}
+
+model total_sector {
+  id                Int       @id @default(autoincrement())
+  adminid           Int?
+  total_power       Decimal?  @default(0.0000) @db.Decimal(16, 4)
+  total_sector      Decimal   @default(0.000000) @db.Decimal(20, 6)
+  pledge_rate_small Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  total_pledge      Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  status            Int?      @default(1)
+  company_sector    Decimal   @default(0.000000) @db.Decimal(20, 6)
+  condition         String?   @db.VarChar(255)
+  start_at          DateTime? @db.DateTime(0)
+  end_at            DateTime? @db.DateTime(0)
+  created_at        DateTime  @db.DateTime(0)
+  updated_at        DateTime  @db.DateTime(0)
+  deleted_at        DateTime? @db.DateTime(0)
+  total_gas         Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  gas_rate_small    Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  personal_sector   Decimal   @default(0.000000) @db.Decimal(20, 6)
+  loan_sector       Decimal   @default(0.000000) @db.Decimal(20, 6)
+  modules           Boolean
+  pledge_rate_big   Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  gas_rate_big      Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  platform_id       Boolean   @default(true)
+
+  @@index([adminid], map: "adminid")
+}
+
+model total_share_bonus {
+  id              Int       @id @default(autoincrement()) @db.UnsignedInt
+  cycle           String    @db.VarChar(64)
+  total_amount    Decimal   @db.Decimal(14, 8)
+  operator_num    Int       @default(0) @db.TinyInt
+  operator_amount Decimal   @db.Decimal(14, 8)
+  partner_num     Int       @default(0) @db.TinyInt
+  partner_amount  Decimal   @default(0.00000000) @db.Decimal(14, 8)
+  operator_quota  Int       @db.TinyInt
+  partner_quota   Int       @db.TinyInt
+  status          Boolean   @default(true)
+  created_at      DateTime  @default(now()) @db.Timestamp(0)
+  updated_at      DateTime  @default(now()) @db.Timestamp(0)
+  deleted_at      DateTime? @db.Timestamp(0)
+  dividend_at     DateTime? @db.DateTime(0)
+}
+
+model transfer_profit {
+  id         Int       @id @default(autoincrement())
+  user_id    Int?
+  amount     Decimal?  @db.Decimal(30, 18)
+  type       Int?      @default(1) @db.SmallInt
+  remark     String?   @db.VarChar(255)
+  descript   String?   @db.VarChar(255)
+  created_at DateTime  @default(now()) @db.DateTime(0)
+  updated_at DateTime  @default(now()) @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+
+  @@index([user_id], map: "uid")
+}
+
+model user {
+  id                         Int            @id @default(autoincrement())
+  nickname                   String?        @db.VarChar(255)
+  email                      String?        @db.VarChar(255)
+  pwd                        String?        @db.VarChar(255)
+  tel                        String?        @db.VarChar(255)
+  paypassword                String?        @db.VarChar(255)
+  openid                     String?        @db.VarChar(255)
+  status                     Int?           @default(1) @db.SmallInt
+  rate                       Decimal        @default(0.85) @db.Decimal(16, 2)
+  pledge_type                Int            @default(2)
+  userno                     Int?
+  username                   String?        @db.VarChar(255)
+  pledge_total               Decimal?       @db.Decimal(30, 18)
+  pledge_left                Decimal?       @db.Decimal(30, 18)
+  pledge_company             Decimal        @default(0.000000000000000000) @db.Decimal(30, 18)
+  description                String?        @db.VarChar(255)
+  card                       String?        @db.VarChar(255)
+  profit                     Decimal?       @db.Decimal(30, 18)
+  total_profit               Decimal?       @db.Decimal(30, 18)
+  withdrawal                 Decimal?       @db.Decimal(30, 18)
+  sector                     Decimal        @default(0.00000000) @db.Decimal(16, 8)
+  uid                        Int?
+  created_at                 DateTime       @db.DateTime(0)
+  updated_at                 DateTime       @db.DateTime(0)
+  deleted_at                 DateTime?      @db.DateTime(0)
+  wallet                     String?        @unique(map: "wallet_idx") @db.VarChar(255)
+  interest                   Decimal        @default(0.0000000000000000) @db.Decimal(30, 16)
+  personal_gas               Decimal        @default(0.000000000000000000) @db.Decimal(30, 18)
+  company_gas                Decimal        @default(0.0000000000000000) @db.Decimal(30, 16)
+  company_gas_interest       Decimal        @default(0.0000000000000000) @db.Decimal(30, 16)
+  borrow                     Decimal        @default(0.00000000) @db.Decimal(16, 8)
+  borrow_interest            Decimal        @default(0.00000000) @db.Decimal(16, 8)
+  usdt_wallet                String         @default("") @db.VarChar(255)
+  usdt_withdrawal            Decimal        @default(0.0000) @db.Decimal(12, 4)
+  freeze_pledge              Decimal?       @default(0.000000000000000000) @db.Decimal(30, 18)
+  agent_id                   Int
+  source                     Int            @default(1) @db.TinyInt
+  is_distributor             Boolean?       @default(true)
+  distributor                Int?
+  miner                      Boolean        @default(false)
+  platform                   Boolean        @default(true)
+  country                    String         @default("China") @db.VarChar(128)
+  country_code               String         @default("+86") @db.VarChar(64)
+  migrate_arrears            Decimal        @default(0.000000000000000000) @db.Decimal(30, 18)
+  migrate_arrears_supplement Decimal        @default(0.000000000000000000) @db.Decimal(30, 18)
+  equipment                  equipment[]
+  operationlog               operationlog[]
+  opwithdrawal               opwithdrawal?
+  profit_bak                 profit_bak[]
+  sector_sectorTouser        sector[]
+
+  @@index([distributor], map: "idx_distributor")
+  @@index([uid], map: "uid")
+}
+
+model user_data {
+  user_id              Int       @id @unique(map: "user_id_idx")
+  pledge_type          Int       @default(1)
+  pledge_total         Decimal?  @db.Decimal(30, 18)
+  pledge_left          Decimal?  @db.Decimal(30, 18)
+  pledge_company       Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  profit               Decimal?  @db.Decimal(30, 18)
+  total_profit         Decimal?  @db.Decimal(30, 18)
+  withdrawal           Decimal?  @db.Decimal(30, 18)
+  sector               Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  interest             Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  personal_gas         Decimal   @default(0.000000) @db.Decimal(12, 6)
+  company_gas          Decimal   @default(0.000000) @db.Decimal(12, 6)
+  company_gas_interest Decimal   @default(0.000000) @db.Decimal(12, 6)
+  borrow               Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  borrow_interest      Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  quota                Int?      @default(0)
+  usdt_wallet          String    @default("") @db.VarChar(255)
+  usdt_withdrawal      Decimal   @default(0.0000) @db.Decimal(12, 4)
+  freeze_pledge        Decimal?  @default(0.000000000000000000) @db.Decimal(30, 18)
+  created_at           DateTime  @default(now()) @db.DateTime(0)
+  updated_at           DateTime  @default(now()) @db.DateTime(0)
+  deleted_at           DateTime? @db.DateTime(0)
+}
+
+model user_miner {
+  id         Int       @id @default(autoincrement()) @db.UnsignedInt
+  uid        Int
+  miner      String    @db.VarChar(32)
+  created_at DateTime  @default(now()) @db.DateTime(0)
+  updated_at DateTime  @default(now()) @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+}
+
+model user_old {
+  id                   Int       @id @default(autoincrement())
+  nickname             String?   @db.VarChar(255)
+  email                String?   @db.VarChar(255)
+  pwd                  String?   @db.VarChar(255)
+  tel                  String?   @unique(map: "tel_idx") @db.VarChar(255)
+  paypassword          String?   @db.VarChar(255)
+  openid               String?   @db.VarChar(255)
+  status               Int?      @default(1) @db.SmallInt
+  rate                 Decimal   @default(0.85) @db.Decimal(16, 2)
+  pledge_type          Int       @default(1)
+  userno               Int?
+  username             String?   @db.VarChar(255)
+  pledge_total         Decimal?  @db.Decimal(30, 18)
+  pledge_left          Decimal?  @db.Decimal(30, 18)
+  pledge_company       Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  description          String?   @db.VarChar(255)
+  card                 String?   @db.VarChar(255)
+  profit               Decimal?  @db.Decimal(30, 18)
+  total_profit         Decimal?  @db.Decimal(30, 18)
+  withdrawal           Decimal?  @db.Decimal(30, 18)
+  sector               Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  uid                  Int?
+  created_at           DateTime  @db.DateTime(0)
+  updated_at           DateTime  @db.DateTime(0)
+  deleted_at           DateTime? @db.DateTime(0)
+  wallet               String?   @unique(map: "wallet_idx") @db.VarChar(255)
+  interest             Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  personal_gas         Decimal   @default(0.000000) @db.Decimal(12, 6)
+  company_gas          Decimal   @default(0.000000) @db.Decimal(12, 6)
+  company_gas_interest Decimal   @default(0.000000) @db.Decimal(12, 6)
+  borrow               Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  borrow_interest      Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  source               Boolean?  @default(true)
+  role_id              Boolean?  @default(true)
+  quota                Int?      @default(0)
+  usdt_wallet          String    @default("") @db.VarChar(255)
+  usdt_withdrawal      Decimal   @default(0.0000) @db.Decimal(12, 4)
+  freeze_pledge        Decimal?  @default(0.000000000000000000) @db.Decimal(30, 18)
+  agent_id             Int
+
+  @@index([uid], map: "uid")
+}
+
+model user_stat {
+  user_id              Int       @id
+  pledge_type          Int       @default(1)
+  pledge_total         Decimal?  @db.Decimal(30, 18)
+  pledge_left          Decimal?  @db.Decimal(30, 18)
+  pledge_company       Decimal   @default(0.000000000000000000) @db.Decimal(30, 18)
+  profit               Decimal?  @db.Decimal(30, 18)
+  total_profit         Decimal?  @db.Decimal(30, 18)
+  withdrawal           Decimal?  @db.Decimal(30, 18)
+  sector               Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  interest             Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  personal_gas         Decimal   @default(0.000000) @db.Decimal(12, 6)
+  company_gas          Decimal   @default(0.000000) @db.Decimal(12, 6)
+  company_gas_interest Decimal   @default(0.000000) @db.Decimal(12, 6)
+  borrow               Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  borrow_interest      Decimal   @default(0.00000000) @db.Decimal(16, 8)
+  usdt_withdrawal      Decimal   @default(0.0000) @db.Decimal(12, 4)
+  freeze_pledge        Decimal?  @default(0.000000000000000000) @db.Decimal(30, 18)
+  created_at           DateTime  @default(now()) @db.DateTime(0)
+  updated_at           DateTime  @default(now()) @db.DateTime(0)
+  deleted_at           DateTime? @db.DateTime(0)
+
+  @@index([user_id], map: "user_id_idx")
+}
+
+model version {
+  id           Int       @id @default(autoincrement())
+  version      String    @default("") @db.VarChar(255)
+  version_code Int?      @default(0)
+  force        Int       @default(0)
+  created_at   DateTime  @default(now()) @db.DateTime(0)
+  updated_at   DateTime  @default(now()) @db.DateTime(0)
+  deleted_at   DateTime? @db.DateTime(0)
+  down_url     String    @default("") @db.VarChar(255)
+  platform     Int       @default(1)
+  local        Boolean   @default(true)
+
+  @@unique([version_code, platform, local], map: "platform_version_code_idx")
+}
+
+model version_translation {
+  id          Int       @id @default(autoincrement())
+  version_id  Int
+  lang        String    @db.VarChar(10)
+  update_info String    @db.VarChar(255)
+  local       Boolean   @default(true)
+  created_at  DateTime  @default(now()) @db.DateTime(0)
+  updated_at  DateTime  @default(now()) @db.DateTime(0)
+  deleted_at  DateTime? @db.DateTime(0)
+
+  @@unique([lang, version_id, local], map: "version_id_lang_idx")
+}
+
+model wallet {
+  id         Int       @id @default(autoincrement())
+  uid        Int
+  wallet     String?   @unique(map: "wallet") @db.VarChar(255)
+  status     Int?      @default(1) @db.SmallInt
+  created_at DateTime  @db.DateTime(0)
+  updated_at DateTime  @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+}
+
+model withdrawal {
+  id          Int       @id @default(autoincrement()) @db.UnsignedInt
+  name        String    @db.VarChar(255)
+  tel         String?   @db.VarChar(255)
+  email       String?   @db.VarChar(255)
+  coin_type   Boolean   @default(true)
+  wallet      String    @db.VarChar(255)
+  amount      Decimal   @db.Decimal(30, 18)
+  value       Decimal?  @db.Decimal(30, 18)
+  fee         Decimal   @default(0.01) @db.Decimal(10, 2)
+  gas         Decimal?  @db.Decimal(30, 18)
+  status      Int?      @default(1)
+  hash        String?   @db.VarChar(255)
+  user_id     Int
+  operator_id Int?
+  remark      String?   @db.VarChar(255)
+  created_at  DateTime  @db.DateTime(0)
+  updated_at  DateTime  @db.DateTime(0)
+  deleted_at  DateTime? @db.DateTime(0)
+}
+
+enum bonus_mode {
+  pool
+  order
+}
+
+enum bonus_audit_logs_action {
+  new
+  update
+  deleted
+  done
+}
+
+enum commodity_coin_symbol {
+  CNY
+  USDT
+  FIL
+}

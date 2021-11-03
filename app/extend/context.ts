@@ -60,8 +60,8 @@ export default {
     const userType = this.cookies.get('userType', { signed: false });
     const orgUuid = this.cookies.get('orgUuid', { signed: false });
     const token = this.getAccessToken();
-    const verifyResult: VerifyResult = await new Promise(resolve => {
-      app.jwt.verify(token, app.config.jwt.secret, (err, decoded) => {
+    const verifyResult: VerifyResult = await new Promise((resolve) => {
+      app.jwt.verify(token, app.config.jwt.secret, (err: { name: string; message: any; }, decoded: any) => {
         if (err) {
           if (err.name === 'TokenExpiredError' && userUuid) {
             this.setToken({ name, userUuid, userName, userType, orgUuid }); // 刷新token

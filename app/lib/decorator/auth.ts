@@ -1,9 +1,9 @@
 interface JwtError extends Error {
     code: number;
     message: string;
-  }
+}
 const isJwtError = (x: any): x is JwtError => {
- return typeof x.message === 'string';
+    return typeof x.message === 'string';
 };
 
 /**
@@ -13,7 +13,7 @@ const isJwtError = (x: any): x is JwtError => {
 export function Auth(type: number) {
     return (_target: any, _key: string, descriptor: PropertyDescriptor) => {
         const originFun = descriptor.value;
-        descriptor.value = async function() {
+        descriptor.value = async function () {
             const c = this as any;
             try {
                 let token = c.ctx.request.headers['authorization'];
@@ -26,7 +26,7 @@ export function Auth(type: number) {
                 const decode: any = c.app.jwt.verify(token, c.app.config.jwt.secret);
                 if (type > decode.scope) {
                     return c.fail(401, '权限不足');
-                  }
+                }
                 c.ctx.auth = decode;
                 await originFun.apply(this, arguments);
             } catch (e) {

@@ -25,7 +25,7 @@ export default (options: any, app: Application) => {
         if (options.sendResponseTime || options.logRequest) {
             const startTime = Date.now();
             let err;
-            return next().catch(e => {
+            return next().catch((e: any) => {
                 err = e;
             }).then(() => {
                 const endTime = Date.now();
@@ -38,6 +38,7 @@ export default (options: any, app: Application) => {
                     });
                 }
                 if (err) return Promise.reject(err);
+
             });
         } else {
             return next();

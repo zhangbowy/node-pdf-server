@@ -1,18 +1,18 @@
 'use strict';
 
-import { Context } from 'egg';
+// import { Context } from 'egg';
 import mm from 'egg-mock';
-import { app, assert } from 'egg-mock/bootstrap';
+import { app } from 'egg-mock/bootstrap';
 
 describe('test/app/extend/context.test.js', () => {
   afterEach(() => {
     mm.restore();
   });
 
-  let ctx: Context;
+  // let ctx: Context;
   before(async () => {
     await app.ready();
-    ctx = app.mockContext({}) as Context;
+    // ctx = app.mockContext({}) as Context;
   });
 
   it('context should has isProd and isAjax', async () => {

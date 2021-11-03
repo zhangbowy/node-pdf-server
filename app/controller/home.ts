@@ -1,19 +1,18 @@
 import BaseController from '@/core/baseController';
 import { SelfController as Controller, Get } from './../router';
-import { Auth } from '@/lib//decorator/auth';
-import { LoginType } from '@/lib/enum';
-@Controller('/home')
+// import { Auth } from '@/lib//decorator/auth';
+// import { LoginType } from '@/lib/enum';
+@Controller('/')
 export default class HomeController extends BaseController {
   @Get('/')
   public async index(): Promise<void> {
-    const token: any = this.app.jwt.sign({}, this.app.config.jwt.secret);
-    this.success({ token }, '请求成功');
+    this.success('请熟读文档', '请求成功');
   }
 
   /**
    * 
    */
-  @Auth(LoginType.ADMIN)
+  // @Auth(LoginType.ADMIN)
   @Get('/list')
   public slider() {
     this.success([], '请求成功');
