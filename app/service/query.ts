@@ -26,7 +26,7 @@ export default class QueryService extends Service {
             o.buy_num,
             o.status,
             c.commodityname AS product_name, 
-            agent.company,
+            agent.company AS 'agent_name',
             o.buy_time
         FROM
             order_info o
@@ -76,7 +76,7 @@ export default class QueryService extends Service {
             IFNULL(por.expend_capacity, 0) AS expend_capacity,
             IFNULL(por.expend_amount, 0) AS expend_amount,
             po.created_at AS pay_at,
-            u.company
+            u.company AS 'agent_name'
         FROM
             pay_order po
             LEFT JOIN (SELECT user.id, agent.company FROM \`user\` INNER JOIN agent ON agent.id = \`user\`.agent_id) u ON  u.id = po.uid
@@ -146,7 +146,7 @@ export default class QueryService extends Service {
             '1-2': 'deposit_usdt',
             '2-2': 'extend_usdt',
             '1-3': 'deposit_fil',
-            '2-3': 'deposit_fil',
+            '2-3': 'extend_fil',
             '2-1': 'extend_cny',
         };
         payOrder.forEach((val: { type: any; pay_type: any; count: any; pay_amount: any; }) => {
