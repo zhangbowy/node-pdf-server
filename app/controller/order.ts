@@ -25,7 +25,7 @@ export default class OrderController extends BaseController {
      * 支付订单列表
      */
     @Get('/payOrderList')
-    public async payOrderList() {
+    public async payOrderList(): Promise<void> {
         const { currentPage = 1, pageSize = 10, startTime, endTime } = this.ctx.query as any;
         const result = await this.ctx.service.query.getPayOrderList(Number(pageSize), Number(currentPage), startTime, endTime);
         this.success(result, '请求成功');

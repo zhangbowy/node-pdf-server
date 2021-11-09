@@ -20,7 +20,7 @@ export function Auth(type: number) {
                 if (token) {
                     token = token.split(' ')[1];
                 } else {
-                    return c.fail(401, '把Token带上');
+                    return c.fail(401, '');
                 }
                 console.log(token, '----token-x----');
                 const decode: any = c.app.jwt.verify(token, c.app.config.jwt.secret);

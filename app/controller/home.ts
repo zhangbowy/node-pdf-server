@@ -4,6 +4,7 @@ import { SelfController as Controller, Get } from './../router';
 // import { LoginType } from '@/lib/enum';
 @Controller('/')
 export default class HomeController extends BaseController {
+  // @Auth(LoginType.ADMIN)
   @Get('/')
   public async index(): Promise<void> {
     this.success('请熟读文档', '请求成功');

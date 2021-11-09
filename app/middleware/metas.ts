@@ -17,6 +17,7 @@ export default (options: any, app: Application) => {
     options.requestTimeout = options.requestTimeout;
 
     return (ctx: Context, next) => {
+        // console.log(ctx.req.headers);
         // send power by header
         if (options.sendPowerBy && !ctx.res.headersSent) {
             ctx.res.setHeader('X-Powered-By', `ASP.NET`);

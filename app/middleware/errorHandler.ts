@@ -4,7 +4,13 @@ export default () => {
   return async function errorHandler(ctx: Context, next: any) {
     try {
       await next();
-
+      if (!ctx.body) {
+        ctx.status = 404;
+        ctx.body = {
+          code: 0,
+          msg: 'not found',
+        };
+      }
       // const transaction = await ctx.app.getTransaction();
 
       // // 如果有事务自动提交
@@ -25,7 +31,7 @@ export default () => {
       const error = status === 500 && ctx.app.config.env === 'prod' ? '系统内部错误' : err.message;
       ctx.body = {
         code: ctx.ERROR_CODE,
-        message: error,
+        msg: error,
       };
 
       if (status === 422) {

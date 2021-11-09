@@ -27,7 +27,7 @@ export default class QueryService extends Service {
             o.status,
             c.commodityname AS product_name, 
             agent.company AS 'agent_name',
-            o.buy_time
+            DATE_FORMAT(o.buy_time, '%Y-%m-%d %H:%i:%S') as buy_time
         FROM
             order_info o
             INNER JOIN commodity c on c.id = o.commodityid
@@ -36,6 +36,7 @@ export default class QueryService extends Service {
             o.STATUS = 3 
             AND o.deleted_at IS NULL
         GROUP BY o.orderno
+        ORDER BY o.buy_time DESC
         limit ${(currentPage - 1) * pageSize},${pageSize}`;
 
         return {
@@ -73,15 +74,18 @@ export default class QueryService extends Service {
             po.pay_no,
             po.type,
             po.pay_type,
+            po.pay_amount,
+            po.remark,
             IFNULL(por.expend_capacity, 0) AS expend_capacity,
             IFNULL(por.expend_amount, 0) AS expend_amount,
-            po.created_at AS pay_at,
+            DATE_FORMAT(po.created_at, '%Y-%m-%d %H:%i:%S') AS pay_at,
             u.company AS 'agent_name'
         FROM
             pay_order po
             LEFT JOIN (SELECT user.id, agent.company FROM \`user\` INNER JOIN agent ON agent.id = \`user\`.agent_id) u ON  u.id = po.uid
             LEFT JOIN ( SELECT pay_no, created_at, SUM( expend_capacity) AS expend_capacity, SUM( expend_amount ) AS expend_amount FROM pay_order_record GROUP BY pay_no ) por ON por.pay_no = po.pay_no
         WHERE ${where}
+        ORDER BY po.created_at DESC
         limit ${(currentPage - 1) * pageSize},${pageSize}`);
         return {
             pageSize,
