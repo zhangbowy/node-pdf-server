@@ -4,7 +4,7 @@ import 'reflect-metadata';
 
 const CONTROLLER_PREFIX: string = '';
 const methodMap: Map<string, any> = new Map<string, any>();
-const rootApiPath: string = '';
+const rootApiPath: string = '/api';
 
 interface CurController {
   pathName: string;
@@ -50,8 +50,12 @@ export default (app: Application): void => {
     const func: (this: Context, ...args: any[]) => Promise<any> = async function (...args: any[]): Promise<any> {
       return new (curController.constructor as any)(this)[methodName](...args);
     };
+
     // 注册路由
+    // 带/api前缀
     router[requestMethod](rootApiPath + controllerPrefix + path, func);
+    // 不带/api前缀
+    router[requestMethod](controllerPrefix + path, func);
   });
 };
 
