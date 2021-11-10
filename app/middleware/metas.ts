@@ -1,4 +1,5 @@
 import { Context, Application } from 'egg';
+
 /**
  * default options
  */
@@ -17,10 +18,11 @@ export default (options: any, app: Application) => {
     options.requestTimeout = options.requestTimeout;
 
     return (ctx: Context, next) => {
-        // console.log(ctx.req.headers);
+        ctx.traceId = ctx.uuid('v4');
         // send power by header
         if (options.sendPowerBy && !ctx.res.headersSent) {
             ctx.res.setHeader('X-Powered-By', `ASP.NET`);
+            ctx.res.setHeader('x-dc-request-id', `${ctx.traceId}`);
         }
         // send response     time header
         if (options.sendResponseTime || options.logRequest) {
@@ -32,6 +34,7 @@ export default (options: any, app: Application) => {
                 const endTime = Date.now();
                 if (options.sendResponseTime && !ctx.res.headersSent) {
                     ctx.res.setHeader('X-Response-Time', `${endTime - startTime}ms`);
+                    ctx.res.setHeader('Server-Timing', `total;dur=${endTime - startTime}`);
                 }
                 if (options.logRequest) {
                     process.nextTick(() => {
@@ -39,7 +42,6 @@ export default (options: any, app: Application) => {
                     });
                 }
                 if (err) return Promise.reject(err);
-
             });
         } else {
             return next();

@@ -1,5 +1,5 @@
 import { Context } from 'egg';
-
+const uuid = require('uuid');
 interface VerifyResult {
   verify: boolean;
   message: string | object | any;
@@ -96,5 +96,9 @@ export default {
     (this as Context).body = { code, message };
     // this.status = code;
   },
+  uuid(ver: string = 'v4') {
+    return uuid[ver]();
+  },
+
 };
 
