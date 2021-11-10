@@ -19,19 +19,20 @@ export default () => {
       //   ctx.app.deleteTransaction();
       // }
     } catch (err) {
+      console.log(err);
       // if (isApiError(err)) {
       // 所有的异常都在 app 上触发一个 error 事件，框架会记录一条错误日志
-      ctx.app.emit('error', err, ctx);
-      console.log(err);
+      // ctx.app.emit('error', err, ctx);
       // @ts-ignore
       const status = err.status || 500;
 
       // 生产环境时 500 错误的详细错误内容不返回给客户端，因为可能包含敏感信息
       // @ts-ignore
-      const error = status === 500 && ctx.app.config.env === 'prod' ? '系统内部错误' : err.message;
+      // const error = status === 500 && ctx.app.config.env === 'prod' ? '系统内部错误' : err.message;
       ctx.body = {
         code: ctx.ERROR_CODE,
-        msg: error,
+         // @ts-ignore
+        msg: err.message,
       };
 
       if (status === 422) {

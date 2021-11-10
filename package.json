@@ -13,7 +13,7 @@
     "lint": "tslint --fix 'app/**/*{.ts,tsx}'",
     "ci": "npm run lint && npm run cov",
     "debug": "egg-bin debug",
-    "prod": "EGG_SERVER_ENV=prod egg-scripts start"
+    "prod": "EGG_SERVER_ENV=prod npm start"
   },
   "egg": {
     "typescript": true,

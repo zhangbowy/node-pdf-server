@@ -23,7 +23,6 @@
     "inlineSourceMap": true,
     "importHelpers": true,
     "baseUrl": "./",
-    "outDir": "bin",
     "paths": {
       "@/*": ["./app/*"],
       "~/*": [ "./*" ]

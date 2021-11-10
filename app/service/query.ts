@@ -5,6 +5,8 @@ import { createLRUCacheMiddleware } from 'prisma-lrucache-middleware/dist';
 import * as LRU from 'lru-cache';
 import dayjs from 'dayjs';
 const prisma = new PrismaClient();
+prisma.$connect();
+
 const UserCache = new LRU(120);
 prisma.$use(createLRUCacheMiddleware({ cache: UserCache }));
 export default class QueryService extends Service {
