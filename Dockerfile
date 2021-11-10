@@ -10,8 +10,8 @@ RUN npm install pm2 -g
 
 COPY . .
 
-RUN npm ci --production
+RUN npm install --production
 
 EXPOSE 8001
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "prod" ]
