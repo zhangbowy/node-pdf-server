@@ -9,7 +9,7 @@ export default class BaseController extends Controller {
      * @param data 返回的数据
      * @param msg 提示信息
      */
-    success(data: any = [], msg: string = '') {
+    public success(data: any = [], msg: string = '调用成功') {
         this.ctx.body = {
             code: 1,
             data,

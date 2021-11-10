@@ -6,11 +6,11 @@ ENV NODE_ENV prod
 
 RUN npm config set registry https://registry.npm.taobao.org
 
-RUN npm install pm2 -g
-
 COPY . .
 
 RUN npm install --production
+
+RUN npm run tsc
 
 EXPOSE 8001
 
