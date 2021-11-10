@@ -8,7 +8,8 @@ export default class OrderController extends BaseController {
      */
     @Get('/orderList')
     public async orderList(): Promise<void> {
-        const result = await this.ctx.service.query.getOrderList();
+        const { currentPage = 1, pageSize = 10 } = this.ctx.query as any;
+        const result = await this.ctx.service.query.getOrderList(Number(pageSize), Number(currentPage));
         this.success(result, '请求成功');
     }
 
