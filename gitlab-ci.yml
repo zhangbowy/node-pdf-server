@@ -1,14 +1,1 @@
-stages:
-  - depoly-prod
-depoly-prod:
-  stage: depoly-prod
-  tags:
-   - brf_pool_shell
-  only:
-   - test-pro
-  script:
-   - sudo docker build -t maitian-prod:$CI_COMMIT_SHA .
-   - cd ..
-   - cd /opt/bin/maitian-prod
-   - sudo sed -i "s/`cat docker-compose.yml |grep image|awk -F ":" '{print $3}'`/$CI_COMMIT_SHA/g" docker-compose.yml
-   - sudo docker-compose up -d
+
