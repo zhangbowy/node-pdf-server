@@ -8,8 +8,6 @@ const prisma = new PrismaClient();
 prisma.$connect();
 const UserCache = new LRU(120);
 prisma.$use(createLRUCacheMiddleware({ cache: UserCache }));
-
-
 interface OrderStats {
     total_amount: number;
     order_total_power: number;
@@ -57,6 +55,7 @@ interface Order {
     agent_name: string;
     buy_time: string;
 }
+
 interface OrderList extends CountSelect {
     data: Order[];
 }
@@ -65,7 +64,7 @@ export default class QueryService extends Service {
     /**
      * 获取矿机销售订单数据
      */
-    public async getOrderList(pageSize: number = 10, currentPage: number = 1): Promise<OrderList> {
+    public async getOrderList(pageSize: number, currentPage: number): Promise<OrderList> {
         const count = await prisma.order_info.count({
             where: {
                 deleted_at: null,
@@ -110,7 +109,7 @@ export default class QueryService extends Service {
      * @param type
      * @returns
      */
-    public async getPayOrderList(pageSize: number = 10, currentPage: number = 1, startTime: string, endTime: string) {
+    public async getPayOrderList(pageSize: number, currentPage: number, startTime: string, endTime: string) {
         let where = ` po.status = 2 AND po.deleted_at IS NULL `;
 
         if (startTime && endTime) {

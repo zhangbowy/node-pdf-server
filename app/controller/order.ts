@@ -7,7 +7,7 @@ interface Page {
 }
 
 interface PayOrder extends Page {
-    startTime?: string;
+    startTime?: string| undefined;
     endTime?: string;
 }
 
@@ -56,7 +56,7 @@ export default class OrderController extends BaseController {
              // @ts-ignore
              return this.fail(0, e);
         }
-        const { currentPage = 1, pageSize = 10, startTime, endTime } = ctx.query as PayOrder;
+        const { currentPage = 1, pageSize = 10, startTime = '', endTime = '' } = ctx.query as PayOrder;
         const result = await ctx.service.order.getPayOrderList(pageSize, currentPage, startTime, endTime);
         this.success(result);
     }
