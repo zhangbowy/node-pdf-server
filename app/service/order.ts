@@ -8,18 +8,71 @@ const prisma = new PrismaClient();
 prisma.$connect();
 const UserCache = new LRU(120);
 prisma.$use(createLRUCacheMiddleware({ cache: UserCache }));
+
+
+interface OrderStats {
+    total_amount: number;
+    order_total_power: number;
+    expand_capacity:number;
+    increase_capacity:number;
+    deposit_cny: {
+        count: number
+        pay_amount: number
+    };
+    deposit_usdt: {
+        count: number
+        pay_amount: number
+    };
+    deposit_fil: {
+        count: number
+        pay_amount: number
+    };
+    extend_cny: {
+        count: number
+        pay_amount: number
+    };
+    extend_usdt: {
+        count: number
+        pay_amount: number
+    };
+    extend_fil: {
+        count: number
+        pay_amount: number
+    };
+}
+
+interface CountSelect {
+    pageSize: number;
+    currentPage: number;
+    count:number;
+}
+
+interface Order {
+    total_price: number;
+    order_no: string;
+    power: number;
+    buy_num: number;
+    status: number;
+    product_name: string;
+    agent_name: string;
+    buy_time: string;
+}
+interface OrderList extends CountSelect {
+    data: Order[];
+}
+
 export default class QueryService extends Service {
     /**
      * 获取矿机销售订单数据
      */
-    public async getOrderList(pageSize: number = 10, currentPage: number = 1) {
+    public async getOrderList(pageSize: number = 10, currentPage: number = 1): Promise<OrderList> {
         const count = await prisma.order_info.count({
             where: {
                 deleted_at: null,
                 status: 3
              },
         });
-        const result = await prisma.$queryRaw`
+        const result: Order[] = await prisma.$queryRaw`
         SELECT
             total_price,
             orderno AS order_no,
@@ -57,7 +110,7 @@ export default class QueryService extends Service {
      * @param type
      * @returns
      */
-    public async getPayOrderList(pageSize: number = 10, currentPage: number = 1, startTime: any, endTime: any) {
+    public async getPayOrderList(pageSize: number = 10, currentPage: number = 1, startTime: string, endTime: string) {
         let where = ` po.status = 2 AND po.deleted_at IS NULL `;
 
         if (startTime && endTime) {
@@ -99,7 +152,7 @@ export default class QueryService extends Service {
     /**
      * 获取销售统计数据
      */
-    public async getSaleStats() {
+    public async getSaleStats(): Promise<OrderStats> {
         const order = await this.getOrderStats();
         const payOrder = await this.getPayOrderStats();
         return {

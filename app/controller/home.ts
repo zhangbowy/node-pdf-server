@@ -1,5 +1,5 @@
 import BaseController from '@/core/baseController';
-import { SelfController as Controller, Get } from './../router';
+import { SelfController as Controller, Get } from '@/router';
 // import { Auth } from '@/lib//decorator/auth';
 // import { LoginType } from '@/lib/enum';
 @Controller('/')

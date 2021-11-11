@@ -1,6 +1,20 @@
 
-import BaseController from '../core/baseController';
-import { SelfController as Controller, Get } from '../router';
+import BaseController from '@/core/baseController';
+import { SelfController as Controller, Get } from '@/router';
+interface Page {
+    currentPage?: number;
+    pageSize?: number;
+}
+
+interface PayOrder extends Page {
+    startTime?: string;
+    endTime?: string;
+}
+
+const pageRule = {
+    currentPage: { type: 'number', required: false },
+    pageSize: { type: 'number', required: false },
+};
 
 @Controller('/dc/monitor')
 export default class OrderController extends BaseController {
@@ -9,8 +23,15 @@ export default class OrderController extends BaseController {
      */
     @Get('/orderList')
     public async orderList(): Promise<void> {
-        const { currentPage = 1, pageSize = 10 } = this.ctx.query as any;
-        const result = await this.ctx.service.order.getOrderList(Number(pageSize), Number(currentPage));
+        const { ctx } = this;
+        try {
+            ctx.validate(pageRule);
+        } catch (e) {
+            // @ts-ignore
+            return this.fail(0, e);
+        }
+        const { currentPage = 1, pageSize = 10 } = ctx.query as Page;
+        const result = await ctx.service.order.getOrderList(pageSize, currentPage);
         this.success(result, '请求成功');
     }
 
@@ -28,8 +49,15 @@ export default class OrderController extends BaseController {
      */
     @Get('/payOrderList')
     public async payOrderList(): Promise<void> {
-        const { currentPage = 1, pageSize = 10, startTime, endTime } = this.ctx.query as any;
-        const result = await this.ctx.service.order.getPayOrderList(Number(pageSize), Number(currentPage), startTime, endTime);
+        const { ctx } = this;
+        try {
+            ctx.validate(pageRule);
+        } catch (e) {
+             // @ts-ignore
+             return this.fail(0, e);
+        }
+        const { currentPage = 1, pageSize = 10, startTime, endTime } = ctx.query as PayOrder;
+        const result = await ctx.service.order.getPayOrderList(pageSize, currentPage, startTime, endTime);
         this.success(result);
     }
 }
