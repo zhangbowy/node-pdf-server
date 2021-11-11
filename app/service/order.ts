@@ -6,7 +6,6 @@ import * as LRU from 'lru-cache';
 import dayjs from 'dayjs';
 const prisma = new PrismaClient();
 prisma.$connect();
-
 const UserCache = new LRU(120);
 prisma.$use(createLRUCacheMiddleware({ cache: UserCache }));
 export default class QueryService extends Service {
@@ -51,12 +50,12 @@ export default class QueryService extends Service {
 
     /**
      * 获取支付订单列表
-     * @param pageSize 
-     * @param currentPage 
-     * @param startTime 
-     * @param endTime 
-     * @param type 
-     * @returns 
+     * @param pageSize
+     * @param currentPage
+     * @param startTime
+     * @param endTime
+     * @param type
+     * @returns
      */
     public async getPayOrderList(pageSize: number = 10, currentPage: number = 1, startTime: any, endTime: any) {
         let where = ` po.status = 2 AND po.deleted_at IS NULL `;
@@ -155,7 +154,7 @@ export default class QueryService extends Service {
             '2-3': 'extend_fil',
             '2-1': 'extend_cny',
         };
-        payOrder.forEach((val: { type: any; pay_type: any; count: any; pay_amount: any; }) => {
+        payOrder.forEach((val: { type: number; pay_type: number; count: number; pay_amount: number; }) => {
             result[keys[`${val.type}-${val.pay_type}`]] = {
                 count: val.count,
                 pay_amount: val.pay_amount
@@ -163,5 +162,5 @@ export default class QueryService extends Service {
         });
         return result;
     }
-    
+
 }
