@@ -45,7 +45,7 @@ export default class UserController extends BaseController {
       return this.fail(0, '飞书授权回调code不存在');
     }
     const result = await ctx.service.feishu.getUserAccessToken(code);
-    this.ctx.session.userInfo = {
+    const userInfo = {
       access_token: result.access_token,
       name: result.name,
       avatar_url: result.avatar_url,
@@ -54,8 +54,10 @@ export default class UserController extends BaseController {
       union_id: result.union_id,
       token_type: result.token_type
     };
+    this.ctx.session.userInfo = userInfo;
+    this.ctx.service.feishu.sendLoginNotice(userInfo);
     // this.success(result);
-    this.ctx.redirect('/salesInformation');
+    this.ctx.redirect('/');
   }
 
   /**

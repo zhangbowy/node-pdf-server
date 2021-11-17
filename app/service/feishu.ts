@@ -2,6 +2,8 @@
 import { Service } from 'egg';
 
 export default class TestService extends Service {
+    /** 群通知地址 */
+    readonly webhook = 'https://open.feishu.cn/open-apis/bot/v2/hook/83b1e296-af2f-44f9-a38c-ca556a769f97';
     // tslint:disable-next-line:variable-name
     private app_access_token: string | null = null;
     /**
@@ -52,4 +54,61 @@ export default class TestService extends Service {
         });
         return result.data.data;
     }
+
+    /**
+     * 发送登陆通知
+     */
+    public sendLoginNotice(userInfo: any) {
+        const card = {
+            header: {
+                title: {
+                    tag: 'plain_text',
+                    content: '麦田登陆通知',
+                },
+                template: 'turquoise',
+            },
+            elements: [
+                {
+                    tag: 'div',
+                    text: {
+                        tag: 'lark_md',
+                        content: `**环境** \n`,
+                    },
+                },
+                {
+                    tag: 'div',
+                    text: {
+                        tag: 'lark_md',
+                        content: '**登陆人** ',
+                    },
+                    fields: [
+                        {
+                            is_short: false,
+                            text: {
+                                tag: 'lark_md',
+                                content: `${userInfo.name}`,
+                            },
+                        },
+                    ],
+                },
+            ],
+        };
+        this.sendFeishCard(card);
+    }
+
+    async sendFeishCard(card: any) {
+        const result = await this.ctx.curl(this.webhook, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          dataType: 'json',
+          data: {
+            msg_type: 'interactive',
+            card,
+          },
+        }).catch((e) => console.log(e));
+        console.log(result);
+      }
+
 }
