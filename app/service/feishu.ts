@@ -3,7 +3,7 @@ import { Service } from 'egg';
 
 export default class TestService extends Service {
     /** 群通知地址 */
-    readonly webhook = 'https://open.feishu.cn/open-apis/bot/v2/hook/83b1e296-af2f-44f9-a38c-ca556a769f97';
+    readonly webhook = 'https://open.feishu.cn/open-apis/bot/v2/hook/2788196e-927b-44f5-bbdb-cd4e6140ef24';
     // tslint:disable-next-line:variable-name
     private app_access_token: string | null = null;
     /**
@@ -79,6 +79,22 @@ export default class TestService extends Service {
                     tag: 'div',
                     text: {
                         tag: 'lark_md',
+                        content: '**登陆方式** ',
+                    },
+                    fields: [
+                        {
+                            is_short: false,
+                            text: {
+                                tag: 'lark_md',
+                                content: `飞书授权登陆`,
+                            },
+                        },
+                    ],
+                },
+                {
+                    tag: 'div',
+                    text: {
+                        tag: 'lark_md',
                         content: '**登陆人** ',
                     },
                     fields: [
@@ -86,7 +102,7 @@ export default class TestService extends Service {
                             is_short: false,
                             text: {
                                 tag: 'lark_md',
-                                content: `${userInfo.name}`,
+                                content: `<at id=${userInfo.openid}></at>${userInfo.name}`,
                             },
                         },
                     ],
