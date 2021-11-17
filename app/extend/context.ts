@@ -41,7 +41,7 @@ export default {
       signed: false,
     };
 
-    (this as Context).cookies.set('token', token, { ...cookieConfig, httpOnly: true });
+    (this as Context).cookies.set('maitian', token, { ...cookieConfig, httpOnly: true });
     (this as Context).cookies.set('name', name, cookieConfig);
     (this as Context).cookies.set('userUuid', userUuid, cookieConfig);
     (this as Context).cookies.set('userName', userName, cookieConfig);
@@ -49,7 +49,7 @@ export default {
     (this as Context).cookies.set('orgUuid', orgUuid || userUuid, cookieConfig);
   },
   removeToken(this: Context) {
-    this.cookies.set('token', null);
+    this.cookies.set('maitian', null);
   },
   // 校验token
   async verifyToken(this: Context) {

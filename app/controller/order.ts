@@ -1,6 +1,7 @@
 
 import BaseController from '@/core/baseController';
 import { SelfController as Controller, Get } from '@/router';
+import { Auth } from '@/lib//decorator/auth';
 interface Page {
     currentPage?: number;
     pageSize?: number;
@@ -22,6 +23,7 @@ export default class OrderController extends BaseController {
      * 订单列表
      */
     @Get('/orderList')
+    @Auth()
     public async orderList(): Promise<void> {
         const { ctx } = this;
         try {
@@ -39,6 +41,7 @@ export default class OrderController extends BaseController {
      * 销售数据统计
      */
     @Get('/orderStats')
+    @Auth()
     public async stats(): Promise<void> {
         const result = await this.ctx.service.order.getSaleStats();
         this.success(result, '请求成功');
@@ -48,6 +51,7 @@ export default class OrderController extends BaseController {
      * 支付订单列表
      */
     @Get('/payOrderList')
+    @Auth()
     public async payOrderList(): Promise<void> {
         const { ctx } = this;
         try {

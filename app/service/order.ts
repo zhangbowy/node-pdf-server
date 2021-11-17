@@ -8,6 +8,7 @@ const prisma = new PrismaClient();
 prisma.$connect();
 const UserCache = new LRU(120);
 prisma.$use(createLRUCacheMiddleware({ cache: UserCache }));
+
 interface OrderStats {
     total_amount: number;
     order_total_power: number;

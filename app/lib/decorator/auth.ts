@@ -10,24 +10,21 @@ const isJwtError = (x: any): x is JwtError => {
  * 检测auth，登陆者必须带有jwt，不然就挂.
  * @param type 原dcpool APIAccess
  */
-export function Auth(type: number) {
+export function Auth() {
     return (_target: any, _key: string, descriptor: PropertyDescriptor) => {
         const originFun = descriptor.value;
         descriptor.value = async function () {
             const c = this as any;
             try {
-                let token = c.ctx.request.headers['authorization'];
-                if (token) {
-                    token = token.split(' ')[1];
-                } else {
-                    return c.fail(401, '');
+                const { userInfo } = c.ctx.session;
+                if (!userInfo) {
+                 return c.fail(401, '请先登录');
                 }
-                console.log(token, '----token-x----');
-                const decode: any = c.app.jwt.verify(token, c.app.config.jwt.secret);
-                if (type > decode.scope) {
-                    return c.fail(401, '权限不足');
-                }
-                c.ctx.auth = decode;
+                // const decode: any = c.app.jwt.verify(token, c.app.config.jwt.secret);
+                // if (type > decode.scope) {
+                    // return c.fail(401, '权限不足');
+                // }
+                // c.ctx.auth = decode;
                 await originFun.apply(this, arguments);
             } catch (e) {
                 console.log(e);
