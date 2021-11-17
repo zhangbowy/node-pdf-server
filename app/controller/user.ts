@@ -20,9 +20,21 @@ export default class UserController extends BaseController {
     //   orgUuid: 5
     // });
     // const captcha = this.ctx.cookies.get('captcha', { encrypt: true } );
-    // this.ctx.logger.info(captcha); 
+    // this.ctx.logger.info(captcha);
+    const host = this.ctx.request.host;
+    if (host.includes('localhost') || host.includes('127.0.0.1')) {
+      this.ctx.session.userInfo = {
+        access_token: 'u-PIVb1Apyf91cUt2Cj9Lnsf',
+        name: 'Taylor',
+        avatar_url: 'https://s3-imfile.feishucdn.com/static-resource/v1/v2_26cec684-3bf4-406c-854c-50a3d79320ag~?image_size=72x72&cut_type=&quality=&format=image&sticker_format=.webp',
+        avatar_thumb: 'https://s3-imfile.feishucdn.com/static-resource/v1/v2_26cec684-3bf4-406c-854c-50a3d79320ag~?image_size=72x72&cut_type=&quality=&format=image&sticker_format=.webp',
+        union_id: 'on_2b01e84dba5cea2618a5b54b6d820de1',
+        token_type: 'Bearer'
+      };
+      return this.ctx.redirect('/#/salesInformation');
+    }
     const url = `https://open.feishu.cn/open-apis/authen/v1/index?redirect_uri=http://maitian2.dcpool.net/api/user/auth&app_id=cli_a02b668b45799013&state=HtU64rLTVEH6M8YZuItgHg4xQLCKQuqf`;
-    // this.success(result, '登陆成功!');
+    // this.success(url, '登陆成功!');
     this.ctx.redirect(url);
     
   }
@@ -56,19 +68,18 @@ export default class UserController extends BaseController {
     };
     this.ctx.session.userInfo = userInfo;
     this.ctx.service.feishu.sendLoginNotice(userInfo);
-    // this.success(result);
-    this.ctx.redirect('/');
+    this.ctx.redirect('/#/salesInformation');
   }
 
   /**
    * 登出
    */
   @Auth()
-  @Post('/loginOut')
+  @Post('/logOut')
   public async loginOut(): Promise<void> {
     // this.ctx.removeToken();
     this.ctx.session.userInfo = null;
-    this.success();
+    this.success([], '操作成功');
   }
   /**
    * 获取验证码
