@@ -18,7 +18,8 @@ export function Auth() {
             try {
                 const { userInfo } = c.ctx.session;
                 if (!userInfo) {
-                 return c.fail(401, '请先登录');
+                    c.ctx.status = 401;
+                    return c.fail(401, '请先登录');
                 }
                 // const decode: any = c.app.jwt.verify(token, c.app.config.jwt.secret);
                 // if (type > decode.scope) {
