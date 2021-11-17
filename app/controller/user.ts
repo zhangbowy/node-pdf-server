@@ -54,7 +54,8 @@ export default class UserController extends BaseController {
       union_id: result.union_id,
       token_type: result.token_type
     };
-    this.success(result);
+    // this.success(result);
+    this.ctx.redirect('/salesInformation');
   }
 
   /**
@@ -63,7 +64,8 @@ export default class UserController extends BaseController {
   @Auth()
   @Post('/loginOut')
   public async loginOut(): Promise<void> {
-    this.ctx.removeToken();
+    // this.ctx.removeToken();
+    this.ctx.session.userInfo = null;
     this.success();
   }
   /**
