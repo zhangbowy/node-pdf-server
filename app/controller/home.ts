@@ -6,7 +6,8 @@ import { SelfController as Controller, Get } from '@/router';
 export default class HomeController extends BaseController {
   @Get('/')
   public async index(): Promise<void> {
-    this.success('请熟读文档', '请求成功');
+    this.ctx.request.headers;
+    this.success(this.ctx.request.headers, '请求成功');
   }
 
   @Get('/list')
