@@ -21,18 +21,18 @@ export default class UserController extends BaseController {
     // });
     // const captcha = this.ctx.cookies.get('captcha', { encrypt: true } );
     // this.ctx.logger.info(captcha);
-    const host = this.ctx.request.host;
-    if (host.includes('localhost') || host.includes('127.0.0.1')) {
-      this.ctx.session.userInfo = {
-        access_token: 'u-PIVb1Apyf91cUt2Cj9Lnsf',
-        name: 'Taylor',
-        avatar_url: 'https://s3-imfile.feishucdn.com/static-resource/v1/v2_26cec684-3bf4-406c-854c-50a3d79320ag~?image_size=72x72&cut_type=&quality=&format=image&sticker_format=.webp',
-        avatar_thumb: 'https://s3-imfile.feishucdn.com/static-resource/v1/v2_26cec684-3bf4-406c-854c-50a3d79320ag~?image_size=72x72&cut_type=&quality=&format=image&sticker_format=.webp',
-        union_id: 'on_2b01e84dba5cea2618a5b54b6d820de1',
-        token_type: 'Bearer'
-      };
-      return this.ctx.redirect('/#/salesInformation');
-    }
+    // const host = this.ctx.request.host;
+    // if (host.includes('localhost') || host.includes('127.0.0.1')) {
+    //   this.ctx.session.userInfo = {
+    //     access_token: 'u-PIVb1Apyf91cUt2Cj9Lnsf',
+    //     name: 'Taylor',
+    //     avatar_url: 'https://s3-imfile.feishucdn.com/static-resource/v1/v2_26cec684-3bf4-406c-854c-50a3d79320ag~?image_size=72x72&cut_type=&quality=&format=image&sticker_format=.webp',
+    //     avatar_thumb: 'https://s3-imfile.feishucdn.com/static-resource/v1/v2_26cec684-3bf4-406c-854c-50a3d79320ag~?image_size=72x72&cut_type=&quality=&format=image&sticker_format=.webp',
+    //     union_id: 'on_2b01e84dba5cea2618a5b54b6d820de1',
+    //     token_type: 'Bearer'
+    //   };
+    //   return this.ctx.redirect('/#/salesInformation');
+    // }
     const url = `https://open.feishu.cn/open-apis/authen/v1/index?redirect_uri=http://maitian2.dcpool.net/api/user/auth&app_id=cli_a02b668b45799013&state=HtU64rLTVEH6M8YZuItgHg4xQLCKQuqf`;
     // this.success(url, '登陆成功!');
     this.ctx.redirect(url);
@@ -62,7 +62,7 @@ export default class UserController extends BaseController {
       name: result.name,
       avatar_url: result.avatar_url,
       avatar_thumb: result.avatar_thumb,
-      open_id: result.openid,
+      open_id: result.open_id,
       union_id: result.union_id,
       token_type: result.token_type
     };
