@@ -102,7 +102,7 @@ export default class TestService extends Service {
                             is_short: false,
                             text: {
                                 tag: 'lark_md',
-                                content: `<at id=${userInfo.openid}></at>${userInfo.name}`,
+                                content: `<at id=${userInfo.open_id}></at> ${userInfo.name}`,
                             },
                         },
                     ],
