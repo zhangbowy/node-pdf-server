@@ -19,7 +19,6 @@ export default (options: any, app: Application) => {
 
     return (ctx: Context, next) => {
         ctx.traceId = ctx.uuid('v4');
-        ctx.secure = true;
         // send power by header
         if (options.sendPowerBy && !ctx.res.headersSent) {
             ctx.res.setHeader('X-Powered-By', `ASP.NET`);
