@@ -33,7 +33,7 @@ export default class UserController extends BaseController {
     //   };
     //   return this.ctx.redirect('/#/salesInformation');
     // }
-    const url = `https://open.feishu.cn/open-apis/authen/v1/index?redirect_uri=http://maitian2.dcpool.net/api/user/auth&app_id=cli_a02b668b45799013&state=HtU64rLTVEH6M8YZuItgHg4xQLCKQuqf`;
+    const url = `https://open.feishu.cn/open-apis/authen/v1/index?redirect_uri=https://maitian2.dcpool.net/api/user/auth&app_id=cli_a02b668b45799013&state=HtU64rLTVEH6M8YZuItgHg4xQLCKQuqf`;
     // this.success(url, '登陆成功!');
     this.ctx.redirect(url);
     
