@@ -1,6 +1,5 @@
 
 import { Service } from 'egg';
-
 export default class TestService extends Service {
     /** 群通知地址 */
     readonly webhook = 'https://open.feishu.cn/open-apis/bot/v2/hook/2788196e-927b-44f5-bbdb-cd4e6140ef24';
@@ -112,19 +111,23 @@ export default class TestService extends Service {
         this.sendFeishCard(card);
     }
 
-    async sendFeishCard(card: any) {
+    /**
+     * 发送飞书卡片消息
+     * @param card 飞书卡片消息内容
+     */
+    private async sendFeishCard(card: any) {
         const result = await this.ctx.curl(this.webhook, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          dataType: 'json',
-          data: {
-            msg_type: 'interactive',
-            card,
-          },
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            dataType: 'json',
+            data: {
+                msg_type: 'interactive',
+                card,
+            },
         }).catch((e) => console.log(e));
         console.log(result);
-      }
+    }
 
 }
