@@ -3,11 +3,11 @@
 export default function() {
   return {
     prodLocal: {
-      msg: 'prod',
+      msg: 'test',
     },
     feishu: {
-      appid: 'cli_a02b668b45799013',
-      app_secret: 'HtU64rLTVEH6M8YZuItgHg4xQLCKQuqf'
+      appid: 'cli_a11d80349bf8d00e',
+      app_secret: 'DUE3q73M3SoHgFR97CZzOSupUZ0otoS0'
     },
     cluster: {
       listen: {
