@@ -53,6 +53,7 @@
     "moment": "^2.20.1",
     "mysql2": "^2.3.0",
     "prisma-lrucache-middleware": "^1.0.1",
+    "puppeteer": "^16.0.0",
     "reflect-metadata": "^0.1.13",
     "svg-captcha": "^1.4.0",
     "tsconfig-paths": "^3.7.0",
