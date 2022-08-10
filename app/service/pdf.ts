@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 class PDFService {
     constructor() {
-        this.init()
+        // this.init()
     }
 
 
@@ -19,29 +19,29 @@ class PDFService {
         ],
     };
 
-    private MAX_WSE = 1; // 启动几个浏览器
-    private WSE_LIST = []; // 存储browserWSEndpoint列表
+    // private MAX_WSE = 1; // 启动几个浏览器
+    // private WSE_LIST = []; // 存储browserWSEndpoint列表
 
-    private async init() {
-            for (let i = 0; i < this.MAX_WSE; i++) {
-                const browser = await puppeteer.launch(this.config);
-                // @ts-ignore
-                const v = await browser.version()
-                // @ts-ignore
-                this.WSE_LIST[i] = await browser.wsEndpoint();
-                console.log(this.WSE_LIST[i], 'contect-------')
-            }
-
-        // // @ts-ignore
-        // process.exit(async () => {
-        //     for (let i = 0; i < this.MAX_WSE; i++) {
-        //         const browserWSEndpoint = this.WSE_LIST[i];
-        //         const browser = await puppeteer.connect({browserWSEndpoint});
-        //         await browser.close()
-        //     }
-        //     this.WSE_LIST = []
-        // })
-    }
+    // private async init() {
+    //         for (let i = 0; i < this.MAX_WSE; i++) {
+    //             const browser = await puppeteer.launch(this.config);
+    //             // @ts-ignore
+    //             const v = await browser.version()
+    //             // @ts-ignore
+    //             this.WSE_LIST[i] = await browser.wsEndpoint();
+    //             console.log(this.WSE_LIST[i], 'contect-------')
+    //         }
+    //
+    //     // // @ts-ignore
+    //     // process.exit(async () => {
+    //     //     for (let i = 0; i < this.MAX_WSE; i++) {
+    //     //         const browserWSEndpoint = this.WSE_LIST[i];
+    //     //         const browser = await puppeteer.connect({browserWSEndpoint});
+    //     //         await browser.close()
+    //     //     }
+    //     //     this.WSE_LIST = []
+    //     // })
+    // }
 
 
     /**
