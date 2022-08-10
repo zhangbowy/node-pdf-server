@@ -1,4 +1,4 @@
-# dcpool-query-server
+# pu-node-server
 
 
 ## Dev
@@ -18,6 +18,7 @@ $ npm run test
 Debugging in vscode, just need to press `F5`;
 
 ## 配置
+prisma
 > .env 放置根目录文件下
 ```
 DATABASE_URL="mysql://账号:密码@ip:端口/库名"
@@ -30,12 +31,17 @@ DATABASE_URL="mysql://账号:密码@ip:端口/库名"
 - 路径别名 拒绝 ../../../app/service/xx 用 @/service/xx
 - 增加限流功能
 
-## License
+## docker部署
+```shell
+# 打包基础镜像包
+sudo docker build -f Dockerfile_base -t dcpool_api_base .
 
-MIT
+# 打tag
+docker tag dcpool_api_base repository/dcpool_api_base:0.1.0
+````
 
 ## Author
 
-dcpool
+zhangbo
 
 

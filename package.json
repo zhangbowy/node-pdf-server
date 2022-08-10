@@ -1,7 +1,7 @@
 {
-  "name": "dcpool-api",
+  "name": "pu-node-server",
   "version": "1.0.0",
-  "description": "dcpool-api",
+  "description": "",
   "scripts": {
     "start": "npm run tsc && egg-scripts start",
     "dev": "egg-bin dev",
@@ -39,6 +39,7 @@
   "dependencies": {
     "@prisma/client": "^3.3.0",
     "@types/ioredis": "^4.0.6",
+    "ali-oss": "^6.17.1",
     "dayjs": "^1.10.7",
     "egg": "^2.6.0",
     "egg-cors": "^2.2.3",
@@ -53,7 +54,7 @@
     "moment": "^2.20.1",
     "mysql2": "^2.3.0",
     "prisma-lrucache-middleware": "^1.0.1",
-    "puppeteer": "^16.0.0",
+    "puppeteer": "13.5.0",
     "reflect-metadata": "^0.1.13",
     "svg-captcha": "^1.4.0",
     "tsconfig-paths": "^3.7.0",

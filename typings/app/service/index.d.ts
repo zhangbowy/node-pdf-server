@@ -1,4 +1,4 @@
-// This file is created by egg-ts-helper@1.26.0
+// This file is created by egg-ts-helper@1.33.0
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
@@ -9,11 +9,15 @@ type AutoInstanceType<T, U = T extends CanExportFunc ? T : T extends AnyFunc ? R
 import ExportTime from '../../../app/service/Time';
 import ExportFeishu from '../../../app/service/feishu';
 import ExportOrder from '../../../app/service/order';
+import ExportOss from '../../../app/service/oss';
+import ExportPdf from '../../../app/service/pdf';
 
 declare module 'egg' {
   interface IService {
     time: AutoInstanceType<typeof ExportTime>;
     feishu: AutoInstanceType<typeof ExportFeishu>;
     order: AutoInstanceType<typeof ExportOrder>;
+    oss: AutoInstanceType<typeof ExportOss>;
+    pdf: AutoInstanceType<typeof ExportPdf>;
   }
 }
