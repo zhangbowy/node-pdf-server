@@ -1,0 +1,1130 @@
+<html lang="en">
+<head>
+    <style id="dtUserAgentOverride">html {
+        background-color: #fff;
+    }
+
+
+    @media print {
+        .test-zb {
+            /*page-break-before: always;*/
+            page-break-after: always;
+        }
+
+
+        .item-box {
+            page-break-after: avoid!important;
+            margin-bottom: 0;
+            page-break-inside: avoid
+        }
+    }
+    .msg-img:not(.emotion) img {
+        background-color: white;
+    }</style>
+    <style rc-util-key="@ant-design-icons">
+        .anticon {
+            display: inline-block;
+            color: inherit;
+            font-style: normal;
+            line-height: 0;
+            text-align: center;
+            text-transform: none;
+            vertical-align: -0.125em;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .anticon > * {
+            line-height: 1;
+        }
+
+        .anticon svg {
+            display: inline-block;
+        }
+
+        .anticon::before {
+            display: none;
+        }
+
+        .anticon .anticon-icon {
+            display: block;
+        }
+
+        .anticon[tabindex] {
+            cursor: pointer;
+        }
+
+        .anticon-spin::before,
+        .anticon-spin {
+            display: inline-block;
+            -webkit-animation: loadingCircle 1s infinite linear;
+            animation: loadingCircle 1s infinite linear;
+        }
+
+        @-webkit-keyframes loadingCircle {
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes loadingCircle {
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="//qzz-static.forwe.storehttp://qzz-static.forwe.store/evaluation-mng/imgs/qcp_head_logo.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="//qzz-static.forwe.store/public-assets/antd_assets/antd_css.css"> -->
+    <title>趣测评</title>
+<!--    <script type="module" crossorigin=""-->
+<!--            src="//qzz-static.forwe.store/evaluation-mng/static/assets/index.43f20ed0.js"></script>-->
+    <link rel="stylesheet" href="//qzz-static.forwe.store/evaluation-mng/static/assets/index.2c76001f.css">
+    <script type="module">try {
+        import("_").catch(() => 1);
+    } catch (e) {
+    }
+    window.__vite_is_dynamic_import_support = true;</script>
+    <script type="module">!function () {
+        if (window.__vite_is_dynamic_import_support) return;
+        console.warn("vite: loading legacy build because dynamic import is unsupported, syntax error above should be ignored");
+        var e = document.getElementById("vite-legacy-polyfill"), n = document.createElement("script");
+        n.src = e.src, n.onload = function () {
+            System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))
+        }, document.body.appendChild(n)
+    }();</script>
+    <style type="text/css">.eruda-search-highlight-block {
+        display: inline
+    }
+
+    .eruda-search-highlight-block .eruda-keyword {
+        background: #fffbe5;
+        color: #5c5c00
+    }</style>
+    <style type="text/css">@font-face {
+        font-family: eruda-icon;
+        src: url('data:application/x-font-woff;charset=utf-8;base64,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') format('woff')
+    }
+
+    [class*=' eruda-icon-'], [class^='eruda-icon-'] {
+        font-family: eruda-icon !important;
+        font-size: 16px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+
+    .eruda-icon-arrow-left:before {
+        content: '\f101'
+    }
+
+    .eruda-icon-arrow-right:before {
+        content: '\f102'
+    }
+
+    .eruda-icon-caret-down:before {
+        content: '\f103'
+    }
+
+    .eruda-icon-caret-right:before {
+        content: '\f104'
+    }
+
+    .eruda-icon-clear:before {
+        content: '\f105'
+    }
+
+    .eruda-icon-compress:before {
+        content: '\f106'
+    }
+
+    .eruda-icon-delete:before {
+        content: '\f107'
+    }
+
+    .eruda-icon-error:before {
+        content: '\f108'
+    }
+
+    .eruda-icon-expand:before {
+        content: '\f109'
+    }
+
+    .eruda-icon-eye:before {
+        content: '\f10a'
+    }
+
+    .eruda-icon-play:before {
+        content: '\f10b'
+    }
+
+    .eruda-icon-refresh:before {
+        content: '\f10c'
+    }
+
+    .eruda-icon-reset:before {
+        content: '\f10d'
+    }
+
+    .eruda-icon-search:before {
+        content: '\f10e'
+    }
+
+    .eruda-icon-select:before {
+        content: '\f10f'
+    }
+
+    .eruda-icon-tool:before {
+        content: '\f110'
+    }
+
+    .eruda-icon-warn:before {
+        content: '\f111'
+    }</style>
+<!--    <link rel="modulepreload" as="script" crossorigin=""-->
+<!--          href="//qzz-static.forwe.store/evaluation-mng/static/assets/index.e1b78794.js">-->
+    <link rel="stylesheet" href="//qzz-static.forwe.store/evaluation-mng/static/assets/index.b7a1bbc2.css">
+<!--    <link rel="modulepreload" as="script" crossorigin=""-->
+<!--          href="//qzz-static.forwe.store/evaluation-mng/static/assets/Breadcrumb.c5b12e68.js">-->
+    <link rel="stylesheet" href="//qzz-static.forwe.store/evaluation-mng/static/assets/Breadcrumb.53c072f5.css">
+<!--    <link rel="modulepreload" as="script" crossorigin=""-->
+<!--          href="//qzz-static.forwe.store/evaluation-mng/static/assets/index.b6913e82.js">-->
+    <link rel="stylesheet" href="//qzz-static.forwe.store/evaluation-mng/static/assets/index.05365008.css">
+<!--    <link rel="modulepreload" as="script" crossorigin=""-->
+<!--          href="//qzz-static.forwe.store/evaluation-mng/static/assets/index.805bc064.js">-->
+    <link rel="stylesheet" href="//qzz-static.forwe.store/evaluation-mng/static/assets/index.6f5311a2.css">
+<!--    <link rel="modulepreload" as="script" crossorigin=""-->
+<!--          href="//qzz-static.forwe.store/evaluation-mng/static/assets/index.aeaf87d5.js">-->
+    <link rel="stylesheet" href="//qzz-static.forwe.store/evaluation-mng/static/assets/index.9db1894f.css">
+<!--    <link rel="modulepreload" as="script" crossorigin=""-->
+<!--          href="//qzz-static.forwe.store/evaluation-mng/static/assets/index.6426a45e.js">-->
+    <link rel="stylesheet" href="//qzz-static.forwe.store/evaluation-mng/static/assets/index.85ce7df6.css">
+<!--    <link rel="modulepreload" as="script" crossorigin=""-->
+<!--          href="//qzz-static.forwe.store/evaluation-mng/static/assets/cache.d887b710.js">-->
+</head>
+
+<body>
+<div id="root" style="height: auto">
+    <div class="app" style="height: auto">
+        <div class="_evaluation_layout_1eu7k_1" style="height: auto">
+            <section class="ant-layout ant-layout-has-sider" style="height: auto">
+<!--                <aside class="ant-layout-sider ant-layout-sider-dark _evaluation_sider_1eu7k_6"-->
+<!--                       style="flex: 0 0 240px; max-width: 240px; min-width: 240px; width: 240px;">-->
+<!--                    <div class="ant-layout-sider-children">-->
+<!--                        <div class="_menu_default_layout_h1ok1_1">-->
+<!--                            <div>-->
+<!--                                <header><img src="//qzz-static.forwe.storehttp://qzz-static.forwe.store/evaluation-mng/imgs/qcp_mng_logo.svg" alt=""><span>趣测评管理后台</span>-->
+<!--                                </header>-->
+<!--                                <main>-->
+<!--                                    <div class="_menu_level_h1ok1_40  false">-->
+<!--                                        <div class="_menu_icon_h1ok1_62"><img-->
+<!--                                                src="//qzz-static.forwe.storehttp://qzz-static.forwe.store/evaluation-mng/imgs/qcp_mng_icon_people.svg"-->
+<!--                                                class="_menu_icon_color_h1ok1_94"></div>-->
+<!--                                        <span class="_menu_title_h1ok1_54">招聘测评</span></div>-->
+<!--                                    <div class="_menu_level_h1ok1_40  false">-->
+<!--                                        <div class="_menu_icon_h1ok1_62"><img-->
+<!--                                                src="//qzz-static.forwe.storehttp://qzz-static.forwe.store/evaluation-mng/imgs/qcp_mng_menu_evaluation.svg"-->
+<!--                                                class="_menu_icon_color_h1ok1_94"></div>-->
+<!--                                        <span class="_menu_title_h1ok1_54">盘点测评</span></div>-->
+<!--                                    <div class="_menu_level_h1ok1_40  false">-->
+<!--                                        <div class="_menu_icon_h1ok1_62"><img-->
+<!--                                                src="//qzz-static.forwe.storehttp://qzz-static.forwe.store/evaluation-mng/imgs/qcp_mng_menu_people.svg"-->
+<!--                                                class="_menu_icon_color_h1ok1_94"></div>-->
+<!--                                        <span class="_menu_title_h1ok1_54">人才报告</span></div>-->
+<!--                                    <div class="_menu_level_h1ok1_40  false">-->
+<!--                                        <div class="_menu_icon_h1ok1_62"><img-->
+<!--                                                src="//qzz-static.forwe.storehttp://qzz-static.forwe.store/evaluation-mng/imgs/qcp_mng_menu_library.svg"-->
+<!--                                                class="_menu_icon_color_h1ok1_94"></div>-->
+<!--                                        <span class="_menu_title_h1ok1_54">测评库</span></div>-->
+<!--                                    <div class="_menu_twoWrapper_h1ok1_73" style="overflow: hidden;">-->
+<!--                                        <div class="_menu_level_h1ok1_40">-->
+<!--                                            <div class="_menu_icon_h1ok1_62"><img-->
+<!--                                                    src="//qzz-static.forwe.storehttp://qzz-static.forwe.store/evaluation-mng/imgs/qcp_mng_menu_jurisdiction.svg"-->
+<!--                                                    class="_menu_icon_color_h1ok1_94"></div>-->
+<!--                                            <span class="_menu_title_h1ok1_54">权限管理</span><span role="img"-->
+<!--                                                                                                aria-label="down"-->
+<!--                                                                                                class="anticon anticon-down _menu_down_h1ok1_66"-->
+<!--                                                                                                style="transform: translateY(-50%) rotate(0deg);"><svg-->
+<!--                                                viewBox="64 64 896 896" focusable="false" data-icon="down" width="1em"-->
+<!--                                                height="1em" fill="currentColor" aria-hidden="true"><path-->
+<!--                                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"></path></svg></span>-->
+<!--                                        </div>-->
+<!--                                        <div class="_menu_twoTitle_h1ok1_78">-->
+<!--                                            <div class="_menu_level_h1ok1_40  false">-->
+<!--                                                <div class="_menu_icon_h1ok1_62"><img-->
+<!--                                                        src="//qzz-static.forwe.storehttp://qzz-static.forwe.store/evaluation-mng/imgs/qcp_mng_menu_setting.svg"-->
+<!--                                                        class="_menu_icon_color_h1ok1_94"></div>-->
+<!--                                                <span class="_menu_title_h1ok1_54">账号管理</span></div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </main>-->
+<!--                            </div>-->
+<!--                            <footer>-->
+<!--                                <div class="_menu_recharge_h1ok1_101">-->
+<!--                                    <div class="_footer_couponsIcon_h1ok1_112"><img-->
+<!--                                            src="//qzz-static.forwe.storehttp://qzz-static.forwe.store/evaluation-mng/imgs/qcp_mng_icon_coupons.svg">-->
+<!--                                    </div>-->
+<!--                                    <span>点券充值</span></div>-->
+<!--                                <div class="ant-divider ant-divider-horizontal" role="separator"></div>-->
+<!--                                <span role="img" aria-label="menu-fold" tabindex="-1"-->
+<!--                                      class="anticon anticon-menu-fold _packUp_h1ok1_127"><svg viewBox="64 64 896 896"-->
+<!--                                                                                               focusable="false"-->
+<!--                                                                                               data-icon="menu-fold"-->
+<!--                                                                                               width="1em" height="1em"-->
+<!--                                                                                               fill="currentColor"-->
+<!--                                                                                               aria-hidden="true"><path-->
+<!--                                        d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 000 13.8z"></path></svg></span>-->
+<!--                            </footer>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </aside>-->
+                <section class="ant-layout">
+<!--                    <div class="_header_layout_1hbw2_1">-->
+<!--                        <div class="_header_left_1hbw2_15"><label>可用点券</label><label>767676753850</label>-->
+<!--                            <button type="button" class="ant-btn ant-btn-primary"><span>去充值</span></button>-->
+<!--                        </div>-->
+<!--                        <div class="_header_right_1hbw2_26">-->
+<!--                            <div>张</div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <main class="ant-layout-content _evaluation_content_1eu7k_11">
+                        <div class="_detail_layout_1i96j_1" style="height: auto">
+<!--                            <header>-->
+<!--                                <nav class="ant-breadcrumb _detail_nav_1i96j_14">-->
+<!--                                    <ol>-->
+<!--                                        <li><a class="ant-breadcrumb-link" href="#/evaluation/management">盘点测评</a><span-->
+<!--                                                class="ant-breadcrumb-separator">&gt;</span></li>-->
+<!--                                        <li><a class="ant-breadcrumb-link" href="#/evaluation/management/detail/1556">测评详情</a><span-->
+<!--                                                class="ant-breadcrumb-separator">&gt;</span></li>-->
+<!--                                        <li><span class="ant-breadcrumb-link">查看报告</span><span-->
+<!--                                                class="ant-breadcrumb-separator">&gt;</span></li>-->
+<!--                                    </ol>-->
+<!--                                </nav>-->
+<!--                            </header>-->
+                            <div class="_pdfDetail_dop1t_1">
+                                <div id="Pdf_Body" class="pdfdetail-layout">
+                                    <div class="pdf-cover  test-zb" >
+<!--                                        <div class="logo"></div>-->
+                                        <div class="main-title"><p class="title">MBTI</p><span
+                                                class="ch-title">性格与岗位匹配度</span>
+                                            <p class="sb-title">测评报告</p>
+                                            <p class="sb-en-title">Matching degree of personality and position</p></div>
+                                        <div class="cover-img"><img src="http://daily-eval.sunmeta.top/public-assets/cover-qcp.png" alt=""></div>
+                                        <div class="user-info"><p class="title">夏目</p>
+                                            <p class="sub-title">女</p>
+                                            <p class="sub-title">2022.08.04</p></div>
+                                        <div class="cover-bottom">鑫蜂维网络科技有限公司 版权所有</div>
+                                    </div>
+                                    <div class="page-box">
+<!--                                        <div class="page-top mg-b" >-->
+<!--                                            <div class="logo">1</div>-->
+<!--                                        </div>-->
+                                        <div class="page-title mg-b">一、报告导语</div>
+                                        <article class="article-text"><h3 class="article-h3">测评背景简介</h3>
+                                            <p class="article-cont">
+                                                【导语】“我性格内向/外向，适合什么专业？”“我的性格将来适合从事什么职业？”“以我的个性从事什么行业好？”“我这样性格的人选什么专业好？”这些是职业人或学生都有的困惑——性格因素和专业选择之间到底有什么样的关联呢？</p>
+                                        </article>
+                                        <div class="ant-divider ant-divider-horizontal" role="separator"></div>
+                                        <article class="article-hybrid">
+                                            <div class="text">
+                                                1942年，瑞士精神分析学家荣格第一次提出人格分类的概念。他认为感知和判断是大脑的两大基本功能。不同的人，感知倾向不同——有些人更侧重直觉，有些更侧重感觉。同样，不同的人判断倾向也不同——有些更倾向理性分析得出结论，有些更侧重情感，更为感性。同时，这两大基本功能又受到精力来源不同（内向或外向）的影响。以荣格的人格分类理论为基础，美国心理学家Katherine
+                                                Cook Briggs(1875-1968)和Isabel Briggs
+                                                Myers母女提出了影响大脑做出决定的第四因素，行为和生活方式；并综合荣格的人格分类学说形成MBTI人格模型。
+                                            </div>
+                                            <div class="picture"><img
+                                                    src="http://daily-eval.sunmeta.top/public-assets/measurement-type.png?x-oss-process=image/resize,m_fill,w_282,h_254"
+                                                    alt=""></div>
+                                        </article>
+                                        <article class="article-text"><p class="article-cont">
+                                            【导语】“我性格内向/外向，适合什么专业？”“我的性格将来适合从事什么职业？”“以我的个性从事什么行业好？”“我这样性格的人选什么专业好？”这些是职业人或学生都有的困惑——性格因素和专业选择之间到底有什么样的关联呢？</p>
+                                        </article>
+                                        <article class="article-box">
+                                            <div class="item-box"><span class="left">能量来源（即我们与世界相互作用的方式）</span><span
+                                                    class="right">外向(E)——内向(I)</span></div>
+                                            <div class="item-box"><span class="left">信息接收（即我们获取信息的主要方式）</span><span
+                                                    class="right">感觉(S)——直觉(N)</span></div>
+                                            <div class="item-box"><span class="left">信息处理（即我们的决策方式）</span><span
+                                                    class="right">思考(T)——情感(F)</span></div>
+                                            <div class="item-box"><span class="left">行为方式（即我们的做事方式）</span><span
+                                                    class="right">判断(J)——知觉(P)</span></div>
+                                        </article>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-top mg-b-20">
+                                            <div class="logo"></div>
+                                        </div>
+                                        <article class="article-text"><p class="article-cont">
+                                            在以上四个维度上，每个人都会有自己天生就具有的倾向性，也就是说，处在两个方向分界点的这边或那边，我们称之为“偏好”。例如，如果你落在外向的那边，称为“你偏好外向”；如果你落在内向的那边，称为“你偏好内向”。在现实生活中，每个维度的两个方面你都会用到，只是其中的一个方面你用的更频繁、更舒适，即为你在这个维度上的偏好。将人们在四个维度上的偏好加以组合，就形成了16种人格类型（详见下表），它反映了人们在一系列心理过程和行为方式上的可能特点。</p>
+                                        </article>
+                                        <div class="article-table">
+                                            <div class="article-hd">
+                                                <div class="hd">人格类型名称</div>
+                                                <div class="hd">英文代码</div>
+                                                <div class="hd">人格类型名称</div>
+                                                <div class="hd">英文代码</div>
+                                            </div>
+                                            <div class="article-bd">
+                                                <div class="item">
+                                                    <div class="td">内向+感觉+思考+判断</div>
+                                                    <div class="td">ISTJ</div>
+                                                    <div class="td">内向+感觉+情感+判断</div>
+                                                    <div class="td">ISFJ</div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="td">内向+直觉+情感+判断</div>
+                                                    <div class="td">INFJ</div>
+                                                    <div class="td">内向+直觉+思考+判断</div>
+                                                    <div class="td">INTJ</div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="td">内向+感觉+思考+知觉</div>
+                                                    <div class="td">ISTP</div>
+                                                    <div class="td">内向+感觉+情感+知觉</div>
+                                                    <div class="td">ISFP</div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="td">内向+直觉+情感+知觉</div>
+                                                    <div class="td">INFP</div>
+                                                    <div class="td">内向+直觉+思考+知觉</div>
+                                                    <div class="td">INTP</div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="td">外向+感觉+思考+判断</div>
+                                                    <div class="td">ESTJ</div>
+                                                    <div class="td">外向+感觉+情感+判断</div>
+                                                    <div class="td">ESFJ</div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="td">外向+直觉+情感+判断</div>
+                                                    <div class="td">ENFJ</div>
+                                                    <div class="td">外向+直觉+思考+判断</div>
+                                                    <div class="td">ENTJ</div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="td">外向+感觉+思考+知觉</div>
+                                                    <div class="td">ESTP</div>
+                                                    <div class="td">外向+感觉+情感+知觉</div>
+                                                    <div class="td">ESFP</div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="td">外向+直觉+情感+知觉</div>
+                                                    <div class="td">ENFP</div>
+                                                    <div class="td">外向+直觉+思考+知觉</div>
+                                                    <div class="td">ENTP</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <article class="article-text no-indent"><h3 class="article-h3">报告阅读建议</h3>
+                                            <div class="ant-divider ant-divider-horizontal" role="separator"></div>
+                                            <p class="article-cont">
+                                                1.本测评所有题项采用0、1计分，报告基于您的在线作答，按照一定的计分原则得出您在四种人格维度上的倾向偏好和具体的人格类型，并据此给出专业选择和工作发展方面的分析和建议； </p>
+                                            <p class="article-cont">
+                                                2.报告展示的是你的性格偏好，而不是你的知识、经验、技巧或能力。报告对您的人格特点进行详细分析，是为了帮助你拓展思路，接受更多的可能性，而不是限制你的选择；</p>
+                                            <p class="article-cont">
+                                                3.报告结果中的性格类型没有“好”与“坏”之分，但不同特点对于不同的职业和专业存在“适合”与“不适合”的区别，因此会表现出具体条件下的优势和劣势。人格特点由遗传、成长环境和生活经历决定，不要一味地想象去改变它。但是我们可以在了解的基础上对某些倾向进行一定的补充和平衡，有效利用，扬长避短，从而更好的发挥个人的潜力；</p>
+                                            <p class="article-cont">
+                                                4.报告中推荐的职业和专业是针对某一人格类型的人群的，但每个人的家庭背景、学习情况都存在特殊性，可能并不是所有的职业或专业都是合适你，需要具体结合个人的其他条件进行选择；</p>
+                                            <p class="article-cont">5.对于初次阅读此类报告的人员，需在专业人士的指导下阅读，或请专业人士解释此报告。</p>
+                                        </article>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-title mg-b">二、测评结果分析</div>
+                                        <div class="result-box mg-b">
+                                            <div class="result-box-image"><img src="http://qzz-static.forwe.store/evaluation-mng/imgs/qcp_pdf_bg.png"
+                                                                               alt="背景图"></div>
+                                            <div class="result-box-content">
+                                                <div class="left">
+                                                    <div class="round"><p class="m-title">INFJ</p>
+                                                        <p class="s-title">内向+直觉</p>
+                                                        <p class="s-title">情感+判断</p></div>
+                                                    <div class="result-info">人群中大约有 1% 的人和你一样</div>
+                                                </div>
+                                                <div class="right">
+                                                    <div class="result-list">
+                                                        <div class="result-item">
+                                                            <div class="in">
+                                                                <div class="label">外向(E):9</div>
+                                                                <div class="pillar-box">
+                                                                    <div class="percent color-1"
+                                                                         style="width: 43%;"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="out">
+                                                                <div class="label">内向(I):12</div>
+                                                                <div class="pillar-box">
+                                                                    <div class="percent color-1"
+                                                                         style="width: 57%;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="result-item">
+                                                            <div class="in">
+                                                                <div class="label">感觉(S):12</div>
+                                                                <div class="pillar-box">
+                                                                    <div class="percent color-2"
+                                                                         style="width: 44%;"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="out">
+                                                                <div class="label">直觉(N):15</div>
+                                                                <div class="pillar-box">
+                                                                    <div class="percent color-2"
+                                                                         style="width: 56%;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="result-item">
+                                                            <div class="in">
+                                                                <div class="label">思考(T):11</div>
+                                                                <div class="pillar-box">
+                                                                    <div class="percent color-3"
+                                                                         style="width: 48%;"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="out">
+                                                                <div class="label">情感(F):12</div>
+                                                                <div class="pillar-box">
+                                                                    <div class="percent color-3"
+                                                                         style="width: 52%;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="result-item">
+                                                            <div class="in">
+                                                                <div class="label">判断(J):13</div>
+                                                                <div class="pillar-box">
+                                                                    <div class="percent color-4"
+                                                                         style="width: 59%;"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="out">
+                                                                <div class="label">知觉(P):9</div>
+                                                                <div class="pillar-box">
+                                                                    <div class="percent color-4"
+                                                                         style="width: 41%;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="result-detail">
+                                            <div class="result-detail-item"><p class="title">能量来源（I:内向）</p>
+                                                <div class="result-detail-box"><p><em>外向(E):9</em>他人激励型，关注外部世界的人和事，乐意与人交往。
+                                                </p>
+                                                    <p><em>内向(I):12</em>自我或记忆激励型，关注思想、记忆、情感，倾向于自省。</p></div>
+                                            </div>
+                                            <div class="result-detail-item"><p class="title">信息接收（N:直觉）</p>
+                                                <div class="result-detail-box"><p><em>感觉(S):12</em>倾向于当前发生的事，关注由五官感觉获取的具体信息。
+                                                </p>
+                                                    <p><em>直觉(N):15</em>倾向于未来可能的和潜在的事，关注事物的整体和发展变化趋势。</p></div>
+                                            </div>
+                                            <div class="result-detail-item"><p class="title">信息处理（F:情感）</p>
+                                                <div class="result-detail-box"><p><em>思考(T):11</em>重视事物之间的逻辑关系，喜欢通过客观分析作决定评价、解决问题。
+                                                </p>
+                                                    <p><em>情感(F):12</em>以自己和他人的感受为重，将自己的主观价值观作为判定标准。</p></div>
+                                            </div>
+                                            <div class="result-detail-item"><p class="title">行动方式（J:判断）</p>
+                                                <div class="result-detail-box"><p><em>判断(J):13</em>喜欢根据信息来做判断、计划和决定，愿意进行管理和控制，希望生活井然有序
+                                                </p>
+                                                    <p><em>知觉(P):9</em>喜欢以自己的理解和信息做决策，灵活、试图去理解、适应环境,倾向于留有余地，喜欢宽松自由的生活方式。
+                                                    </p></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-top mg-b">
+                                            <div class="logo"></div>
+                                        </div>
+                                        <div class="result-analyse">
+                                            <div class="left">
+                                                <div class="result-analyse-item" style="width: 43%;"></div>
+                                                <div class="result-analyse-item" style="width: 44%;"></div>
+                                                <div class="result-analyse-item" style="width: 48%;"></div>
+                                                <div class="result-analyse-item" style="width: 59%;"></div>
+                                                <div class="bottom">
+                                                    <div class="percent">
+                                                        <span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="right">
+                                                <div class="result-analyse-item" style="width: 57%;"></div>
+                                                <div class="result-analyse-item" style="width: 56%;"></div>
+                                                <div class="result-analyse-item" style="width: 52%;"></div>
+                                                <div class="result-analyse-item" style="width: 41%;"></div>
+                                                <div class="bottom">
+                                                    <div class="percent">
+                                                        <span></span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tendency-degree">
+                                            <div class="small-title"><p class="line"></p>
+                                                <p class="title">您在四种人格维度上的倾向和程度</p>
+                                                <p class="line"></p></div>
+                                            <div class="tendency-degree-list">
+                                                <div class="item m-r-49"><em>中度偏好内向型-I</em></div>
+                                                <div class="item m-r-49"><em>中度偏好直觉型-N</em></div>
+                                                <div class="item m-r-49"><em>轻微偏好情感型-F</em></div>
+                                                <div class="item m-r-49"><em>中度偏好判断型-J</em></div>
+                                            </div>
+                                        </div>
+                                        <div class="result-tendency-degree m-b-77">
+                                            <div class="small-title"><p class="line"></p>
+                                                <p class="title">您在四种人格维度上的倾向和程度</p>
+                                                <p class="line"></p></div>
+                                            <div class="detail"><em>INFJ(内向+直觉+情感+判断)</em></div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-top mg-b">
+                                            <div class="logo"></div>
+                                        </div>
+                                        <div class="tag-line">
+                                            <div class="title"><p class="diamond"></p>
+                                                <p>能力标签分析</p></div>
+                                            <div class="tag-apply-chart">
+                                                <div class="tag-chart" id="chartX">
+                                                    <div class="result-xy">
+                                                        <div class="result-bg" data-month="忠诚度"><span class="result-bar"
+                                                                                                      style="height: 65%;"><s
+                                                                title="8.4"><i line=""
+                                                                               style="width: 56.7969px; transform: rotate(0rad);"></i></s></span>
+                                                        </div>
+                                                        <div class="result-bg" data-month="责任心"><span class="result-bar"
+                                                                                                      style="height: 65%;"><s
+                                                                title="2.4"><i line=""
+                                                                               style="width: 128.471px; transform: rotate(1.11286rad);"></i></s></span>
+                                                        </div>
+                                                        <div class="result-bg" data-month="创新力"><span class="result-bar"
+                                                                                                      style="height: 42%;"><s
+                                                                title="3.4"><i line=""
+                                                                               style="width: 82.6984px; transform: rotate(0.813725rad);"></i></s></span>
+                                                        </div>
+                                                        <div class="result-bg" data-month="耐心程度"><span
+                                                                class="result-bar" style="height: 30%;"><s
+                                                                title="4.4"><i line=""
+                                                                               style="width: 56.7969px; transform: rotate(0rad);"></i></s></span>
+                                                        </div>
+                                                        <div class="result-bg" data-month="洞察力"><span class="result-bar"
+                                                                                                      style="height: 30%;"><s
+                                                                title="5.4"><i line=""
+                                                                               style="width: 82.6984px; transform: rotate(-0.813725rad);"></i></s></span>
+                                                        </div>
+                                                        <div class="result-bg" data-month="分析能力"><span
+                                                                class="result-bar" style="height: 42%;"><s
+                                                                title="6.4"><i line=""
+                                                                               style="width: 296.092px; transform: rotate(-1.37778rad);"></i></s></span>
+                                                        </div>
+                                                        <div class="result-bg" data-month="适应能力"><span
+                                                                class="result-bar" style="height: 100%;"><s title="7.4"><i
+                                                                line=""
+                                                                style="width: 184.328px; transform: rotate(1.25757rad);"></i></s></span>
+                                                        </div>
+                                                        <div class="result-bg" data-month="抗压能力"><span
+                                                                class="result-bar" style="height: 65%;"><s
+                                                                title="6.4"><i line=""
+                                                                               style="width: 184.328px; transform: rotate(-1.25757rad);"></i></s></span>
+                                                        </div>
+                                                        <div class="result-bg" data-month="沟通能力"><span
+                                                                class="result-bar" style="height: 100%;"><s title="4.4"><i
+                                                                line=""
+                                                                style="width: 296.092px; transform: rotate(1.37778rad);"></i></s></span>
+                                                        </div>
+                                                        <div class="result-bg" data-month="判断能力"><span
+                                                                class="result-bar" style="height: 42%;"><s
+                                                                title="5.4"></s></span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="left-color">
+                                                    <div class="line ability-color-1"></div>
+                                                    <div class="line ability-color-2"></div>
+                                                    <div class="line ability-color-3"></div>
+                                                    <div class="line ability-color-4"></div>
+                                                    <div class="line ability-color-5"></div>
+                                                    <div class="line ability-color-6"></div>
+                                                    <div class="line ability-color-7"></div>
+                                                    <div class="line ability-color-8"></div>
+                                                    <div class="line ability-color-9"></div>
+                                                </div>
+                                                <div class="left-arrow"><img
+                                                        src="http://qzz-static.forwe.store/evaluation-mng/imgs/qcp_pdf_up.png?x-oss-process=image/resize,m_fill,w_21,h_41"><img
+                                                        src="http://qzz-static.forwe.store/evaluation-mng/imgs/qcp_pdf_down.png?x-oss-process=image/resize,m_fill,w_21,h_41">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tag-sort">
+                                            <div class="small-title"><p class="line"></p>
+                                                <p class="title">您的能力标签排序</p>
+                                                <p class="line"></p></div>
+                                            <div class="detail">
+                                                <div class="top">
+                                                    <div class="tag ability-color-1">沟通能力</div>
+                                                    <p>=</p>
+                                                    <div class="tag ability-color-1">适应能力</div>
+                                                    <p>&gt;</p>
+                                                    <div class="tag ability-color-4">忠诚度</div>
+                                                    <p>=</p>
+                                                    <div class="tag ability-color-4">抗压能力</div>
+                                                    <p>=</p>
+                                                    <div class="tag ability-color-4">责任心</div>
+                                                    <p>&gt;</p>
+                                                    <div class="tag ability-color-6">分析能力</div>
+                                                    <p>=</p>
+                                                    <div class="tag ability-color-6">创新力</div>
+                                                    <p>=</p>
+                                                    <div class="tag ability-color-6">判断能力</div>
+                                                    <p>&gt;</p>
+                                                    <div class="tag ability-color-7">洞察力</div>
+                                                    <p>=</p>
+                                                    <div class="tag ability-color-7">耐心程度</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-top mg-b">
+                                            <div class="logo"></div>
+                                        </div>
+                                        <div class="page-title">三、四维人格倾向解读</div>
+                                        <div class="personality-title"><p class="diamond"></p>
+                                            <p class="title">您的四维人格倾向（偏好）详解如下</p></div>
+                                        <div class="personality-line"></div>
+                                        <div class="personality-detail">
+                                            <div class="header">E-I维度：外向</div>
+                                            <div class="content">
+                                                <div class="item">
+                                                    <div class="item-header"><p class="diamond"></p>
+                                                        <p class="title">主要特点</p></div>
+                                                    <div class="item-content">
+                                                        <div class="left">
+                                                            关注指向于外界的物质和社会环境，并以此为参照点，以决定自己对外界事物所有的态度、价值和兴趣。喜欢社会交往，喜欢在公共场合出头露面，乐于成为大家注意的中心;兴趣多指向于外界，对外界刺激反应明显，遇事能迅速作出决定;思想开朗
+                                                        </div>
+                                                        <div class="right"><img
+                                                                src="http://daily-eval.sunmeta.top/public-assets/%E7%B1%BB%E5%9E%8B/%E5%A4%96%E5%90%91.png?x-oss-process=image/resize,m_fill,w_150,h_71"
+                                                                alt="图片"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="item-header"><p class="diamond"></p>
+                                                        <p class="title">优点</p></div>
+                                                    <div class="item-content"> 反应迅速，容易成为大家的焦点。喜欢刺激和冒险;讲究实际，敢做敢为</div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="item-header"><p class="diamond"></p>
+                                                        <p class="title">缺点</p></div>
+                                                    <div class="item-content">情绪易冲动，有进犯性，行动往往缺乏精密的思考</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-top mg-b">
+                                            <div class="logo"></div>
+                                        </div>
+                                        <div class="personality-detail">
+                                            <div class="header">S-N维度：感觉</div>
+                                            <div class="content">
+                                                <div class="item">
+                                                    <div class="item-header"><p class="diamond"></p>
+                                                        <p class="title">主要特点</p></div>
+                                                    <div class="item-content">
+                                                        <div class="left">
+                                                            关注的是事实本身，注重细节。信赖五官听到、看到、闻到、感觉到、尝到的实实在在、有形有据的事实和信息。注重细节的结果是感觉型的人擅长记忆大量事实与材料。
+                                                        </div>
+                                                        <div class="right"><img
+                                                                src="http://daily-eval.sunmeta.top/public-assets/%E7%B1%BB%E5%9E%8B/%E6%84%9F%E8%A7%89.png?x-oss-process=image/resize,m_fill,w_150,h_71"
+                                                                alt="图片"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="item-header"><p class="diamond"></p>
+                                                        <p class="title">优点</p></div>
+                                                    <div class="item-content"> 注重事物本身，注重细节把控。可靠实在的做事方式，让人感觉踏实。</div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="item-header"><p class="diamond"></p>
+                                                        <p class="title">缺点</p></div>
+                                                    <div class="item-content"> 按部就班，循规蹈矩，固守现实，享受现实，使用已有的技能</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="personality-detail">
+                                            <div class="header">T-F维度：情感</div>
+                                            <div class="content">
+                                                <div class="item">
+                                                    <div class="item-header"><p class="diamond"></p>
+                                                        <p class="title">主要特点</p></div>
+                                                    <div class="item-content">
+                                                        <div class="left">
+                                                            偏好以自己的主观价值观作判断，有同情心、善良、和睦、善解人意，考虑行为对他人情感的影响，认为圆通和坦率同样重要。喜欢欣赏支持他人，与他人合作，积极的赞美他人，重视创造和谐的周围环境，尊重每个人有独立的个性，重视决策对他人的影响，善于通过奖励与合作激发工作热情。
+                                                        </div>
+                                                        <div class="right"><img
+                                                                src="http://daily-eval.sunmeta.top/public-assets/%E7%B1%BB%E5%9E%8B/%E6%83%85%E6%84%9F.png?x-oss-process=image/resize,m_fill,w_150,h_71"
+                                                                alt="图片"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="item-header"><p class="diamond"></p>
+                                                        <p class="title">优点</p></div>
+                                                    <div class="item-content">体谅他人感受、了解他人的需要、喜欢和谐的人际关系、易表露情感、喜去说服他人。
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="item-header"><p class="diamond"></p>
+                                                        <p class="title">缺点</p></div>
+                                                    <div class="item-content"> 不合乎逻辑、不够客观、没有组织系统的思考、不具批判精神全盘接受、感情用事。
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-top mg-b">
+                                            <div class="logo"></div>
+                                        </div>
+                                        <div class="personality-detail">
+                                            <div class="header">J-P维度：判断</div>
+                                            <div class="content">
+                                                <div class="item">
+                                                    <div class="item-header"><p class="diamond"></p>
+                                                        <p class="title">主要特点</p></div>
+                                                    <div class="item-content">
+                                                        <div class="left">
+                                                            目的性较强，一板一眼，他们喜欢有计划、有条理的世界，更愿意以比较有序的方式生活。他们做事会明确目标和计划，满足感来源于完成的计划。会有意识的推进，但同时也急于下结论，得到结果。喜欢命令、控制，具有明确的方案感，有明确的标准和自我意识。
+                                                        </div>
+                                                        <div class="right"><img
+                                                                src="http://daily-eval.sunmeta.top/public-assets/%E7%B1%BB%E5%9E%8B/%E5%88%A4%E6%96%AD.png?x-oss-process=image/resize,m_fill,w_150,h_71"
+                                                                alt="图片"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="item-header"><p class="diamond"></p>
+                                                        <p class="title">优点</p></div>
+                                                    <div class="item-content"> 有效率的，有计划的，有责任心的。</div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="item-header"><p class="diamond"></p>
+                                                        <p class="title">缺点</p></div>
+                                                    <div class="item-content"> 强迫的，急切的，固执己见</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-top mg-b">
+                                            <div class="logo"></div>
+                                        </div>
+                                        <div class="page-title">四、MBTI人格类型解读</div>
+                                        <div class="classify-explain"><span>您的人格类型是：</span><span class="title">INFJ(内向+直觉+情感+知觉) </span><span>，详解如下：</span>
+                                        </div>
+                                        <div class="personality-line"></div>
+                                        <div class="classify-detail">
+                                            <div class="title"><p class="diamond"></p>
+                                                <p>1、典型特征画像</p></div>
+                                            <div class="content">
+                                                <div class="left">
+                                                    <div class="list">
+                                                        <div class="circle"></div>
+                                                        <p>诚挚、爱说话、合作性高、受欢迎、光明正大 的—天生的 合作者及活跃的组织成员</p></div>
+                                                    <div class="list">
+                                                        <div class="circle"></div>
+                                                        <p>重和谐且长于创造和谐。</p></div>
+                                                    <div class="list">
+                                                        <div class="circle"></div>
+                                                        <p>常作对他人有益事务。</p></div>
+                                                    <div class="list">
+                                                        <div class="circle"></div>
+                                                        <p>给予鼓励及称许会有更佳工作成效。</p></div>
+                                                    <div class="list">
+                                                        <div class="circle"></div>
+                                                        <p>最有兴趣于会直接及有形影响人们生活的事务。</p></div>
+                                                    <div class="list">
+                                                        <div class="circle"></div>
+                                                        <p>喜欢与他人共事去精确且准时地完成工作。</p></div>
+                                                </div>
+                                                <div class="right"><p class="production">热情周到的主人型</p>
+                                                    <div class="image"><img
+                                                            src="http://daily-eval.sunmeta.top/public-assets/%E4%BA%BA%E7%89%A9/ESFJ.png?x-oss-process=image/resize,m_fill,w_119,h_180">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="classify-detail">
+                                            <div class="title"><p class="diamond"></p>
+                                                <p>2、人格特征</p></div>
+                                            <div class="detail">
+                                                ESFJ型的人通过直接的行动和合作积极地以真实、实际的方法帮助别人。他们友好、富有同情心和责任感。因为ESFJ型的人把他们同别人的关系放在十分重要的位置，所以他们往往健谈、受人欢迎、有礼貌、渴望取悦他人。他们具有和睦的人际关系，并且通过很大的努力以获得和维持这种关系。事实上，他们常常理想化自己欣赏的人或物。ESFJ型的人往往对自己以及自己的成绩十分欣赏，因而他们对于批评或者别人的漠视很敏感。通常他们很果断，表达自己坚定的主张，乐于事情能很快得到解决。<br>ESFJ型的人很现实，
+                                                他们讲求实际、 实事求是和安排有序。 他们参与并能记住重要的事情和细节， 乐于别人也能对自己的事情很确信。
+                                                他们在自己的个人经历或在他们所信赖之人的经验之上制定计划或得出见解。 他们知道并参与周围的物质世界， 并喜欢具有主动性和创造性。 <br>ESFJ型的人十分小心谨慎，
+                                                也非常传统化， 因而他们能恪守自己的责任与承诺。 他们支持现存制度， 往往是委员会或组织机构中积极主动和乐于合作的成员，
+                                                他们重视并能保持很好的社交关系。 他们不辞劳苦地帮助他人， 尤其在遇到困难或取得成功时， 他们都很积极活跃。
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-top mg-b">
+                                            <div class="logo"></div>
+                                        </div>
+                                        <div class="classify-detail">
+                                            <div class="title"><p class="diamond"></p>
+                                                <p>3、可能存在的盲点</p></div>
+                                            <div class="detail">
+                                                ESFJ型的人高度重视和睦的关系，所以他们往往避免冲突，而不是毫不含糊地处理问题。有时他们过多地重视和在意所关心的见解和情感。在紧张或痛苦之时，他们对事实情况茫然无知。他们必须学会坦诚率直地处理冲突，确信在最困境的情形中，他们对于别人的情感具有天生的敏感，这种敏感会为他们提供必要的圆通。<br>ESFJ型的人往往会忽视自己的情感，
+                                                因为他们渴望帮助别人， 使别人高兴。 他们很难拒绝别人或向别人请求帮助， 这是因为不希望冒犯或使别人失望。 通常他们很难提出或接受建设性的意见，
+                                                因为他们很个人化地去处理事物。 当他们找不到改变生活的办法， 就会很悲观失望。 暂时退后一步思考问题， 判定一些目标，
+                                                这样会使他们得到新的前景。 在努力帮助别人的过程中， ESFJ型的人有时会以专横和盛气凌人的态度表达他们的观点。 因而， 在帮助别人之前，
+                                                最好看一看别人是否希望得到建议或帮助。 <br>ESFJ型的人经常在还有充分的时间去收集一些不明确的情况， 并考虑他们行动的后果之前，
+                                                便匆匆地做出决定。 他们缺少灵活性， 往往不会去寻找解决问题的新办法或不同办法。 推迟做决定， 更多地对解决问题的新颖方法采取欢迎的态度，
+                                                这样才会使自己有更好的资料基础， 更好地做出决定。
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-top mg-b">
+                                            <div class="logo"></div>
+                                        </div>
+                                        <div class="classify-detail">
+                                            <div class="title"><p class="diamond"></p>
+                                                <p>4、个人优劣势分析</p></div>
+                                            <div class="classify-image m-b-25"><img
+                                                    src="http://qzz-static.forwe.store/evaluation-mng/imgs/qcp_pdf_superiority.png?x-oss-process=image/resize,m_fill,w_90,h_31">
+                                                <div class="line"></div>
+                                            </div>
+                                            <p class="abstract">
+                                                对于不同的人格类型和不同的动力等极而言，没有“好”与“坏”之分，每一个人都是一个独一无二的个体，都有其特别的优势和劣势，但问题的关键在于如何认识这些优势和劣势,完善自己。我们对于成功的建议是：“取已之长，补已之短”。学会了这一点将会影响到你的成败及你对工作的喜好，你在工作中的优势是：</p>
+                                            <div class="detail"><p>*有很大的精力和动力来完成任务、创造成果</p>
+                                                <p>*能够有效地合别人写作，并且和他人建立起友好和睦的人际关系</p>
+                                                <p>*处理事实和细节问题时，具有客观的态度和得天独厚的天资才能</p>
+                                                <p>*善于培养和帮助他人；对于别人良好的行为举止能够给予赞扬，并使他们更加发扬光大</p>
+                                                <p>*果敢坚决，稳定可靠</p>
+                                                <p>*能够维护组织一向德价值观念和工作原则</p>
+                                                <p>*灵活的组织技能和明确的工作道德</p>
+                                                <p>*信奉工作在一个传统、稳定的组织里有其自身的优点和长处</p>
+                                                <p>*乐意遵循已制定的理性公事和工作程序</p>
+                                                <p>*通情达理，视角现实</p></div>
+                                            <div class="classify-image m-b-25"><img
+                                                    src="http://qzz-static.forwe.store/evaluation-mng/imgs/qcp_pdf_inferiority.png?x-oss-process=image/resize,m_fill,w_90,h_31">
+                                                <div class="line"></div>
+                                            </div>
+                                            <p class="abstract">
+                                                下面列出了你工作中可能存在的缺点，这些缺点有的比较明显，有的并不明显或你没有意识到，目的是为了让你“注意”到它们，并考虑产生的原因。缺点有些是天生的，而有些是长时间形成的，因此你不可能在一两天内改变，而是去提醒、思考。注意：其实知道存在的问题就是改变提高中很重要的一步，你会发现你正在慢慢发生变化。您工作中的劣势：</p>
+                                            <div class="detail"><p>*不愿意尝试、接受新的和未经考验的观点和想法</p>
+                                                <p>*对于别人的异议和批评耿耿于怀；不喜欢在紧张的气氛中工作</p>
+                                                <p>*可能只关注眼前需要，而对于长远利益重视不够</p>
+                                                <p>*难以适应新境况，在不同工作任务之间来回切换时会有困难</p>
+                                                <p>*容易表现的过于敏感；逃避难堪的场合</p>
+                                                <p>*不愿意长时间独自工作，特及其想要和别人在一起</p>
+                                                <p>*会轻易地把个人喜好表露出来</p>
+                                                <p>*可能由于情感方面的负担而疲惫不堪</p>
+                                                <p>*在掌握的嬉戏和资料还不够的情况下便草率作出决定</p>
+                                                <p>*之关注具体的细节之处，而不能整体地把握一个情况或者事物的长远影响</p>
+                                                <p>*容易固执己见、武断地做出决定</p>
+                                                <p>*不愿意听取和接受反面的观点和意见</p>
+                                                <p>*得不到赞扬或欣赏之辞的时候，可能会灰心丧气</p>
+                                                <p>*只考虑眼前的需要，不愿意为事情作长远打算</p></div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-top mg-b">
+                                            <div class="logo"></div>
+                                        </div>
+                                        <div class="classify-detail">
+                                            <div class="title"><p class="diamond"></p>
+                                                <p>5、适合的岗位特质</p></div>
+                                            <p class="abstract">
+                                                研究发现：职业满足会使你的工作主动性更强，积极性更高，更愿意去工作。以下不是简单的告诉你什么样的工作适合你，而是细化的帮你分析工作中的哪些特质对你重要，你还需要从中选出你认为最重要的，
+                                                因为不同经历的人对特质的重要程度要求是不同的。每个岗位的工作内容都在随企业的发展而发展，
+                                                不是一成不变的，有时候岗位的发展方向需要我们自己去争取。所以找到适合的工作不如找到适合自己发展的岗位更直接。这些特质可以帮助明确如何主动的发展或争取你岗位中的那些特质。
+                                                下面的条目从各个侧面上认证了您怎样才能受到真正的职业满足，看完这些条目之后，我们建议您根据它们对您的重要程序进行排序，排序的时候，回想一下您过去的学习、工作经历以及当前学习环境和工作
+                                                感受，并思考：“哪一些是令你感到特别满意，有哪些令你极其不高兴”。试着寻找贯穿这些经历的主题。</p>
+                                            <div class="detail">你的岗位特质：作为INFJ型人，职业满足意味着你做的这些工作：<br>1、能让我与别人建立并维持友好、真诚的人际关系，通过切实有形的方式来帮助他们提高生活质量。<br>2、
+                                                能给他人带来切实的利益； 让我有时间来学习和精通必要的技能， 然后把它们运用到工作中来为他人提供服务。 <br>3、 能让我具有一定的影响力；
+                                                工作时能和许多人打交道， 领导他们为了共同的目标而和谐地合作。 <br>4、 有明确的工作要求， 工作表现是运用明确的、
+                                                确定的成文标准来衡量的。 <br>5、 在一个和谐、 合作的气氛下进行的； 同事、 上司、 客户、 病人等人彼此之间不会发生冲突和不和。
+                                                <br>6、 为了保证我的任务能够出色地完成， 我能自主地做出一些决定， 并运用一些高效的方法。 <br>7、
+                                                每天都能让我有大量的与别人交往的机会； 而且我能够成为决策过程的重要成员。 <br>8、 为了确保事情顺利高效地进展，
+                                                我能够安排自己以及周围其他人的工作。 <br>9、 在一个友好的气氛中进行的； 别人对我的工作成就表示赞赏， 我能体会到认可和支持，
+                                                我和同事之间是朋友关系。 <br>10、 在一个有章可循的环境中进行的， 所有的指令和要求都公开和清晰； 而且权威受到充分的重视。
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-top mg-b">
+                                            <div class="logo"></div>
+                                        </div>
+                                        <div class="classify-detail">
+                                            <div class="title"><p class="diamond"></p>
+                                                <p>6、适合的职位类型</p></div>
+                                            <p class="abstract">
+                                                也许你会觉得下面的工作种类繁杂，但仔细分析你就会发现，这些工作各自的特色正是你对工作的要求，我们会在下面列出各类工作的特质。当然，这不可能是一个完美的适合你的工作的综合，但是，却能够向你展示你以前不曾考虑过的工作的可能性。在列出这些工作的同时，我们也要敬告您：每种职业中都有各种性格类型的成功人士；即使是相同的工作，不同公司的要求也不尽相同，所以除了工作名称外，你还要对贵公司要求的工作内容和公司文化作详细的了解。我们希望在经济快速发展、新型工作不断涌现将来，这份报告上列举的工作种类不是限制了你的选择，而是告诉你，面对新工作的选择或机会时，应该从哪些因素来分析这些工作对你的适合程度。</p>
+                                            <p class="profession"><span>以下是适合</span><span class="name">INFJ</span><span>一般职业：</span>
+                                            </p>
+                                            <div class="profession-detail" style="margin-bottom: 16px;"><h3>
+                                                保健·医师助理／牙医助理·言语病理学家·运动生理学家·家庭医生·护士·牙医·医用秘书·验光师·饮食学家／营养学家·按摩治疗专家·验光师／配镜技师·药剂师／制药技师·呼吸系统治疗专家·兽医·领照实习护士·家庭健康护理·最初保健护理医师·理疗专家·家庭健康社会工作者</h3>
+                                                保健领域对ESFJ的吸引力主要是它们能够允许ESFJ以一种直接的方式去帮助他人。无论是内科医生、护士或其他类似的职业，ESFJ都喜欢通过学习技能帮助他们的病人生活得更加容易，减少痛苦和创伤。这些领域要求有较强的实际操作能力和严格遵守运行程序的标准，这正是ESFJ所善长的两件事。这些保健领域的职业还可以使ESFJ与病人及同事建立并维护亲密的关系。
+                                                <h3>教育·小学教师·特殊教育工怍者·儿童照管人员·家庭经济教师·运动教练·双语教学老师</h3>
+                                                ESFJ的教育方式常常是介入个人感情的，并且善于举例。ESFJ非常喜欢对低年级学生和有特殊需要的学生进行教育，因为他们认为帮助别人掌握一些基本的知识和技能是非常有意义的。直接与小学生们打交道满足了ESFJ天性中的能量和热情。在学校环境中，常常有许多规章和制度，这是ESFJ所喜欢的，他们能在这里找到满足感。很多ESFJ喜欢运动，因此他们愿意教给别人一些运动技巧。他们希望在工作中能有重要的地位。
+                                            </div>
+                                            <div class="profession-detail" style="margin-bottom: 16px;"><h3>
+                                                社会服务／咨询·社会工作者·社区福利工作者·专业自愿者·宗教教育者·顾问·律师帮办·女雇员问题咨询顾问·儿童福利顾问·戒毒和戒酒咨询顾问·社会工作者·牧师／神父／拉比</h3>
+                                                ESFJ都是社区活动的有力支持者，他们经常自愿建立并维护市民组织。因此，他们可以从类似的社会工作中找到职业满足感。帮助个人或家庭解决问题，使他们成为社会积极的一部分，这对很多ESFJ可是非常有意义的。他们与人轻松交往的能力和为团体服务的精神使他们容易在社区活动中得到满足感。顾问、宗教教育者、牧师这些职业之所以吸引ESFJ是因为他们喜欢以一种特殊的、深刻的方式去帮助别人。ESFJ天性倾向于传统和保守，因此他们喜欢在固定结构的、有传统价值观念的团体中贡献他们的力量。
+                                                <h3>
+                                                    商务·公关业务经理·私人银行家·销售代表(有形商品)·电话推销员·办公室经理·零售商·接待员·保险代理(家庭)·管理顾问：人力资源／培训·信贷顾问·经营策划者</h3>
+                                                商业世界为ESFJ提供了和许多人打交道的机会以及通过勤奋工作达到自己目标的机会，他们喜欢商业活动中的快节奏和活力，他们喜欢与顾客或客户打交道。当工作中涉及到私人关系时，如房地产或私人银行，很多ESFJ都能获得成功。因为他们善于与别人建立积极向上的关系并且能够维持这种关系。公关和推销需要杰出的人际交流技巧，这正是大多数ESFJ所具有的。这两种职业都需要密切关注细节，把整个计划贯彻到底。ESFJ的组织才能在这些领域得到了充分的发挥。最后，销售领域也是ESFJ经常能获得大量成功的地方。因为他们能够利用他们的交际能力、他们的机智、和他们的敏感充分满足顾客的需求。贴刃通常喜欢卖有形商品，他们不喜欢销售诸如概念、思想或复杂系统等无形的商品，他们对零售非常感兴趣，因为这个行业可以使他们与公众接触，使他们的能力不断增强并且由于特定的商品而受益。
+                                            </div>
+                                            <div class="profession-detail" style="margin-bottom: 16px;"><h3>
+                                                销售／服务·飞机服务员·顾客服务代表·殡仪馆管理人员·高级理发师／美容师·旅店老板／老板娘·酒席承办者·资金筹集人·旅行推销员·环境旅游专家·不动产代理／经纪人·翻译·系谱学家·家庭保健用品销售·体育设备／商品销售·营销经理：无线电／电视／广播电缆工业</h3>
+                                                ESFJ经常喜欢从事服务行业，主要是因为这个行业可以使他们直接与其他人打交道，使他们为他人提供服务，帮助他人减轻痛苦或者生活得更好。顾客服务代表的工作为他们做到这些提供了机会。ESFJ在困难的时候是坚定不移、值得依靠的，他们经常在危机的时候站出来承担具体事务。殡仪馆管理人员在工作中必须对他人的需求表现出极大的敏感和关心。作为飞机服务员，ESFJ喜欢工作对象的变化、旅行和与人打交道。大多数ESFJ都是热情而殷勤的，他们在饭馆或承办事务中是出色的老板或老板娘。ESFJ喜欢销售，并且擅长销售，特别是对于有形的、具体的商品。通过销售，他们可以与顾客建立长期的良好关系。
+                                                <h3>职员工作·秘书·接待员·办公室机器操作员·簿记员·打字员</h3>
+                                                大多数ESFJ除了具有文职工作所需要的与人交往的技巧以外，他们还有熟练、灵巧的操作能力。一旦他们学会了—一项技术，他们就永远也不会忘记。ESFJ可以没有任何差错地完成例行的工作，他们还具有作为一名簿记员所需要的处理数字的能力。这类工作最吸引ESFJ的地方是他们可以感到自己是集体的一员，他们，可以与同事们并肩工作。孤立对ESFJ来说是令人沮丧的。
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-top mg-b">
+                                            <div class="logo"></div>
+                                        </div>
+                                        <div class="classify-detail">
+                                            <div class="title m-b-25"><p class="diamond"></p>
+                                                <p>7、对组织的贡献</p></div>
+                                            <div class="detail m-b-77"><p>*尊重规范和权威；</p>
+                                                <p>*与他人良好地协同工作，尤其是在团队方面；</p>
+                                                <p>*密切关注人的需要和要求；</p>
+                                                <p>*能够按时准确地完成任务，有效地处理日常工作。</p></div>
+                                        </div>
+                                        <div class="classify-detail">
+                                            <div class="title m-b-25"><p class="diamond"></p>
+                                                <p>8、领导风格</p></div>
+                                            <div class="detail m-b-77"><p>*通过自己个人对他人的关注进行领导；</p>
+                                                <p>*通过各种良好的关系获得良好意愿；</p>
+                                                <p>*让组织成员对工作状况都能够清晰明了；</p>
+                                                <p>*在组织中设立努力工作和持之以恒的榜样；</p></div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-top mg-b">
+                                            <div class="logo"></div>
+                                        </div>
+                                        <div class="classify-detail">
+                                            <div class="title m-b-25"><p class="diamond"></p>
+                                                <p>9、潜在缺陷</p></div>
+                                            <div class="warn-detail m-b-77">
+                                                <div class="left"><p>*回避冲突，只管无关痛痒的事；</p>
+                                                    <p>*由于渴望取悦于他人，将自己组织的优势地位看得很轻；</p>
+                                                    <p>*可能忽视工作发展的可能性和远景；</p>
+                                                    <p>*可能以为组织成员都能够认识到什么才是人和组织所需要的。</p></div>
+                                                <div class="right"><img
+                                                        src="http://qzz-static.forwe.store/evaluation-mng/imgs/qcp_pdf_warn.png?x-oss-process=image/resize,m_fill,w_91,h_91"
+                                                        alt="警告"></div>
+                                            </div>
+                                        </div>
+                                        <div class="classify-detail">
+                                            <div class="title m-b-25"><p class="diamond"></p>
+                                                <p>10、适合工作环境</p></div>
+                                            <div class="detail m-b-77"><p>*认真、合作和乐于帮助他人的同事；</p>
+                                                <p>*目标导向的人和系统；</p>
+                                                <p>*组织化的；</p>
+                                                <p>*友好的；</p>
+                                                <p>*有所尊重的同事；</p>
+                                                <p>*根据事实办事。</p></div>
+                                        </div>
+                                    </div>
+                                    <div class="page-box">
+                                        <div class="page-top mg-b">
+                                            <div class="logo"></div>
+                                        </div>
+                                        <div class="page-title">五、个人发展建议</div>
+                                        <div class="classify-detail m-t-34"><p class="abstract">
+                                            现在你对自己的人格类型和动力已经有了一个比较清楚的了解，但这还不够。“如何通过这些信息使你在这份工作上取得更大的成功”，这是关键所在。运用你的能力非常容易，你成功的秘诀在于：</p>
+                                            <div class="detail m-b-34"><p>办事情时要不紧不慢；</p>
+                                                <p>考虑眼前并不存在的可能性；</p>
+                                                <p>不要随便地把事情视为是对自己的人身攻击。</p></div>
+                                            <p class="abstract">
+                                                个人发展建议是我们咨询师多年测评职业咨询和职业生涯规划的心得体会和经验总结，我们意识到以下的建议中有很多是难以完全照办的，但只要你花时间认真思考，一定会对你有极大的帮助和改变。发展建议：</p>
+                                            <div class="detail m-b-77"><p>需要学会如何看待和管理冲突；</p>
+                                                <p>需要努力倾听其它人的愿望和要求；</p>
+                                                <p>需要考虑其决策的逻辑与全局影响。</p></div>
+                                        </div>
+                                        <div class="history-people">
+                                            <div class="header"><p class="line"></p>
+                                                <p class="title">历史名人</p>
+                                                <p class="line"></p></div>
+                                            <div class="content"><p>加西亚·马尔克斯（1927年3月6日－2014年4月17日）作家、记者、社会活动家</p>
+                                                <p>杰奎琳·肯尼迪（1929年7月28日－1994年5月19日）美国第35任总统夫人</p>
+                                                <p>村上春树（1949年1月12日）作家</p>
+                                                <p>王安忆（1954年3月）作家、文学家</p>
+                                                <p>戴安娜王妃（1961年7月1日—1997年8月31日）</p>
+                                                <p>薛兆丰（1968年）经济学家</p>
+                                                <p>余秀华（1976年）诗人</p>
+                                                <p>于正（1978年2月28日）影视编剧、制片人</p>
+                                                <p>金·卡戴珊（1980年10月21日）服装设计师、企业家</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </section>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!--<script src="//qzz-static.forwe.store/public-assets/eruda.js"></script>-->
+<!--<script>-->
+<!--    eruda.init();-->
+<!--</script>-->
+<!--<script>-->
+<!--    if (location.href.indexOf('qzz-eval') > -1) {-->
+<!--        !(function (c, b, d, a) {-->
+<!--            c[a] || (c[a] = {});-->
+<!--            c[a].config = {-->
+<!--                pid: "aylzefo814@6a023c5b3b14d4b",-->
+<!--                appType: "web",-->
+<!--                imgUrl: "https://arms-retcode.aliyuncs.com/r.png?",-->
+<!--                sendResource: true,-->
+<!--                enableLinkTrace: true,-->
+<!--                behavior: true-->
+<!--            };-->
+<!--            with (b) with (body) with (insertBefore(createElement("script"), firstChild)) setAttribute("crossorigin", "", src = d)-->
+<!--        })(window, document, "https://retcode.alicdn.com/retcode/bl.js", "__bl");-->
+<!--    }-->
+<!--</script>-->
+<!--<script nomodule="">!function () {-->
+<!--    var e = document, t = e.createElement("script");-->
+<!--    if (!("noModule" in t) && "onbeforeload" in t) {-->
+<!--        var n = !1;-->
+<!--        e.addEventListener("beforeload", (function (e) {-->
+<!--            if (e.target === t) n = !0; else if (!e.target.hasAttribute("nomodule") || !n) return;-->
+<!--            e.preventDefault()-->
+<!--        }), !0), t.type = "module", t.src = ".", e.head.appendChild(t), t.remove()-->
+<!--    }-->
+<!--}();</script>-->
+<!--<script nomodule="" id="vite-legacy-polyfill"-->
+<!--        src="//qzz-static.forwe.store/evaluation-mng/static/assets/polyfills-legacy.0f861d61.js"></script>-->
+<!--<script nomodule="" id="vite-legacy-entry"-->
+<!--        data-src="//qzz-static.forwe.store/evaluation-mng/static/assets/index-legacy.71049801.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>-->
+
+
+</body>
+<div class="__chii-hide__" style="display: none; position: absolute; pointer-events: none;">
+    <div style="position: absolute; box-sizing: border-box; z-index: 100000;"></div>
+    <div style="position: absolute; box-sizing: border-box; z-index: 100000;"></div>
+    <div style="position: absolute; box-sizing: border-box; z-index: 100000;"></div>
+    <div style="position: absolute; box-sizing: border-box; z-index: 100000;"></div>
+    <div style="position: absolute; box-sizing: border-box; z-index: 100000; height: 25px; line-height: 25px; background: rgb(255, 255, 255); color: rgb(34, 34, 34); font-size: 12px; padding: 0px 5px; white-space: nowrap; overflow-x: hidden; box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 2px 0px, rgba(0, 0, 0, 0.08) 0px 1px 4px 0px, rgba(0, 0, 0, 0.2) 0px 3px 1px -2px;"></div>
+</div>
+<div style="all: initial;"></div>
+</html>
