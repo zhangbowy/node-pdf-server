@@ -2,7 +2,6 @@ import BaseController from '@/core/baseController';
 import { SelfController as Controller, Get } from '@/router';
 // import { Auth } from '@/lib//decorator/auth';
 // import { LoginType } from '@/lib/enum';
-const pdfService = require('@/service/pdf')
 @Controller('/')
 export default class HomeController extends BaseController {
   @Get('/')
@@ -18,7 +17,7 @@ export default class HomeController extends BaseController {
   public async getPdf(): Promise<void> {
     try {
       const { url = 'http://localhost:8001/public/index.html' } = this.ctx.request.query;
-      const pdf = await pdfService.buildPdf(url)
+      const pdf = await this.service.pdf.buildPdf(url)
       // const ossResult = await this.service.oss.putFile(pdf)
       this.ctx.logger.info('pdf');
       // const pdf = await page.pdf({ format: 'A4' });

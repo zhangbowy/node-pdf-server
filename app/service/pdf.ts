@@ -1,9 +1,6 @@
 const puppeteer = require('puppeteer');
-class PDFService {
-    constructor() {
-        // this.init()
-    }
-
+import { Service } from 'egg';
+export default class PDFService extends Service {
 
     // @ts-ignore
     readonly config = {
@@ -101,6 +98,37 @@ class PDFService {
     }
 
 
+   public async createPdf(url, taskId) {
+        try {
+            const pdf = await this.buildPdf(url)
+            const fileName = await this.service.oss.createFileName()
+            const ossResult = await this.service.oss.putFile(pdf, `${fileName}.pdf`)
+            // if (!ossResult.url) {
+            //     return  this.fail(0, ossResult || '服务器错误' );
+            // }
+            const params = {
+                taskId,
+                url: ossResult.url
+            }
+            await this.notify(params)
+            this.ctx.logger.info('生成成功taskId: ',taskId)
+        } catch (e: any) {
+            this.ctx.logger.error('生成失败taskId: ',taskId, e.message || e)
+            // await this.notify(params)
+        }
+    }
+
+    private async notify(data) {
+        return this.ctx.curl('https://open.feishu.cn/open-apis/authen/v1/access_token', {
+            method: 'POST',
+            dataType: 'json',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: data
+        });
+    }
+
 
     // @ts-ignore
     private sleep(time) {
@@ -113,4 +141,3 @@ class PDFService {
 
 }
 
-module.exports = new PDFService()

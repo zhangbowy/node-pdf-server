@@ -6,6 +6,7 @@ const pdfService = require('@/service/pdf');
 
 const pdfCreateRule = {
     url: { type: 'string', required: true },
+    taskId: { type: 'number', required: true },
 };
 
 /**
@@ -34,19 +35,19 @@ export default class PDFController extends BaseController {
                 const errMsg: string = `${errFiled.field } ${errFiled.message}`
                 return  this.fail(0, errMsg)
             }
-            const { url } = body
-            const pdf = await pdfService.buildPdf(url)
-            const fileName = await this.service.oss.createFileName()
-            const ossResult = await this.service.oss.putFile(pdf, `${fileName}.pdf`)
-            if (!ossResult.url) {
-                return  this.fail(0, ossResult || '服务器错误' );
-            }
-            this.ctx.logger.info('pdf');
-            this.success(ossResult, '创建成功');
+            const { url, taskId } = body
+            // 异步执行
+            this.ctx.service.pdf.createPdf(url, taskId)
+            this.success([], '操作成功');
         } catch (e: any) {
             this.fail(0, e.message || '服务器错误' );
         }
     }
+
+
+
+
+
 
 
     /**
