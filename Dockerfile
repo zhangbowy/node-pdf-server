@@ -1,4 +1,4 @@
-FROM node:14.18.0-alpine
+FROM registry.cn-hangzhou.aliyuncs.com/zhangbo007/node:14.18.0-alpine
 #FROM alpine
 # 设置镜像作者
 LABEL MAINTAINER="zhangbo"
@@ -117,3 +117,4 @@ RUN npm run tsc
 EXPOSE 8001
 
 CMD [ "npm", "run", "prod" ]
+ docker tag node:14.18.0-alpine  registry.cn-beijing.aliyuncs.com/zhangbo/node:14.18.0-alpine
