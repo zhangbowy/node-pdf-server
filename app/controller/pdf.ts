@@ -34,10 +34,13 @@ export default class PDFController extends BaseController {
                 const errMsg: string = `${errFiled.field } ${errFiled.message}`
                 return  this.fail(0, errMsg)
             }
-            // ctx.validate(pdfCreateRule, body);
-            const { url = 'http://localhost:8001/public/index.html' } = this.ctx.request.query;
+            const { url } = body
             const pdf = await pdfService.buildPdf(url)
-            const ossResult = await this.service.oss.putFile(pdf)
+            const fileName = await this.service.oss.createFileName()
+            const ossResult = await this.service.oss.putFile(pdf, `${fileName}.pdf`)
+            if (!ossResult.url) {
+                return  this.fail(0, ossResult || '服务器错误' );
+            }
             this.ctx.logger.info('pdf');
             this.success(ossResult, '创建成功');
         } catch (e: any) {
@@ -53,13 +56,15 @@ export default class PDFController extends BaseController {
     @Get('test')
     public async getPdf(): Promise<void> {
         try {
-            const { url = 'http://localhost:8001/public/index.html' } = this.ctx.request.query;
+            const { url = 'http://localhost:7001/public/index.html' } = this.ctx.request.query;
             const pdf = await pdfService.buildPdf(url)
-            this.ctx.logger.info('pdf');
-            this.ctx.res.setHeader('Content-Type', 'application/pdf');
-            this.ctx.res.setHeader('Content-Length', pdf.length);
-            this.ctx.body = pdf;
-            // this.success(ossResult, '请求成功');
+            const ossResult = await this.service.oss.putFile(pdf, `zhangbotest.pdf`)
+
+            // this.ctx.logger.info('pdf');
+            // this.ctx.res.setHeader('Content-Type', 'application/pdf');
+            // this.ctx.res.setHeader('Content-Length', pdf.length);
+            // this.ctx.body = pdf;
+            this.success(ossResult, '请求成功');
         } catch (e: any) {
             this.fail(0, e.message || '服务器错误' );
         }
