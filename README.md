@@ -32,12 +32,17 @@ DATABASE_URL="mysql://账号:密码@ip:端口/库名"
 - 增加限流功能
 
 ## docker部署
+
+
 ```shell
 # 打包基础镜像包
-sudo docker build -f Dockerfile_base -t dcpool_api_base .
+sudo docker build -f Dockerfile_base -t puppeteer_base:0.0.1 .
 
 # 打tag
 docker tag dcpool_api_base repository/dcpool_api_base:0.1.0
+
+# 推到阿里云仓库
+docker push registry.cn-hangzhou.aliyuncs.com/zhangbo007/puppeteer_base:0.0.1 
 ````
 
 ## Author
