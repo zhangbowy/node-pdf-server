@@ -15,6 +15,6 @@ export default function() {
         port: 8001,
         hostname: '0.0.0.0',
       }
-    }
+    },
   };
 }

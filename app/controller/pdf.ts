@@ -3,9 +3,8 @@ import { SelfController as Controller, Get, Post } from '@/router';
 // import { Auth } from '@/lib//decorator/auth';
 // import { LoginType } from '@/lib/enum';
 const pdfService = require('@/service/pdf');
-
 const pdfCreateRule = {
-    url: { type: 'string', required: true },
+    htmlUrl: { type: 'string', required: true },
     taskId: { type: 'number', required: true },
 };
 
@@ -21,34 +20,32 @@ export default class PDFController extends BaseController {
     }
 
     /**
-     * 创建PDf
-     * @param url {string} 报告链接
+     * 创建PDF
+     * @param taskId {string} 报告链接
+     * @param taskId {string} 报告链接
      */
     @Post('/create')
     public async create(): Promise<void> {
         try {
             const {ctx} = this;
             const body = this.ctx.request.body;
+            /**
+             * 校验参数
+             */
             const err = ctx.app.validator.validate(pdfCreateRule, body);
             if (err) {
                 const [errFiled]  = err;
                 const errMsg: string = `${errFiled.field } ${errFiled.message}`
                 return  this.fail(0, errMsg)
             }
-            const { url, taskId } = body
+            const { htmlUrl, taskId } = body
             // 异步执行
-            this.ctx.service.pdf.createPdf(url, taskId)
+            this.ctx.service.pdf.createPdf(htmlUrl, taskId)
             this.success([], '操作成功');
         } catch (e: any) {
             this.fail(0, e.message || '服务器错误' );
         }
     }
-
-
-
-
-
-
 
     /**
      * 生成PDF
@@ -67,7 +64,7 @@ export default class PDFController extends BaseController {
             // this.ctx.body = pdf;
             this.success(ossResult, '请求成功');
         } catch (e: any) {
-            this.fail(0, e.message || '服务器错误' );
+            this.fail(0, e.message || '服务器错误');
         }
     }
 }

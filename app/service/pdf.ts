@@ -1,7 +1,8 @@
 const puppeteer = require('puppeteer');
 import { Service } from 'egg';
-export default class PDFService extends Service {
+const dayjs = require('dayjs');
 
+export default class PDFService extends Service {
     // @ts-ignore
     readonly config = {
         headless: true,
@@ -16,122 +17,161 @@ export default class PDFService extends Service {
         ],
     };
 
-    // private MAX_WSE = 1; // 启动几个浏览器
-    // private WSE_LIST = []; // 存储browserWSEndpoint列表
-
-    // private async init() {
-    //         for (let i = 0; i < this.MAX_WSE; i++) {
-    //             const browser = await puppeteer.launch(this.config);
-    //             // @ts-ignore
-    //             const v = await browser.version()
-    //             // @ts-ignore
-    //             this.WSE_LIST[i] = await browser.wsEndpoint();
-    //             console.log(this.WSE_LIST[i], 'contect-------')
-    //         }
-    //
-    //     // // @ts-ignore
-    //     // process.exit(async () => {
-    //     //     for (let i = 0; i < this.MAX_WSE; i++) {
-    //     //         const browserWSEndpoint = this.WSE_LIST[i];
-    //     //         const browser = await puppeteer.connect({browserWSEndpoint});
-    //     //         await browser.close()
-    //     //     }
-    //     //     this.WSE_LIST = []
-    //     // })
-    // }
-
-
+    /**
+     * 回调地址
+     */
+    readonly callBackUrl: string = 'http://10.255.8.78:8083/api/cal/html2pdf/html2PdfResult'
+    /**
+     * dinging通知1地址
+     */
+    readonly web_hook: string = this.ctx.app.config.web_hook;
     /**
      * 生成PDF
      */
     public async buildPdf(url): Promise<Buffer> {
-        // if(!this.WSE_LIST.length) {
-        //     await this.init()
-        // }
         const browser = await puppeteer.launch(this.config);
-        //
-        // const tmp = Math.floor(Math.random() * this.MAX_WSE);
-        // const browserWSEndpoint = this.WSE_LIST[tmp];
-        // const browser = await puppeteer.connect({browserWSEndpoint});
-        const page = await browser.newPage();
-        // this.ctx.logger.info('browser');
-        await page.setViewport({
-            width: 1920,
-            height: 1080
-        });
+        try {
+            const page = await browser.newPage();
+            // this.ctx.logger.info('browser');
+            await page.setViewport({
+                width: 1920,
+                height: 1080
+            });
+            // this.ctx.logger.info('page');
+            await page.goto(url, {
+                waitUntil: 'networkidle0',
+                timeout: 0
+            })
 
-        // this.ctx.logger.info('page');
-        await page.goto(url, {
-            waitUntil: 'networkidle0',
-            timeout: 0
-        })
-
-
-        // await this.sleep(5000)
-
-        // this.ctx.logger.info('page2');
-        // 页眉模板（图片使用base64，此处的src的base64为占位值）
-        // const headerTemplate = ``;
-        // 页脚模板（pageNumber处会自动注
-        // 入当前页码）
-//         const footerTemplate = `<div
-// style="width:calc(100% - 28px);margin-bottom: -20px; font-size:8px; padding:15px 14px;display: flex; justify-content: space-between; ">
-// <span style="color: #9a7ff7; font-size: 10px;">蒲公英绩效</span>
-// <span style="color: #9a7ff7; font-size: 13px;" class="pageNumber"></span>
-// </div>`;
-//         await page.emulateMedia('screen');
-
-        const pdfBuffer = await page.pdf({
-            // headerTemplate,
-            // footerTemplate,
-            margin: {
-                top: 50,
-                bottom: 50,
-                left: 0,
-                right: 0
-            },
-            displayHeaderFooter: false,
-            printBackground: true,
-        });
-        browser.close()
-        return pdfBuffer
+            const pdfBuffer = await page.pdf({
+                // headerTemplate,
+                // footerTemplate,
+                margin: {
+                    top: 50,
+                    bottom: 50,
+                    left: 0,
+                    right: 0
+                },
+                displayHeaderFooter: false,
+                printBackground: true,
+            });
+            this.ctx.logger.info('pdfBuffer');
+            return pdfBuffer
+        } catch (e) {
+            throw e;
+        } finally {
+            browser.close()
+        }
     }
 
 
-   public async createPdf(url, taskId) {
+    /**
+     * 异步执行Html转PDF
+     * @param url
+     * @param taskId
+     */
+   public async createPdf(url, taskId): Promise<void> {
         try {
             const pdf = await this.buildPdf(url)
             const fileName = await this.service.oss.createFileName()
             const ossResult = await this.service.oss.putFile(pdf, `${fileName}.pdf`)
-            // if (!ossResult.url) {
-            //     return  this.fail(0, ossResult || '服务器错误' );
-            // }
+            if (!ossResult.url) {
+                this.ctx.logger.error('上传oss失败 taskId: ',taskId, ossResult)
+                await this.ddBot('上传oss失败 taskId: '+ taskId, ossResult);
+                return
+            }
             const params = {
                 taskId,
-                url: ossResult.url
+                ossUrl: ossResult.url
             }
-            await this.notify(params)
-            this.ctx.logger.info('生成成功taskId: ',taskId)
+            const result = await this.notify(params)
+            if (!result) {
+                await this.ddBot('通知回调失败 taskId: '+ taskId, params);
+                return
+            }
+            this.ctx.logger.info('通知成功taskId: ',taskId)
         } catch (e: any) {
+            await this.ddBot('生成失败taskId: ' + taskId, e)
             this.ctx.logger.error('生成失败taskId: ',taskId, e.message || e)
-            // await this.notify(params)
         }
     }
 
-    private async notify(data) {
-        return this.ctx.curl('https://open.feishu.cn/open-apis/authen/v1/access_token', {
-            method: 'POST',
-            dataType: 'json',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            data: data
-        });
+    /**
+     * 通知生成成功
+     * @param data
+     * @private
+     */
+    private async notify(data): Promise<boolean> {
+        try {
+            const result = await this.ctx.curl(this.callBackUrl, {
+                method: 'POST',
+                dataType: 'json',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                data: data
+            });
+            if (result) {
+                return true
+            }
+            return false
+        } catch (e) {
+            return false
+        }
+    }
+
+    /**
+     * 钉钉机器人群消息推送
+     * @param $msg
+     * @param $start_time
+     * @param $success
+     */
+    private ddBot(title,$msg: any) {
+        const end_time: string = dayjs().format('YYYY-MM-DD HH:mm:ss');
+        const msg: string = "### 通知\n" +
+            '--- \n' +
+            "- 时间： " + end_time + '\n' +
+            `- 主题： ${title} \n` +
+            `- 内容： ${JSON.stringify($msg)}\n`
+            // `- 状态： ${$success ? '<font  color=green>成功!</font>' : '<font color=red>失败!</font>' }\n`;
+        this.pushMsg(msg);
+    }
+
+    private async pushMsg(msg: any = {}){
+        try {
+
+            let options = {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json;charset=utf-8"
+                },
+                dataType: 'json',
+                data: {
+                    "msgtype": "markdown",
+                    "markdown": {
+                        "title":"消息推送",
+                        "text": msg
+                    },
+                    "at": {
+                        "atMobiles": [
+                        ],
+                        "isAtAll": false
+                    }
+                }
+            };
+
+            // @ts-ignore
+            const result = await this.ctx.curl(this.web_hook, options);
+        }
+        catch(err) {
+            console.error(err);
+            return false;
+        }
     }
 
 
     // @ts-ignore
-    private sleep(time) {
+    private sleep(time): Promise {
         return new Promise<void>((resolve) => {
             setTimeout(() => {
                 resolve()
