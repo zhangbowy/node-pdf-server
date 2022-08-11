@@ -41,8 +41,8 @@ RUN npm run tsc
 EXPOSE 8001
 
 CMD [ "npm", "run", "prod" ]
-curl -d '{"url": "http://127.0.0.1:7001/public/index.html"}' -H 'Content-Type: application/json' http://127.0.0.1:7001/pdf/create
-curl -d '{"url": "https://www.baidu.com/"}' -H 'Content-Type: application/json' http://127.0.0.1:7001/pdf/create
-
-
-{"code":1,"data":{"name":"eval_pdf_daily/zhangbotest.pdf","url":"http://spf-material-input.oss-cn-shanghai.aliyuncs.com/eval_pdf_daily/zhangbotest.pdf","res":{"status":200,"statusCode":200,"statusMessage":"OK","headers":{"server":"AliyunOSS","date":"Wed, 10 Aug 2022 04:39:59 GMT","content-length":"0","connection":"keep-alive","x-oss-request-id":"62F3369FB9FD8B39319AFA17","etag":"\"D55BCF9F7102257D008A5A022AE55AF3\"","x-oss-hash-crc64ecma":"16662105587250485876","content-md5":"1VvPn3ECJX0AiloCKuVa8w==","x-oss-version-id":"CAEQJhiBgID23ZqYlBgiIDRmMWMwNzE1YTUzZDQzNjc4Y2ZiMmEyNmJkMWEzMGJk","x-oss-server-time":"91"},"size":0,"aborted":false,"rt":104,"keepAliveSocket":false,"data":{"type":"Buffer","data":[]},"requestUrls":["http://spf-material-input.oss-cn-shanghai.aliyuncs.com/eval_pdf_daily/zhangbotest.pdf"],"timing":null,"remoteAddress":"106.14.229.14","remotePort":80,"socketHandledRequests":1,"socketHandledResponses":1}},"msg":"创建成功"}
+#curl -d '{"url": "http://127.0.0.1:7001/public/index.html"}' -H 'Content-Type: application/json' http://127.0.0.1:7001/pdf/create
+#curl -d '{"url": "https://www.baidu.com/"}' -H 'Content-Type: application/json' http://127.0.0.1:7001/pdf/create
+#
+#
+#{"code":1,"data":{"name":"eval_pdf_daily/zhangbotest.pdf","url":"http://spf-material-input.oss-cn-shanghai.aliyuncs.com/eval_pdf_daily/zhangbotest.pdf","res":{"status":200,"statusCode":200,"statusMessage":"OK","headers":{"server":"AliyunOSS","date":"Wed, 10 Aug 2022 04:39:59 GMT","content-length":"0","connection":"keep-alive","x-oss-request-id":"62F3369FB9FD8B39319AFA17","etag":"\"D55BCF9F7102257D008A5A022AE55AF3\"","x-oss-hash-crc64ecma":"16662105587250485876","content-md5":"1VvPn3ECJX0AiloCKuVa8w==","x-oss-version-id":"CAEQJhiBgID23ZqYlBgiIDRmMWMwNzE1YTUzZDQzNjc4Y2ZiMmEyNmJkMWEzMGJk","x-oss-server-time":"91"},"size":0,"aborted":false,"rt":104,"keepAliveSocket":false,"data":{"type":"Buffer","data":[]},"requestUrls":["http://spf-material-input.oss-cn-shanghai.aliyuncs.com/eval_pdf_daily/zhangbotest.pdf"],"timing":null,"remoteAddress":"106.14.229.14","remotePort":80,"socketHandledRequests":1,"socketHandledResponses":1}},"msg":"创建成功"}
