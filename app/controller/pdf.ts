@@ -27,8 +27,8 @@ export default class PDFController extends BaseController {
     @Post('/create')
     public async create(): Promise<void> {
         try {
-            const {ctx} = this;
-            const body = this.ctx.request.body;
+            const { ctx } = this;
+            const body = ctx.request.body;
             /**
              * 校验参数
              */

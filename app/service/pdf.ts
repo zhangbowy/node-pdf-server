@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 import { Service } from 'egg';
 const dayjs = require('dayjs');
+const FormStream = require('formstream');
 
 export default class PDFService extends Service {
     // @ts-ignore
@@ -20,7 +21,7 @@ export default class PDFService extends Service {
     /**
      * 回调地址
      */
-    readonly callBackUrl: string = 'http://10.255.8.78:8083/api/cal/html2pdf/html2PdfResult'
+    readonly callBackUrl: string = 'http://daily-qapi.forwe.store/api/spf-cc/html2pdf/html2PdfResult'
     /**
      * dinging通知1地址
      */
@@ -103,13 +104,15 @@ export default class PDFService extends Service {
      */
     private async notify(data): Promise<boolean> {
         try {
+            const form = new FormStream();
+            form.field('ossUrl', data.ossUrl);
+            form.field('taskId', data.taskId);
             const result = await this.ctx.curl(this.callBackUrl, {
                 method: 'POST',
                 dataType: 'json',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                data: data
+                headers: form.headers(),
+                stream: form,
+                timeout: 20000,
             });
             if (result) {
                 return true
