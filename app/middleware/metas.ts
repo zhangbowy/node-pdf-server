@@ -24,6 +24,8 @@ export default (options: any, app: Application) => {
             ctx.res.setHeader('X-Powered-By', `ASP.NET`);
             ctx.res.setHeader('x-dc-request-id', `${ctx.traceId}`);
         }
+        const body = ctx.method === 'POST' ? ctx.request.body : ctx.request.query
+        app.logger.info(`<- ${ctx.method} ${ctx.url} ${JSON.stringify(body)}`);
         // send response     time header
         if (options.sendResponseTime || options.logRequest) {
             const startTime = Date.now();
@@ -38,7 +40,7 @@ export default (options: any, app: Application) => {
                 }
                 if (options.logRequest) {
                     process.nextTick(() => {
-                        app.logger.info(`${ctx.method} ${ctx.url} ${ctx.status} ${endTime - startTime}ms`);
+                        app.logger.info(`-> ${ctx.method} ${ctx.url} ${ctx.status} ${endTime - startTime}ms`);
                     });
                 }
                 if (err) return Promise.reject(err);

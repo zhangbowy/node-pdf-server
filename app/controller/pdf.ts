@@ -13,12 +13,6 @@ const pdfCreateRule = {
  */
 @Controller('/pdf')
 export default class PDFController extends BaseController {
-    @Get('/')
-    public async index(): Promise<void> {
-        const header = this.ctx.request.headers;
-        this.success({header, ctx: this.ctx}, '请求成功');
-    }
-
     /**
      * 创建PDF
      * @param taskId {string} 报告链接
