@@ -1,5 +1,5 @@
 #FROM registry.cn-hangzhou.aliyuncs.com/zhangbo007/node:14.18.0-alpine
-FROM registry.cn-hangzhou.aliyuncs.com/zhangbo007/c_base:0.0.1
+FROM registry.cn-hangzhou.aliyuncs.com/zhangbo007/puppeteer_base:0.0.1
 #FROM alpine
 # 设置镜像作者
 LABEL MAINTAINER="zhangbo"
