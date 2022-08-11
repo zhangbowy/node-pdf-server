@@ -22,6 +22,7 @@ export default class PDFService extends Service {
      * 回调地址
      */
     readonly callBackUrl: string = 'http://daily-qapi.forwe.store/api/spf-cc/html2pdf/html2PdfResult'
+    // readonly callBackUrl: string = 'http://10.255.8.78:8083/api/spf-cc/html2pdf/html2PdfResult'
     /**
      * dinging通知1地址
      */
@@ -86,10 +87,10 @@ export default class PDFService extends Service {
                 params.errorMessage = '上传oss失败 taskId'
                 params.success = false
                 this.ctx.logger.error('上传oss失败 taskId: ',taskId, ossResult)
-                await this.ddBot('上传oss失败 taskId: '+ taskId, ossResult);
-                return;
+                // await this.ddBot('上传oss失败 taskId: '+ taskId, ossResult);
+            } else {
+                params.ossUrl = ossResult.url
             }
-            params.ossUrl = ossResult.url
             const result = await this.notify(params)
             if (!result) {
                 await this.ddBot('通知回调失败 taskId: '+ taskId, params);
@@ -115,6 +116,8 @@ export default class PDFService extends Service {
             const form = new FormStream();
             form.field('ossUrl', data.ossUrl);
             form.field('taskId', data.taskId);
+            form.field('errorMessage', data.errorMessage);
+            form.field('success', data.success ? 1: 0);
             const result = await this.ctx.curl(this.callBackUrl, {
                 method: 'POST',
                 dataType: 'json',
