@@ -72,19 +72,24 @@ export default class PDFService extends Service {
      * @param taskId
      */
    public async createPdf(url, taskId): Promise<void> {
+        const params = {
+            success: true,
+            errorMessage: '',
+            taskId,
+            ossUrl: '',
+        }
         try {
             const pdf = await this.buildPdf(url)
             const fileName = await this.service.oss.createFileName()
             const ossResult = await this.service.oss.putFile(pdf, `${fileName}.pdf`)
             if (!ossResult.url) {
+                params.errorMessage = '上传oss失败 taskId'
+                params.success = false
                 this.ctx.logger.error('上传oss失败 taskId: ',taskId, ossResult)
                 await this.ddBot('上传oss失败 taskId: '+ taskId, ossResult);
-                return
+                return;
             }
-            const params = {
-                taskId,
-                ossUrl: ossResult.url
-            }
+            params.ossUrl = ossResult.url
             const result = await this.notify(params)
             if (!result) {
                 await this.ddBot('通知回调失败 taskId: '+ taskId, params);
@@ -94,6 +99,9 @@ export default class PDFService extends Service {
         } catch (e: any) {
             await this.ddBot('生成失败taskId: ' + taskId, e)
             this.ctx.logger.error('生成失败taskId: ',taskId, e.message || e)
+            params.errorMessage = '生成失败taskId' + e.message
+            params.success = false
+            await this.notify(params)
         }
     }
 
