@@ -7,7 +7,6 @@ export default class PDFService extends Service {
     // @ts-ignore
     readonly config = {
         headless: true,
-        // executablePath: '/usr/bin/chromium-browser',
         args: [
             '--disable-gpu',
             '--disable-dev-shm-usage',
@@ -17,16 +16,15 @@ export default class PDFService extends Service {
             '--no-zygote',
         ],
     };
-
     /**
      * 回调地址
      */
-    readonly callBackUrl: string = 'http://daily-qapi.forwe.store/api/spf-cc/html2pdf/html2PdfResult'
+    readonly callBackUrl: string = this.app.config.callBackUrl
     // readonly callBackUrl: string = 'http://10.255.8.78:8083/api/spf-cc/html2pdf/html2PdfResult'
     /**
      * dinging通知1地址
      */
-    readonly web_hook: string = this.ctx.app.config.web_hook;
+    readonly web_hook: string = this.app.config.web_hook;
     /**
      * 生成PDF
      */
@@ -34,12 +32,10 @@ export default class PDFService extends Service {
         const browser = await puppeteer.launch(this.config);
         try {
             const page = await browser.newPage();
-            // this.ctx.logger.info('browser');
             await page.setViewport({
                 width: 1920,
                 height: 1080
             });
-            // this.ctx.logger.info('page');
             await page.goto(url, {
                 waitUntil: 'networkidle0',
                 timeout: 0
@@ -65,7 +61,6 @@ export default class PDFService extends Service {
             browser.close()
         }
     }
-
 
     /**
      * 异步执行Html转PDF
@@ -106,6 +101,50 @@ export default class PDFService extends Service {
         }
     }
 
+
+    /**
+     * 生成PDF
+     */
+    public async buildImage(url): Promise<Buffer> {
+        const browser = await puppeteer.launch(this.config);
+        try {
+            const page = await browser.newPage();
+
+            await page.goto(url, {
+                waitUntil: 'networkidle0',
+                timeout: 0
+            })
+
+
+
+            // 这里我们获取到页面的宽度和高度
+            const documentSize = await page.evaluate(() => {
+                return {
+                    // @ts-ignore
+                    width: document.documentElement.clientWidth,
+                    // @ts-ignore
+                    height : document.body.offsetHeight,
+                }
+            })
+
+            await page.setViewport({
+                width: 832,
+                height: documentSize.height
+            });
+
+
+
+            // 截屏的时候只截取当前浏览器窗口的尺寸大小
+            // await page.screenshot({path:"example.png", clip : {x:0, y:0, width:1920, height:documentSize.height}});
+            const imageBuffer = await page.screenshot({clip : {x:0, y:0, width:832, height: documentSize.height}});
+            return imageBuffer
+        } catch (e) {
+            throw e;
+        } finally {
+            browser.close()
+        }
+    }
+
     /**
      * 通知生成成功
      * @param data
@@ -125,10 +164,7 @@ export default class PDFService extends Service {
                 stream: form,
                 timeout: 20000,
             });
-            if (result) {
-                return true
-            }
-            return false
+            return !!result;
         } catch (e) {
             return false
         }
@@ -192,6 +228,7 @@ export default class PDFService extends Service {
             },time)
         })
     }
+
 
 }
 

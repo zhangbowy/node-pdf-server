@@ -1,27 +1,27 @@
 import BaseController from '@/core/baseController';
 import { SelfController as Controller, Get, Post } from '@/router';
-// import { Auth } from '@/lib//decorator/auth';
-// import { LoginType } from '@/lib/enum';
 const pdfService = require('@/service/pdf');
 const pdfCreateRule = {
     htmlUrl: { type: 'string', required: true },
     taskId: { type: 'number', required: true },
 };
-
 /**
- * PDF生成控制器
+ * PDF控制器
  */
 @Controller('/pdf')
 export default class PDFController extends BaseController {
     /**
      * 创建PDF
-     * @param taskId {string} 报告链接
-     * @param taskId {string} 报告链接
+     * @param taskId {number} 任务id
+     * @param htmlUrl {string} 报告链接
      */
     @Post('/create')
     public async create(): Promise<void> {
         try {
             const { ctx } = this;
+            /**
+             * 获取POST参数
+             */
             const body = ctx.request.body;
             /**
              * 校验参数
@@ -33,7 +33,9 @@ export default class PDFController extends BaseController {
                 return  this.fail(0, errMsg)
             }
             const { htmlUrl, taskId } = body
-            // 异步执行
+            /**
+             * 异步执行生成PDF和通知
+             */
             this.ctx.service.pdf.createPdf(htmlUrl, taskId)
             this.success([], '操作成功');
         } catch (e: any) {
