@@ -11,6 +11,7 @@ import ExportFeishu from '../../../app/service/feishu';
 import ExportOrder from '../../../app/service/order';
 import ExportOss from '../../../app/service/oss';
 import ExportPdf from '../../../app/service/pdf';
+import ExportSentry from '../../../app/service/sentry';
 
 declare module 'egg' {
   interface IService {
@@ -19,5 +20,6 @@ declare module 'egg' {
     order: AutoInstanceType<typeof ExportOrder>;
     oss: AutoInstanceType<typeof ExportOss>;
     pdf: AutoInstanceType<typeof ExportPdf>;
+    sentry: AutoInstanceType<typeof ExportSentry>;
   }
 }

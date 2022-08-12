@@ -26,7 +26,11 @@ const plugin: EggPlugin = {
  alinode: {
     enable: true,
     package: 'egg-alinode'
-  }
+  },
+ sentry: {
+        enable: true,
+        package: 'egg-sentry',
+    }
 };
 
 export default plugin;
