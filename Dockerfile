@@ -32,6 +32,12 @@ RUN chmod 777 /usr/share/fonts/win/*  \
 
 RUN npm install cnpm -g
 
+
+RUN cnpm i nodeinstall -g
+
+RUN nodeinstall --install-alinode ^3
+
+
 # 安装依赖
 RUN cnpm install
 

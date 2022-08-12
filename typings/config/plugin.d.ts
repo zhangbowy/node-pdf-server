@@ -18,6 +18,7 @@ import 'egg-redis';
 import 'egg-jwt';
 import 'egg-validate';
 import 'egg-cors';
+import 'egg-alinode';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {
   interface EggPlugin {
@@ -37,5 +38,6 @@ declare module 'egg' {
     jwt?: EggPluginItem;
     validate?: EggPluginItem;
     cors?: EggPluginItem;
+    alinode?: EggPluginItem;
   }
 }
