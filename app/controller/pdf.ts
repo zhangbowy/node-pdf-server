@@ -30,7 +30,7 @@ export default class PDFController extends BaseController {
             if (err) {
                 const [errFiled]  = err;
                 const errMsg: string = `${errFiled.field } ${errFiled.message}`
-                return  this.fail(0, errMsg)
+                return this.fail(0, errMsg)
             }
             const { htmlUrl, taskId } = body
             /**
@@ -53,11 +53,11 @@ export default class PDFController extends BaseController {
             const { url = 'http://localhost:7001/public/index.html' } = this.ctx.request.query;
             const pdf = await pdfService.buildPdf(url)
             const ossResult = await this.service.oss.putFile(pdf, `zhangbotest.pdf`)
-
             // this.ctx.logger.info('pdf');
             // this.ctx.res.setHeader('Content-Type', 'application/pdf');
             // this.ctx.res.setHeader('Content-Length', pdf.length);
             // this.ctx.body = pdf;
+
             this.success(ossResult, '请求成功');
         } catch (e: any) {
             this.fail(0, e.message || '服务器错误');

@@ -12,26 +12,24 @@ export default class HomeController extends BaseController {
   /**
    * 生成PDF
    * @param url {string} 链接
+   * @return
    */
   @Get('getPdf')
   public async getPdf(): Promise<void> {
     try {
       const { url = 'http://localhost:8001/public/index.html' } = this.ctx.request.query;
       const pdf = await this.service.pdf.buildPdf(url)
-      // const ossResult = await this.service.oss.putFile(pdf)
       this.ctx.logger.info('pdf');
-      // const pdf = await page.pdf({ format: 'A4' });
       this.ctx.res.setHeader('Content-Type', 'application/pdf');
       this.ctx.res.setHeader('Content-Length', pdf.length);
       this.ctx.body = pdf;
-      // this.success(ossResult, '请求成功');
     } catch (e: any) {
       this.fail(0, e.message || '服务器错误' );
     }
   }
 
   /**
-   * 生成PDF
+   * html2Image
    * @param url {string} 链接
    */
   @Get('html2Image')

@@ -19,6 +19,7 @@ import 'egg-jwt';
 import 'egg-validate';
 import 'egg-cors';
 import 'egg-alinode';
+import 'egg-sentry';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {
   interface EggPlugin {
@@ -39,5 +40,6 @@ declare module 'egg' {
     validate?: EggPluginItem;
     cors?: EggPluginItem;
     alinode?: EggPluginItem;
+    sentry?: EggPluginItem;
   }
 }

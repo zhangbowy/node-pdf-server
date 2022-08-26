@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
-import { Service } from 'egg';
+import {Service} from 'egg';
+
 const dayjs = require('dayjs');
 const FormStream = require('formstream');
 
@@ -29,18 +30,22 @@ export default class PDFService extends Service {
      * 生成PDF
      */
     public async buildPdf(url): Promise<Buffer> {
+        // 启动无头浏览器
         const browser = await puppeteer.launch(this.config);
         try {
+            // new一个Tab
             const page = await browser.newPage();
+            // 设置窗口大小
             await page.setViewport({
                 width: 1920,
                 height: 1080
             });
+            // 跳转页面
             await page.goto(url, {
                 waitUntil: 'networkidle0',
                 timeout: 0
             })
-
+            // 返回PDF Buffer
             const pdfBuffer = await page.pdf({
                 // headerTemplate,
                 // footerTemplate,
@@ -64,10 +69,11 @@ export default class PDFService extends Service {
 
     /**
      * 异步执行Html转PDF
-     * @param url
-     * @param taskId
+     * @param url 页面链接
+     * @param taskId 任务Id
      */
    public async createPdf(url, taskId): Promise<void> {
+        // 通知的参数
         const params = {
             success: true,
             errorMessage: '',
@@ -75,35 +81,39 @@ export default class PDFService extends Service {
             ossUrl: '',
         }
         try {
+            // 生成PDF
             const pdf = await this.buildPdf(url)
+            // 生成文件名
             const fileName = await this.service.oss.createFileName()
-            const ossResult = await this.service.oss.putFile(pdf, `${fileName}.pdf`)
+            // 上传
+            const ossResult = await this.service.oss.putFile(pdf, `${fileName}.pdf`);
             if (!ossResult.url) {
                 params.errorMessage = '上传oss失败 taskId'
                 params.success = false
-                this.ctx.logger.error('上传oss失败 taskId: ',taskId, ossResult)
-                // await this.ddBot('上传oss失败 taskId: '+ taskId, ossResult);
+                this.ctx.logger.error('上传oss失败 taskId: ', taskId, ossResult)
             } else {
                 params.ossUrl = ossResult.url
             }
-            const result = await this.notify(params)
+            // 成功了通知Java那边
+            const result = await this.notify(params);
             if (!result) {
-                await this.ddBot('通知回调失败 taskId: '+ taskId, params);
+                await this.ddBot('通知回调失败 taskId: ' + taskId, params);
                 return
             }
-            this.ctx.logger.info('通知成功taskId: ',taskId)
+            this.ctx.logger.info('通知成功taskId: ', taskId)
         } catch (e: any) {
             await this.ddBot('生成失败taskId: ' + taskId, e)
             this.ctx.logger.error('生成失败taskId: ',taskId, e.message || e)
             params.errorMessage = '生成失败taskId' + e.message
             params.success = false
+            // 失败了通知java那边
             await this.notify(params)
         }
     }
 
 
     /**
-     * 生成PDF
+     * buildImage
      */
     public async buildImage(url): Promise<Buffer> {
         const browser = await puppeteer.launch(this.config);
@@ -146,7 +156,7 @@ export default class PDFService extends Service {
     }
 
     /**
-     * 通知生成成功
+     * 通知生成结果
      * @param data
      * @private
      */
@@ -189,7 +199,6 @@ export default class PDFService extends Service {
 
     private async pushMsg(msg: any = {}){
         try {
-
             let options = {
                 method: 'POST',
                 headers: {
@@ -211,7 +220,7 @@ export default class PDFService extends Service {
             };
 
             // @ts-ignore
-            const result = await this.ctx.curl(this.web_hook, options);
+            this.ctx.curl(this.web_hook, options);
         }
         catch(err) {
             console.error(err);

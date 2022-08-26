@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "7001:8001"
+  redis:
+    image: "redis:alpine"

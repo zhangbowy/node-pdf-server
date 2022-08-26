@@ -11,7 +11,7 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 
-设置国内阿里云镜像站、安装chromium 81、文泉驿免费中文字体等依赖库
+# 设置国内阿里云镜像站、安装chromium 81、文泉驿免费中文字体等依赖库
 RUN echo "https://mirrors.aliyun.com/alpine/v3.11/main/" > /etc/apk/repositories \
     && echo "https://mirrors.aliyun.com/alpine/v3.11/community/" >> /etc/apk/repositories \
     && echo "https://mirrors.aliyun.com/alpine/latest-stable/testing" >> /etc/apk/repositories \

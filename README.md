@@ -71,6 +71,12 @@ fi
 sudo docker run --name pu-pdf-node-server -p 7001:8001 -d registry.cn-hangzhou.aliyuncs.com/zhangbo007/pu-pdf-node-server:${DATETIME}
 ```
 
+##
+```angular2html
+# 重启容器
+docker container restart pu-pdf-node-server
+```
+
 ## Author
 
 zhangbo
