@@ -7,6 +7,12 @@
 $ npm run dev
 ```
 
+## 本地启动
+
+```
+$ npm run start
+```
+
 ## UnitTest单元测试
 
 ```
@@ -24,7 +30,7 @@ prisma
 DATABASE_URL="mysql://账号:密码@ip:端口/库名"
 ```
 
-## 实现
+## 增加实现
 
 - 增加路由自动加载
 - 日志打印
