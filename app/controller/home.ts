@@ -1,5 +1,5 @@
 import BaseController from '@/core/baseController';
-import { SelfController as Controller, Get } from '@/router';
+import { Get, SelfController as Controller } from '@/router';
 // import { Auth } from '@/lib//decorator/auth';
 // import { LoginType } from '@/lib/enum';
 @Controller('/')
@@ -7,7 +7,7 @@ export default class HomeController extends BaseController {
   @Get('/')
   public async index(): Promise<void> {
     const header = this.ctx.request.headers;
-    this.success({header, ctx: this.ctx}, '请求成功');
+    this.success({ header, ctx: this.ctx }, '请求成功');
   }
   /**
    * 生成PDF
@@ -17,14 +17,18 @@ export default class HomeController extends BaseController {
   @Get('getPdf')
   public async getPdf(): Promise<void> {
     try {
-      const { url = 'http://localhost:8001/public/index.html' } = this.ctx.request.query;
-      const pdf = await this.service.pdf.buildPdf(url)
+      const { url } = this.ctx.request.query;
+
+      if (!url) {
+        return this.fail(0, 'url必须得传呀哥, 要想看demo可以传data里的链接', `http://localhost:8001/public/index.html`);
+      }
+      const pdf = await this.service.pdf.buildPdf(url);
       this.ctx.logger.info('pdf');
       this.ctx.res.setHeader('Content-Type', 'application/pdf');
       this.ctx.res.setHeader('Content-Length', pdf.length);
       this.ctx.body = pdf;
     } catch (e: any) {
-      this.fail(0, e.message || '服务器错误' );
+      this.fail(0, e.message || '服务器错误');
     }
   }
 
@@ -36,11 +40,11 @@ export default class HomeController extends BaseController {
   public async html2Image(): Promise<void> {
     try {
       const { url = 'http://localhost:8001/public/index.html' } = this.ctx.request.query;
-      const image = await this.service.pdf.buildImage(url)
+      const image = await this.service.pdf.buildImage(url);
       // const ossResult = await this.service.oss.putFile(pdf)
       this.ctx.logger.info('pdf');
       // const pdf = await page.pdf({ format: 'A4' });
-      const fileName = this.service.oss.createFileName()
+      const fileName = this.service.oss.createFileName();
 
       this.ctx.res.setHeader('Content-Disposition', `attachment; filename=${encodeURIComponent(fileName)}.PNG`);
       this.ctx.res.setHeader('Content-Type', 'image/png');
@@ -48,7 +52,7 @@ export default class HomeController extends BaseController {
       this.ctx.body = image;
       // this.success(ossResult, '请求成功');
     } catch (e: any) {
-      this.fail(0, e.message || '服务器错误' );
+      this.fail(0, e.message || '服务器错误');
     }
   }
 }

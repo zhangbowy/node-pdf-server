@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-import {Service} from 'egg';
+import { Service } from 'egg';
 
 const dayjs = require('dayjs');
 const FormStream = require('formstream');
@@ -20,7 +20,7 @@ export default class PDFService extends Service {
     /**
      * 回调地址
      */
-    readonly callBackUrl: string = this.app.config.callBackUrl
+    readonly callBackUrl: string = this.app.config.callBackUrl;
     // readonly callBackUrl: string = 'http://10.255.8.78:8083/api/spf-cc/html2pdf/html2PdfResult'
     /**
      * dinging通知1地址
@@ -29,7 +29,7 @@ export default class PDFService extends Service {
     /**
      * 生成PDF
      */
-    public async buildPdf(url): Promise<Buffer> {
+    public async buildPdf(url: string): Promise<Buffer> {
         // 启动无头浏览器
         const browser = await puppeteer.launch(this.config);
         try {
@@ -44,7 +44,7 @@ export default class PDFService extends Service {
             await page.goto(url, {
                 waitUntil: 'networkidle0',
                 timeout: 0
-            })
+            });
             // 返回PDF Buffer
             const pdfBuffer = await page.pdf({
                 // headerTemplate,
@@ -59,11 +59,11 @@ export default class PDFService extends Service {
                 printBackground: true,
             });
             this.ctx.logger.info('pdfBuffer');
-            return pdfBuffer
+            return pdfBuffer;
         } catch (e) {
             throw e;
         } finally {
-            browser.close()
+            browser.close();
         }
     }
 
@@ -72,42 +72,43 @@ export default class PDFService extends Service {
      * @param url 页面链接
      * @param taskId 任务Id
      */
-   public async createPdf(url, taskId): Promise<void> {
+    public async createPdf(url: string, taskId: number): Promise<void> {
         // 通知的参数
         const params = {
             success: true,
             errorMessage: '',
             taskId,
             ossUrl: '',
-        }
+        };
         try {
             // 生成PDF
-            const pdf = await this.buildPdf(url)
+            const pdf = await this.buildPdf(url);
             // 生成文件名
-            const fileName = await this.service.oss.createFileName()
+            const fileName = await this.service.oss.createFileName();
             // 上传
             const ossResult = await this.service.oss.putFile(pdf, `${fileName}.pdf`);
             if (!ossResult.url) {
-                params.errorMessage = '上传oss失败 taskId'
-                params.success = false
-                this.ctx.logger.error('上传oss失败 taskId: ', taskId, ossResult)
+                params.errorMessage = '上传oss失败 taskId';
+                params.success = false;
+                this.ctx.logger.error('上传oss失败 taskId: ', taskId, ossResult);
             } else {
-                params.ossUrl = ossResult.url
+                params.ossUrl = ossResult.url;
             }
+
             // 成功了通知Java那边
             const result = await this.notify(params);
             if (!result) {
                 await this.ddBot('通知回调失败 taskId: ' + taskId, params);
-                return
+                return;
             }
-            this.ctx.logger.info('通知成功taskId: ', taskId)
+            this.ctx.logger.info('通知成功taskId: ', taskId);
         } catch (e: any) {
-            await this.ddBot('生成失败taskId: ' + taskId, e)
-            this.ctx.logger.error('生成失败taskId: ',taskId, e.message || e)
-            params.errorMessage = '生成失败taskId' + e.message
-            params.success = false
+            await this.ddBot('生成失败taskId: ' + taskId, e.message);
+            this.ctx.logger.error('生成失败taskId: ', taskId, e.message || e);
+            params.errorMessage = '生成失败taskId' + e.message;
+            params.success = false;
             // 失败了通知java那边
-            await this.notify(params)
+            await this.notify(params);
         }
     }
 
@@ -115,7 +116,7 @@ export default class PDFService extends Service {
     /**
      * buildImage
      */
-    public async buildImage(url): Promise<Buffer> {
+    public async buildImage(url: string): Promise<Buffer> {
         const browser = await puppeteer.launch(this.config);
         try {
             const page = await browser.newPage();
@@ -123,7 +124,7 @@ export default class PDFService extends Service {
             await page.goto(url, {
                 waitUntil: 'networkidle0',
                 timeout: 0
-            })
+            });
 
 
 
@@ -134,8 +135,8 @@ export default class PDFService extends Service {
                     width: document.documentElement.clientWidth,
                     // @ts-ignore
                     height : document.body.offsetHeight,
-                }
-            })
+                };
+            });
 
             await page.setViewport({
                 width: 832,
@@ -146,12 +147,12 @@ export default class PDFService extends Service {
 
             // 截屏的时候只截取当前浏览器窗口的尺寸大小
             // await page.screenshot({path:"example.png", clip : {x:0, y:0, width:1920, height:documentSize.height}});
-            const imageBuffer = await page.screenshot({clip : {x:0, y:0, width:832, height: documentSize.height}});
-            return imageBuffer
+            const imageBuffer = await page.screenshot({ clip : { x:0, y:0, width:832, height: documentSize.height } });
+            return imageBuffer;
         } catch (e) {
             throw e;
         } finally {
-            browser.close()
+            browser.close();
         }
     }
 
@@ -160,7 +161,7 @@ export default class PDFService extends Service {
      * @param data
      * @private
      */
-    private async notify(data): Promise<boolean> {
+    private async notify(data: any): Promise<boolean> {
         try {
             const form = new FormStream();
             form.field('ossUrl', data.ossUrl);
@@ -176,7 +177,7 @@ export default class PDFService extends Service {
             });
             return !!result;
         } catch (e) {
-            return false
+            return false;
         }
     }
 
@@ -186,43 +187,42 @@ export default class PDFService extends Service {
      * @param $start_time
      * @param $success
      */
-    private ddBot(title,$msg: any) {
-        const end_time: string = dayjs().format('YYYY-MM-DD HH:mm:ss');
-        const msg: string = "### 通知\n" +
+    private ddBot(title: string,$msg: any) {
+        const endTime: string = dayjs().format('YYYY-MM-DD HH:mm:ss');
+        const msg: string = '### 通知\n' +
             '--- \n' +
-            "- 时间： " + end_time + '\n' +
+            '- 时间： ' + endTime + '\n' +
             `- 主题： ${title} \n` +
-            `- 内容： ${JSON.stringify($msg)}\n`
+            `- 内容： ${JSON.stringify($msg)}\n`;
             // `- 状态： ${$success ? '<font  color=green>成功!</font>' : '<font color=red>失败!</font>' }\n`;
         this.pushMsg(msg);
     }
 
     private async pushMsg(msg: any = {}){
         try {
-            let options = {
+            const options = {
                 method: 'POST',
                 headers: {
-                    "Content-Type": "application/json;charset=utf-8"
+                    'Content-Type': 'application/json;charset=utf-8'
                 },
                 dataType: 'json',
                 data: {
-                    "msgtype": "markdown",
-                    "markdown": {
-                        "title":"消息推送",
-                        "text": msg
+                    msgtype: 'markdown',
+                    markdown: {
+                        title:'消息推送',
+                        text: msg
                     },
-                    "at": {
-                        "atMobiles": [
+                    at: {
+                        atMobiles: [
                         ],
-                        "isAtAll": false
+                        isAtAll: false
                     }
                 }
             };
 
             // @ts-ignore
             this.ctx.curl(this.web_hook, options);
-        }
-        catch(err) {
+        } catch(err) {
             console.error(err);
             return false;
         }
@@ -230,12 +230,12 @@ export default class PDFService extends Service {
 
 
     // @ts-ignore
-    private sleep(time): Promise {
+    private sleep(time: number): Promise {
         return new Promise<void>((resolve) => {
             setTimeout(() => {
-                resolve()
-            },time)
-        })
+                resolve();
+            },time);
+        });
     }
 
 

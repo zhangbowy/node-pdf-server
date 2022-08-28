@@ -1,4 +1,5 @@
 import { Controller, Context } from 'egg';
+const dayjs = require('dayjs');
 export default class BaseController extends Controller {
     constructor(ctx: Context) {
         super(ctx);
@@ -16,17 +17,18 @@ export default class BaseController extends Controller {
             msg
         };
      }
-    
+
     /**
      * 失败的返回
      * @param code 错误码
      * @param msg 错误信息
      */
-    fail(code: number = 0, msg: string = '') {
+    fail(code: number = 0, msg: string = '', data: any = '') {
         this.ctx.body = {
             code,
-            data: [],
-            msg
-        }; 
+            data,
+            msg,
+            time: dayjs().valueOf()
+        };
     }
 }
