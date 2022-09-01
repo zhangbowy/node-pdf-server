@@ -1,7 +1,7 @@
-// This file is created by egg-ts-helper@1.33.0
+// This file is created by egg-ts-helper@1.26.0
 // Do not modify this file!!!!!!!!!
 
-import 'egg';
+// import 'egg';
 import 'egg-onerror';
 import 'egg-session';
 import 'egg-i18n';

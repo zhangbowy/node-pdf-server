@@ -12,7 +12,7 @@ class SentryService extends Service {
      * @return {boolean} true for submit, default true
      * @memberof SentryService
      */
-    judgeError(err) {
+    judgeError(err: any) {
         // ignore HTTP Error
         return !(err.status && err.status >= 400);
     }

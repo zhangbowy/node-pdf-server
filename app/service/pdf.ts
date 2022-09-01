@@ -82,11 +82,19 @@ export default class PDFService extends Service {
         };
         try {
             // 生成PDF
-            const pdf = await this.buildPdf(url);
+            const pdf: Buffer = await this.buildPdf(url);
             // 生成文件名
-            const fileName = await this.service.oss.createFileName();
-            // 上传
-            const ossResult = await this.service.oss.putFile(pdf, `${fileName}.pdf`);
+            const fileName: string = await this.service.oss.createFileName();
+            // 上传到OSS
+            const options = {
+                meta: {
+                    taskId,
+                    author: 'zhangbo',
+                    htmlUrl: url,
+                    putTime: dayjs().format('YYYY-MM-DD HH:mm:ss')
+                }
+            };
+            const ossResult = await this.service.oss.putFile(pdf, `${fileName}.pdf`, options);
             if (!ossResult.url) {
                 params.errorMessage = '上传oss失败 taskId';
                 params.success = false;
@@ -96,7 +104,7 @@ export default class PDFService extends Service {
             }
 
             // 成功了通知Java那边
-            const result = await this.notify(params);
+            const result: boolean = await this.notify(params);
             if (!result) {
                 await this.ddBot('通知回调失败 taskId: ' + taskId, params);
                 return;
