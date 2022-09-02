@@ -83,6 +83,27 @@ sudo docker run --name pu-pdf-node-server -p 7001:8001 -d registry.cn-hangzhou.a
 docker container restart pu-pdf-node-server
 ```
 
+
+
+
+
+## 前端本地测试
+
+### 启动服务
+```angular2html
+# 安装依赖
+npm install
+# 启动
+npm run start
+```
+### 使用
+前端本地生成PDF测试接口
+
+GET http://127.0.0.1:8001/getPdf?url=你的前端页面
+
+返回值是PDF Buffer ，浏览器打开可以直接预览。
+
+
 ## Author
 
 zhangbo
