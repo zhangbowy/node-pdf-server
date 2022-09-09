@@ -12,7 +12,6 @@ WORKDIR /app
 # 清除npm缓存文件
 RUN npm cache clean --force && npm cache verify
 
-
 # 设置环境变量
 ENV NODE_ENV prod
 
@@ -21,7 +20,6 @@ RUN npm config set registry https://registry.npm.taobao.org
 
 # 复制文件
 COPY . .
-
 
 # 手动将字体复制到目录 我项目下有字体文件
 RUN mkdir -p /usr/share/fonts/win
