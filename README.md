@@ -1,5 +1,9 @@
 # pu-node-server
-蒲公英nodejs服务
+nodejs生成服务
+
+## 在线体验
+例如百度 
+https://daily-qapi.forwe.store/api/node/getPdf?url=https://www.baidu.com/
 
 ## Dev本地开发
 
